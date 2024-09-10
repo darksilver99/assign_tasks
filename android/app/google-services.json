@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "332086804367",
+    "project_id": "assign-tasks-j9bkc4",
+    "storage_bucket": "assign-tasks-j9bkc4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:332086804367:android:9bb3cd424db8150e7915fa",
+        "android_client_info": {
+          "package_name": "com.silver.assigntasks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCnyjpShFbFYwC85X6pKvbJMb63APs2SHc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
