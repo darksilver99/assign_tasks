@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-Future hideKeyBoard() async {
+Future hideKeyBoard(BuildContext context) async {
   // Add your function code here!
   FocusScope.of(context).requestFocus(FocusNode());
 }
