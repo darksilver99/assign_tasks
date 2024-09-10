@@ -60,7 +60,7 @@ class _TestPageWidgetState extends State<TestPageWidget> {
           title: Text(
             'Page Title',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Inter Tight',
+                  fontFamily: 'Kanit',
                   color: Colors.white,
                   fontSize: 22.0,
                   letterSpacing: 0.0,

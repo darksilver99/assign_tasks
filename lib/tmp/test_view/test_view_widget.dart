@@ -105,7 +105,7 @@ class _TestViewWidgetState extends State<TestViewWidget> {
         iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
         color: FlutterFlowTheme.of(context).primary,
         textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-              fontFamily: 'Inter Tight',
+              fontFamily: 'Kanit',
               color: Colors.white,
               letterSpacing: 0.0,
             ),
