@@ -1,0 +1,164 @@
+import 'dart:convert';
+import 'dart:math' as math;
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'lat_lng.dart';
+import 'place.dart';
+import 'uploaded_file.dart';
+
+String? dateTh(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+  final DateFormat formatter = DateFormat('d MMMM yyyy', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
+}
+
+String? dateTimeTh(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+
+  final DateFormat formatter = DateFormat('d MMMM yyyy HH:mm:ss', 'th_TH');
+  final buddhistYear = date.year + 543;
+  return formatter.format(date).replaceFirst('${date.year}', '$buddhistYear');
+}
+
+String? dayTh(DateTime date) {
+  final DateFormat dayFormatter = DateFormat('EEEE', 'th_TH'); // วันของสัปดาห์
+  final DateFormat dayOfMonthFormatter = DateFormat('d'); // วันของเดือน
+  final DateFormat monthYearFormatter =
+      DateFormat('MMMM yyyy', 'th_TH'); // เดือนและปี
+
+  // แปลงวันที่เป็นรูปแบบที่ต้องการ
+  final String dayOfWeek =
+      dayFormatter.format(date); // วันของสัปดาห์ (เช่น วันจันทร์)
+  final String dayOfMonth =
+      dayOfMonthFormatter.format(date); // วันของเดือน (เช่น 15)
+
+  // สร้างสตริงที่รวมวันและวันที่
+  return '$dayOfWeekที่ $dayOfMonth';
+}
+
+String formatDuration(int milliseconds) {
+  // Convert milliseconds to total seconds
+  int totalSeconds = milliseconds ~/ 1000;
+
+  // Calculate days, hours, minutes, and seconds
+  int days = totalSeconds ~/ (24 * 3600);
+  int hours = (totalSeconds % (24 * 3600)) ~/ 3600;
+  int minutes = (totalSeconds % 3600) ~/ 60;
+  int seconds = totalSeconds % 60;
+
+  // Create the formatted string
+  String formatted = '';
+
+  if (days > 0) {
+    formatted += '$days วัน ';
+  }
+  if (hours > 0) {
+    formatted += '$hours ชม ';
+  }
+  if (minutes > 0) {
+    formatted += '$minutes นาที ';
+  }
+  if (seconds > 0 || formatted.isEmpty) {
+    // Always show seconds or show if everything else is 0
+    formatted += '$seconds วินาที';
+  }
+
+  return formatted.trim();
+}
+
+int countDaysBetween(
+  DateTime startDate,
+  DateTime endDate,
+) {
+  DateTime start = DateTime(startDate.year, startDate.month, startDate.day);
+  DateTime end = DateTime(endDate.year, endDate.month, endDate.day);
+
+  // Calculate the difference in days
+  int difference = end.difference(start).inDays;
+
+  // Add 1 to include both the start and end dates
+  return difference + 1;
+}
+
+String? fullThaiDate(DateTime? date) {
+  if (date == null) {
+    return null;
+  }
+  List<String> days = [
+    'วันอาทิตย์',
+    'วันจันทร์',
+    'วันอังคาร',
+    'วันพุธ',
+    'วันพฤหัสบดี',
+    'วันศุกร์',
+    'วันเสาร์'
+  ];
+  List<String> months = [
+    'มกราคม',
+    'กุมภาพันธ์',
+    'มีนาคม',
+    'เมษายน',
+    'พฤษภาคม',
+    'มิถุนายน',
+    'กรกฎาคม',
+    'สิงหาคม',
+    'กันยายน',
+    'ตุลาคม',
+    'พฤศจิกายน',
+    'ธันวาคม'
+  ];
+
+  // แปลงปีให้เป็นพุทธศักราช
+  int buddhistYear = date.year + 543;
+
+  // แปลงเดือน
+  String month = months[date.month - 1];
+
+  // ประกอบเป็นวันที่ที่ต้องการ
+  return '${days[date.weekday - 1]}ที่ ${date.day} $month $buddhistYear';
+}
+
+DateTime getBeforeDay(
+  int pastDay,
+  DateTime date,
+) {
+  DateTime pastDate = date.subtract(Duration(days: pastDay));
+  return pastDate;
+}
+
+DateTime getEndDayTime(DateTime currentDate) {
+  DateTime endOfDay = DateTime(
+      currentDate.year, currentDate.month, currentDate.day, 23, 59, 59);
+  return endOfDay;
+}
+
+DateTime getNextDay(
+  int nextDay,
+  DateTime dateTime,
+) {
+  DateTime newDate = dateTime.add(Duration(days: nextDay));
+  return DateTime(newDate.year, newDate.month, newDate.day);
+}
+
+DateTime getStartDayTime(DateTime currentDate) {
+  DateTime startOfDay =
+      DateTime(currentDate.year, currentDate.month, currentDate.day);
+  return startOfDay;
+}
+
+int millisecondsBetween(
+  DateTime start,
+  DateTime end,
+) {
+  Duration difference = end.difference(start);
+
+  return difference.inMilliseconds;
+}
