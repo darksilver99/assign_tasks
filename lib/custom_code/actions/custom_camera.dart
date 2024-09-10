@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
-import 'package:assigntasks/solo/CustomCameraPage.dart';
-import 'package:assigntasks/flutter_flow/upload_data.dart';
+import 'package:assign_tasks/solo/CustomCameraPage.dart';
+import 'package:assign_tasks/flutter_flow/upload_data.dart';
 
 Future<List<FFUploadedFile>?> customCamera() async {
   // Add your function code here!
