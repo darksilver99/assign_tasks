@@ -5,3 +5,4 @@ export 'push_replacement.dart' show pushReplacement;
 export 'set_app_version.dart' show setAppVersion;
 export 'upload_image_to_firebase.dart' show uploadImageToFirebase;
 export 'custom_camera.dart' show customCamera;
+export 'generate_random_string.dart' show generateRandomString;
