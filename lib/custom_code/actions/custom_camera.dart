@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:assign_tasks/solo/CustomCameraPage.dart';
 import 'package:assign_tasks/flutter_flow/upload_data.dart';
 
-Future<List<FFUploadedFile>?> customCamera() async {
+Future<List<FFUploadedFile>?> customCamera(BuildContext context) async {
   // Add your function code here!
 
   List<SelectedFile>? selectedMedia = await Navigator.push(
