@@ -5,6 +5,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'test_view_model.dart';
@@ -94,8 +95,8 @@ class _TestViewWidgetState extends State<TestViewWidget> {
         print('Button pressed ...');
       },
       text: 'Button',
-      icon: Icon(
-        Icons.onetwothree,
+      icon: FaIcon(
+        FontAwesomeIcons.ad,
         size: 15.0,
       ),
       options: FFButtonOptions(
