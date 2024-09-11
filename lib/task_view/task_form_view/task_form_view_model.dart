@@ -44,6 +44,9 @@ class TaskFormViewModel extends FlutterFlowModel<TaskFormViewWidget> {
     return null;
   }
 
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  TaskListRecord? insertedTask;
+
   @override
   void initState(BuildContext context) {
     subjectTextControllerValidator = _subjectTextControllerValidator;
