@@ -1,3 +1,5 @@
+import 'package:assign_tasks/solo/CustomQRCodeView.dart';
+
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -84,6 +86,7 @@ class _ScanAndUploadQRCodePageWidgetState
                 decoration: BoxDecoration(
                   color: Color(0x00FFFFFF),
                 ),
+                child: CustomQRCodeView(),
               ),
               Align(
                 alignment: AlignmentDirectional(0.0, 1.0),
