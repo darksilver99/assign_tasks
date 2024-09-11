@@ -1,10 +1,14 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/task_detail_view/task_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -91,6 +95,9 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
+                                    _model.taskDocument =
+                                        await TaskListRecord.getDocumentOnce(
+                                            taskListItem.taskReference!);
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
                                       backgroundColor: Colors.transparent,
@@ -102,11 +109,13 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
                                           child: TaskDetailViewWidget(
-                                            taskDocument: taskListItem,
+                                            taskDocument: _model.taskDocument!,
                                           ),
                                         );
                                       },
                                     ).then((value) => safeSetState(() {}));
+
+                                    safeSetState(() {});
                                   },
                                   child: Container(
                                     width: double.infinity,
@@ -152,6 +161,8 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                                   .fromSTEB(0.0, 0.0, 8.0, 0.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Row(
                                                     mainAxisSize:
@@ -178,34 +189,67 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                                       ),
                                                     ],
                                                   ),
-                                                  Expanded(
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Expanded(
-                                                          child: Text(
-                                                            taskListItem.detail,
-                                                            maxLines: 2,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        valueOrDefault<String>(
+                                                          functions.getStatusText(
+                                                              taskListItem
+                                                                  .status,
+                                                              FFAppState()
+                                                                  .taskStatusList
+                                                                  .toList()),
+                                                          '-',
+                                                        ),
+                                                        maxLines: 2,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Kanit',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
+                                                                  color: () {
+                                                                    if (taskListItem
+                                                                            .status ==
+                                                                        0) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .accent1;
+                                                                    } else if (taskListItem
+                                                                            .status ==
+                                                                        1) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .tertiary;
+                                                                    } else if (taskListItem
+                                                                            .status ==
+                                                                        3) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondary;
+                                                                    } else if (taskListItem
+                                                                            .status ==
+                                                                        4) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error;
+                                                                    } else {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText;
+                                                                    }
+                                                                  }(),
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
                                                   Row(
                                                     mainAxisSize:

@@ -1,11 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/task_detail_view/task_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_to_do_page_widget.dart' show TaskToDoPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -20,19 +22,26 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
 
   bool isLoading = true;
 
-  List<TaskListRecord> myTaskToDoList = [];
-  void addToMyTaskToDoList(TaskListRecord item) => myTaskToDoList.add(item);
-  void removeFromMyTaskToDoList(TaskListRecord item) =>
+  List<TaskAndWorkerStatusDataStruct> myTaskToDoList = [];
+  void addToMyTaskToDoList(TaskAndWorkerStatusDataStruct item) =>
+      myTaskToDoList.add(item);
+  void removeFromMyTaskToDoList(TaskAndWorkerStatusDataStruct item) =>
       myTaskToDoList.remove(item);
   void removeAtIndexFromMyTaskToDoList(int index) =>
       myTaskToDoList.removeAt(index);
-  void insertAtIndexInMyTaskToDoList(int index, TaskListRecord item) =>
+  void insertAtIndexInMyTaskToDoList(
+          int index, TaskAndWorkerStatusDataStruct item) =>
       myTaskToDoList.insert(index, item);
   void updateMyTaskToDoListAtIndex(
-          int index, Function(TaskListRecord) updateFn) =>
+          int index, Function(TaskAndWorkerStatusDataStruct) updateFn) =>
       myTaskToDoList[index] = updateFn(myTaskToDoList[index]);
 
   int taskIndex = 0;
+
+  ///  State fields for stateful widgets in this page.
+
+  // Stores action output result for [Backend Call - Read Document] action in Container widget.
+  TaskListRecord? taskDocument;
 
   @override
   void initState(BuildContext context) {}
@@ -43,7 +52,7 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
   /// Action blocks.
   Future initMyTaskToDoList(BuildContext context) async {
     List<TaskListRecord>? taskListResult;
-    int? myTaskToDoListResult;
+    WorkerListRecord? myTaskToDoListResult;
 
     taskListResult = await queryTaskListRecordOnce(
       parent: FFAppState().customerData.customerRef,
@@ -56,16 +65,22 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
     );
     while (taskIndex < taskListResult!.length) {
       FFAppState().tmpTaskReference = taskListResult?[taskIndex]?.reference;
-      myTaskToDoListResult = await queryWorkerListRecordCount(
+      myTaskToDoListResult = await queryWorkerListRecordOnce(
         queryBuilder: (workerListRecord) => workerListRecord
             .where(
           'member_ref',
           isEqualTo: FFAppState().memberReference,
         )
             .whereIn('status', [0, 1, 4]),
-      );
-      if (myTaskToDoListResult! > 0) {
-        addToMyTaskToDoList(taskListResult![taskIndex]);
+        singleRecord: true,
+      ).then((s) => s.firstOrNull);
+      if (myTaskToDoListResult != null) {
+        addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
+          taskReference: taskListResult?[taskIndex]?.reference,
+          subject: taskListResult?[taskIndex]?.subject,
+          detail: taskListResult?[taskIndex]?.detail,
+          status: myTaskToDoListResult?.status,
+        ));
       }
       taskIndex = taskIndex + 1;
     }
