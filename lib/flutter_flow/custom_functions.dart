@@ -166,3 +166,8 @@ int millisecondsBetween(
 
   return difference.inMilliseconds;
 }
+
+List<DocumentReference> getAllMemberRefFromMemeberList(
+    List<MemberListRecord> memberList) {
+  return memberList.map((item) => item.reference).toList();
+}

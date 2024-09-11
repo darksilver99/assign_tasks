@@ -4,10 +4,10 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/task_view/select_member_list_view/select_member_list_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'task_form_view_widget.dart' show TaskFormViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -46,8 +46,6 @@ class TaskFormViewModel extends FlutterFlowModel<TaskFormViewWidget> {
 
   // Stores action output result for [Custom Action - generateRandomString] action in Button widget.
   String? taskID;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  List<MemberListRecord>? memberResultList;
 
   @override
   void initState(BuildContext context) {
