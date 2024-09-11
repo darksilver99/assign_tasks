@@ -43,7 +43,17 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
         top: true,
         child: Column(
           mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            AuthUserStreamWidget(
+              builder: (context) => Text(
+                '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                      fontFamily: 'Kanit',
+                      letterSpacing: 0.0,
+                    ),
+              ),
+            ),
             FFButtonWidget(
               onPressed: () async {
                 Function() _navigate = () {};
