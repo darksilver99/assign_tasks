@@ -218,6 +218,8 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                     0.0, 0.0, 8.0, 0.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Row(
                                                   mainAxisSize:
@@ -244,36 +246,6 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                       ),
                                                     ),
                                                   ],
-                                                ),
-                                                Expanded(
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          listViewTaskListRecord
-                                                              .detail,
-                                                          maxLines: 2,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Kanit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
                                                 ),
                                                 Row(
                                                   mainAxisSize:
