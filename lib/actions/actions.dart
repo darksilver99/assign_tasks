@@ -53,20 +53,6 @@ Future initCustomer(BuildContext context) async {
       expireDate: customerResult?.expireDate,
       customerRef: customerResult?.reference,
     );
-  } else {
-    await showDialog(
-      context: context,
-      builder: (dialogContext) {
-        return Dialog(
-          elevation: 0,
-          insetPadding: EdgeInsets.zero,
-          backgroundColor: Colors.transparent,
-          alignment: AlignmentDirectional(0.0, 0.0)
-              .resolve(Directionality.of(context)),
-          child: CreateCustomerViewWidget(),
-        );
-      },
-    );
   }
 }
 
