@@ -1,5 +1,6 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -8,6 +9,7 @@ import 'dart:math';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -326,36 +328,134 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                               ],
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                Navigator.pop(context, true);
-                              },
-                              text: 'เข้าร่วมองค์กร',
-                              options: FFButtonOptions(
-                                width: double.infinity,
-                                height: 50.0,
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    24.0, 0.0, 24.0, 0.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).secondary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      color: Colors.white,
-                                      fontSize: 20.0,
-                                      letterSpacing: 0.0,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
+                          Builder(
+                            builder: (context) => Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  _model.qrCode =
+                                      await _model.qrCodeBlock(context);
+                                  if (_model.qrCode != null &&
+                                      _model.qrCode != '') {
+                                    _model.memberDocumentResullt =
+                                        await queryMemberListRecordOnce(
+                                      parent: functions
+                                          .getCustomerReferenceFromDocID(
+                                              _model.qrCode!),
+                                      queryBuilder: (memberListRecord) =>
+                                          memberListRecord.where(
+                                        'create_by',
+                                        isEqualTo: currentUserReference,
+                                      ),
+                                      singleRecord: true,
+                                    ).then((s) => s.firstOrNull);
+                                    if (!(_model.memberDocumentResullt !=
+                                        null)) {
+                                      var memberListRecordReference =
+                                          MemberListRecord.createDoc(functions
+                                              .getCustomerReferenceFromDocID(
+                                                  _model.qrCode!));
+                                      await memberListRecordReference
+                                          .set(createMemberListRecordData(
+                                        createDate: getCurrentTimestamp,
+                                        createBy: currentUserReference,
+                                        status: 1,
+                                        displayName:
+                                            '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                      ));
+                                      _model.insertMember =
+                                          MemberListRecord.getDocumentFromData(
+                                              createMemberListRecordData(
+                                                createDate: getCurrentTimestamp,
+                                                createBy: currentUserReference,
+                                                status: 1,
+                                                displayName:
+                                                    '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                              ),
+                                              memberListRecordReference);
+
+                                      await currentUserReference!
+                                          .update(createUsersRecordData(
+                                        currentCustomerRef: functions
+                                            .getCustomerReferenceFromDocID(
+                                                _model.qrCode!),
+                                      ));
+                                      FFAppState().memberReference =
+                                          _model.insertMember?.reference;
+                                    }
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: InfoCustomViewWidget(
+                                            title:
+                                                'เข้าร่วมองค์กรเรียบร้อยแล้ว',
+                                            status: 'success',
+                                          ),
+                                        );
+                                      },
+                                    );
+
+                                    await actions.pushReplacement(
+                                      context,
+                                      null,
+                                    );
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (dialogContext) {
+                                        return Dialog(
+                                          elevation: 0,
+                                          insetPadding: EdgeInsets.zero,
+                                          backgroundColor: Colors.transparent,
+                                          alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                              .resolve(
+                                                  Directionality.of(context)),
+                                          child: InfoCustomViewWidget(
+                                            title:
+                                                'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
+                                            status: 'warning',
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
+
+                                  safeSetState(() {});
+                                },
+                                text: 'เข้าร่วมองค์กร',
+                                options: FFButtonOptions(
+                                  width: double.infinity,
+                                  height: 50.0,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 0.0, 24.0, 0.0),
+                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 0.0),
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .titleSmall
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        color: Colors.white,
+                                        fontSize: 20.0,
+                                        letterSpacing: 0.0,
+                                      ),
+                                  elevation: 3.0,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8.0),
                                 ),
-                                borderRadius: BorderRadius.circular(8.0),
                               ),
                             ),
                           ),
