@@ -61,4 +61,35 @@ class FFAppState extends ChangeNotifier {
   set memberReference(DocumentReference? value) {
     _memberReference = value;
   }
+
+  List<DocumentReference> _memberReferenceSelected = [];
+  List<DocumentReference> get memberReferenceSelected =>
+      _memberReferenceSelected;
+  set memberReferenceSelected(List<DocumentReference> value) {
+    _memberReferenceSelected = value;
+  }
+
+  void addToMemberReferenceSelected(DocumentReference value) {
+    memberReferenceSelected.add(value);
+  }
+
+  void removeFromMemberReferenceSelected(DocumentReference value) {
+    memberReferenceSelected.remove(value);
+  }
+
+  void removeAtIndexFromMemberReferenceSelected(int index) {
+    memberReferenceSelected.removeAt(index);
+  }
+
+  void updateMemberReferenceSelectedAtIndex(
+    int index,
+    DocumentReference Function(DocumentReference) updateFn,
+  ) {
+    memberReferenceSelected[index] = updateFn(_memberReferenceSelected[index]);
+  }
+
+  void insertAtIndexInMemberReferenceSelected(
+      int index, DocumentReference value) {
+    memberReferenceSelected.insert(index, value);
+  }
 }

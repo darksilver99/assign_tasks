@@ -4,9 +4,9 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/task_view/select_member_list_view/select_member_list_view_widget.dart';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -292,65 +292,100 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     }
                                     _model.taskID =
                                         await actions.generateRandomString();
-                                    _model.memberResultList =
-                                        await queryMemberListRecordOnce(
-                                      parent:
-                                          FFAppState().customerData.customerRef,
-                                    );
-                                    while (_model.memberIndex <
-                                        _model.memberResultList!.length) {
-                                      await TaskListRecord.createDoc(
-                                              FFAppState()
-                                                  .customerData
-                                                  .customerRef!)
-                                          .set({
-                                        ...createTaskListRecordData(
-                                          createBy:
-                                              FFAppState().memberReference,
-                                          subject:
-                                              _model.subjectTextController.text,
-                                          detail:
-                                              _model.detailTextController.text,
-                                          status: 1,
-                                          taskId: _model.taskID,
-                                          workerRef: _model
-                                              .memberResultList?[
-                                                  _model.memberIndex]
-                                              ?.reference,
-                                        ),
-                                        ...mapToFirestore(
-                                          {
-                                            'create_date':
-                                                FieldValue.serverTimestamp(),
-                                          },
-                                        ),
-                                      });
-                                      _model.memberIndex =
-                                          _model.memberIndex + 1;
-                                    }
-                                    await showDialog(
+                                    FFAppState().memberReferenceSelected = [];
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      useSafeArea: true,
                                       context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: InfoCustomViewWidget(
-                                            title: 'สร้างงานเรียบร้อยแล้ว',
-                                            status: 'success',
-                                          ),
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: SelectMemberListViewWidget(),
                                         );
                                       },
-                                    );
+                                    ).then((value) => safeSetState(() {}));
 
-                                    await actions.pushReplacement(
-                                      context,
-                                      null,
-                                    );
+                                    if (FFAppState()
+                                        .memberReferenceSelected
+                                        .isNotEmpty) {
+                                      while (_model.memberIndex <
+                                          FFAppState()
+                                              .memberReferenceSelected
+                                              .length) {
+                                        await TaskListRecord.createDoc(
+                                                FFAppState()
+                                                    .customerData
+                                                    .customerRef!)
+                                            .set({
+                                          ...createTaskListRecordData(
+                                            createBy:
+                                                FFAppState().memberReference,
+                                            subject: _model
+                                                .subjectTextController.text,
+                                            detail: _model
+                                                .detailTextController.text,
+                                            status: 1,
+                                            taskId: _model.taskID,
+                                            workerRef: FFAppState()
+                                                    .memberReferenceSelected[
+                                                _model.memberIndex],
+                                          ),
+                                          ...mapToFirestore(
+                                            {
+                                              'create_date':
+                                                  FieldValue.serverTimestamp(),
+                                            },
+                                          ),
+                                        });
+                                        _model.memberIndex =
+                                            _model.memberIndex + 1;
+                                      }
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: InfoCustomViewWidget(
+                                              title: 'สร้างงานเรียบร้อยแล้ว',
+                                              status: 'success',
+                                            ),
+                                          );
+                                        },
+                                      );
+
+                                      await actions.pushReplacement(
+                                        context,
+                                        null,
+                                      );
+                                    } else {
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: InfoCustomViewWidget(
+                                              title: 'กรุณาเลือกผู้ทำงาน',
+                                              status: 'info',
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    }
 
                                     safeSetState(() {});
                                   },
