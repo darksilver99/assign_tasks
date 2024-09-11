@@ -13,6 +13,10 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 class HomePageModel extends FlutterFlowModel<HomePageWidget> {
+  ///  Local state fields for this page.
+
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this page.
 
   // State field(s) for ListView widget.
