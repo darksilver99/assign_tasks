@@ -156,6 +156,8 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
+                                  FFAppState().tmpTaskReference =
+                                      listViewTaskListRecord.reference;
                                   await showModalBottomSheet(
                                     isScrollControlled: true,
                                     backgroundColor: Colors.transparent,
