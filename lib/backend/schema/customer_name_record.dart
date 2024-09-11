@@ -51,6 +51,11 @@ class CustomerNameRecord extends FirestoreRecord {
   String get customerName => _customerName ?? '';
   bool hasCustomerName() => _customerName != null;
 
+  // "customer_id" field.
+  String? _customerId;
+  String get customerId => _customerId ?? '';
+  bool hasCustomerId() => _customerId != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -59,6 +64,7 @@ class CustomerNameRecord extends FirestoreRecord {
     _status = castToType<int>(snapshotData['status']);
     _expireDate = snapshotData['expire_date'] as DateTime?;
     _customerName = snapshotData['customer_name'] as String?;
+    _customerId = snapshotData['customer_id'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -103,6 +109,7 @@ Map<String, dynamic> createCustomerNameRecordData({
   int? status,
   DateTime? expireDate,
   String? customerName,
+  String? customerId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -113,6 +120,7 @@ Map<String, dynamic> createCustomerNameRecordData({
       'status': status,
       'expire_date': expireDate,
       'customer_name': customerName,
+      'customer_id': customerId,
     }.withoutNulls,
   );
 
@@ -131,7 +139,8 @@ class CustomerNameRecordDocumentEquality
         e1?.updateBy == e2?.updateBy &&
         e1?.status == e2?.status &&
         e1?.expireDate == e2?.expireDate &&
-        e1?.customerName == e2?.customerName;
+        e1?.customerName == e2?.customerName &&
+        e1?.customerId == e2?.customerId;
   }
 
   @override
@@ -142,7 +151,8 @@ class CustomerNameRecordDocumentEquality
         e?.updateBy,
         e?.status,
         e?.expireDate,
-        e?.customerName
+        e?.customerName,
+        e?.customerId
       ]);
 
   @override

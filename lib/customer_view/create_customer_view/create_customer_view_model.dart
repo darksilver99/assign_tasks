@@ -38,7 +38,7 @@ class CreateCustomerViewModel
   CustomerNameRecord? insertedCustomer;
   // Stores action output result for [Action Block - qrCodeBlock] action in Button widget.
   String? qrCode;
-  // Stores action output result for [Backend Call - Read Document] action in Button widget.
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CustomerNameRecord? customerResult;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   MemberListRecord? memberDocumentResullt;
