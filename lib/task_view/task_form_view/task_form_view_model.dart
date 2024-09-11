@@ -4,7 +4,9 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
 import '/task_view/select_member_list_view/select_member_list_view_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'task_form_view_widget.dart' show TaskFormViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,6 +18,16 @@ class TaskFormViewModel extends FlutterFlowModel<TaskFormViewWidget> {
   ///  Local state fields for this component.
 
   int memberIndex = 0;
+
+  List<FFUploadedFile> tmpImageList = [];
+  void addToTmpImageList(FFUploadedFile item) => tmpImageList.add(item);
+  void removeFromTmpImageList(FFUploadedFile item) => tmpImageList.remove(item);
+  void removeAtIndexFromTmpImageList(int index) => tmpImageList.removeAt(index);
+  void insertAtIndexInTmpImageList(int index, FFUploadedFile item) =>
+      tmpImageList.insert(index, item);
+  void updateTmpImageListAtIndex(
+          int index, Function(FFUploadedFile) updateFn) =>
+      tmpImageList[index] = updateFn(tmpImageList[index]);
 
   ///  State fields for stateful widgets in this component.
 
@@ -36,21 +48,20 @@ class TaskFormViewModel extends FlutterFlowModel<TaskFormViewWidget> {
   FocusNode? detailFocusNode;
   TextEditingController? detailTextController;
   String? Function(BuildContext, String?)? detailTextControllerValidator;
-  String? _detailTextControllerValidator(BuildContext context, String? val) {
-    if (val == null || val.isEmpty) {
-      return 'Field is required';
-    }
+  // Stores action output result for [Action Block - confirmBlock] action in Icon widget.
+  bool? isConfirm;
+  bool isDataUploading = false;
+  FFUploadedFile uploadedLocalFile =
+      FFUploadedFile(bytes: Uint8List.fromList([]));
 
-    return null;
-  }
-
+  // Stores action output result for [Custom Action - uploadImageToFirebase] action in Button widget.
+  List<String>? urlList;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   TaskListRecord? insertedTask;
 
   @override
   void initState(BuildContext context) {
     subjectTextControllerValidator = _subjectTextControllerValidator;
-    detailTextControllerValidator = _detailTextControllerValidator;
   }
 
   @override
