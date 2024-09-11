@@ -44,7 +44,7 @@ class SendListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('send_list');
+      FirebaseFirestore.instance.collection('${FFAppState().customerData.customerRef!.path}');
 
   static Stream<SendListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => SendListRecord.fromSnapshot(s));
