@@ -357,6 +357,13 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   remark: _model.remarkTextController.text,
                                   sendDate: getCurrentTimestamp,
                                 ));
+
+                                await _model.workerReferenceResult!.reference
+                                    .update(createWorkerListRecordData(
+                                  status: 1,
+                                  updateDate: getCurrentTimestamp,
+                                  updateBy: FFAppState().memberReference,
+                                ));
                                 await showDialog(
                                   context: context,
                                   builder: (dialogContext) {

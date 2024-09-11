@@ -26,9 +26,21 @@ class WorkerListRecord extends FirestoreRecord {
   int get status => _status ?? 0;
   bool hasStatus() => _status != null;
 
+  // "update_date" field.
+  DateTime? _updateDate;
+  DateTime? get updateDate => _updateDate;
+  bool hasUpdateDate() => _updateDate != null;
+
+  // "update_by" field.
+  DocumentReference? _updateBy;
+  DocumentReference? get updateBy => _updateBy;
+  bool hasUpdateBy() => _updateBy != null;
+
   void _initializeFields() {
     _memberRef = snapshotData['member_ref'] as DocumentReference?;
     _status = castToType<int>(snapshotData['status']);
+    _updateDate = snapshotData['update_date'] as DateTime?;
+    _updateBy = snapshotData['update_by'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -68,11 +80,15 @@ class WorkerListRecord extends FirestoreRecord {
 Map<String, dynamic> createWorkerListRecordData({
   DocumentReference? memberRef,
   int? status,
+  DateTime? updateDate,
+  DocumentReference? updateBy,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'member_ref': memberRef,
       'status': status,
+      'update_date': updateDate,
+      'update_by': updateBy,
     }.withoutNulls,
   );
 
@@ -84,12 +100,15 @@ class WorkerListRecordDocumentEquality implements Equality<WorkerListRecord> {
 
   @override
   bool equals(WorkerListRecord? e1, WorkerListRecord? e2) {
-    return e1?.memberRef == e2?.memberRef && e1?.status == e2?.status;
+    return e1?.memberRef == e2?.memberRef &&
+        e1?.status == e2?.status &&
+        e1?.updateDate == e2?.updateDate &&
+        e1?.updateBy == e2?.updateBy;
   }
 
   @override
-  int hash(WorkerListRecord? e) =>
-      const ListEquality().hash([e?.memberRef, e?.status]);
+  int hash(WorkerListRecord? e) => const ListEquality()
+      .hash([e?.memberRef, e?.status, e?.updateDate, e?.updateBy]);
 
   @override
   bool isValidKey(Object? o) => o is WorkerListRecord;
