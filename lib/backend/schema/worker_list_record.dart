@@ -32,7 +32,7 @@ class WorkerListRecord extends FirestoreRecord {
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('worker_list');
+      FirebaseFirestore.instance.collection('${FFAppState().tmpTaskReference!.path}/worker_list');
 
   static Stream<WorkerListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => WorkerListRecord.fromSnapshot(s));
