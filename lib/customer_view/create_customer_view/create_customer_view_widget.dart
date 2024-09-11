@@ -227,6 +227,8 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                   status: 1,
                                   expireDate: functions.getEndDayTime(functions
                                       .getNextDay(1, getCurrentTimestamp)),
+                                  customerName:
+                                      _model.subjectTextController.text,
                                 ));
                                 _model.insertedCustomer =
                                     CustomerNameRecord.getDocumentFromData(
@@ -237,8 +239,16 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                           expireDate: functions.getEndDayTime(
                                               functions.getNextDay(
                                                   1, getCurrentTimestamp)),
+                                          customerName:
+                                              _model.subjectTextController.text,
                                         ),
                                         customerNameRecordReference);
+
+                                await _model.insertedCustomer!.reference
+                                    .update(createCustomerNameRecordData(
+                                  customerId:
+                                      _model.insertedCustomer?.reference.id,
+                                ));
 
                                 await MemberListRecord.createDoc(
                                         _model.insertedCustomer!.reference)
@@ -334,15 +344,22 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                   0.0, 0.0, 0.0, 8.0),
                               child: FFButtonWidget(
                                 onPressed: () async {
+                                  var _shouldSetState = false;
                                   _model.qrCode =
                                       await _model.qrCodeBlock(context);
+                                  _shouldSetState = true;
                                   if (_model.qrCode != null &&
                                       _model.qrCode != '') {
                                     _model.customerResult =
-                                        await CustomerNameRecord
-                                            .getDocumentOnce(functions
-                                                .getCustomerReferenceFromDocID(
-                                                    _model.qrCode!));
+                                        await queryCustomerNameRecordOnce(
+                                      queryBuilder: (customerNameRecord) =>
+                                          customerNameRecord.where(
+                                        'customer_id',
+                                        isEqualTo: _model.qrCode,
+                                      ),
+                                      singleRecord: true,
+                                    ).then((s) => s.firstOrNull);
+                                    _shouldSetState = true;
                                     if (_model.customerResult != null) {
                                       _model.memberDocumentResullt =
                                           await queryMemberListRecordOnce(
@@ -356,8 +373,35 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                         ),
                                         singleRecord: true,
                                       ).then((s) => s.firstOrNull);
-                                      if (!(_model.memberDocumentResullt !=
-                                          null)) {
+                                      _shouldSetState = true;
+                                      if (_model.memberDocumentResullt !=
+                                          null) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
+                                                status: 'warning',
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        if (_shouldSetState)
+                                          safeSetState(() {});
+                                        return;
+                                      } else {
                                         var memberListRecordReference =
                                             MemberListRecord.createDoc(functions
                                                 .getCustomerReferenceFromDocID(
@@ -382,6 +426,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                       '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
                                                 ),
                                                 memberListRecordReference);
+                                        _shouldSetState = true;
 
                                         await currentUserReference!
                                             .update(createUsersRecordData(
@@ -391,31 +436,33 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                         ));
                                         FFAppState().memberReference =
                                             _model.insertMember?.reference;
-                                      }
-                                      await showDialog(
-                                        context: context,
-                                        builder: (dialogContext) {
-                                          return Dialog(
-                                            elevation: 0,
-                                            insetPadding: EdgeInsets.zero,
-                                            backgroundColor: Colors.transparent,
-                                            alignment: AlignmentDirectional(
-                                                    0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                            child: InfoCustomViewWidget(
-                                              title:
-                                                  'เข้าร่วมองค์กรเรียบร้อยแล้ว',
-                                              status: 'success',
-                                            ),
-                                          );
-                                        },
-                                      );
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'เข้าร่วมองค์กรเรียบร้อยแล้ว',
+                                                status: 'success',
+                                              ),
+                                            );
+                                          },
+                                        );
 
-                                      await actions.pushReplacement(
-                                        context,
-                                        null,
-                                      );
+                                        await actions.pushReplacement(
+                                          context,
+                                          null,
+                                        );
+                                      }
                                     } else {
                                       await showDialog(
                                         context: context,
@@ -459,7 +506,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                     );
                                   }
 
-                                  safeSetState(() {});
+                                  if (_shouldSetState) safeSetState(() {});
                                 },
                                 text: 'เข้าร่วมองค์กร',
                                 options: FFButtonOptions(
