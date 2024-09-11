@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/task_detail_view/task_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_to_do_page_widget.dart' show TaskToDoPageWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -33,6 +32,8 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
           int index, Function(TaskListRecord) updateFn) =>
       myTaskToDoList[index] = updateFn(myTaskToDoList[index]);
 
+  int taskIndex = 0;
+
   @override
   void initState(BuildContext context) {}
 
@@ -42,7 +43,7 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
   /// Action blocks.
   Future initMyTaskToDoList(BuildContext context) async {
     List<TaskListRecord>? taskListResult;
-    List<WorkerListRecord>? myTaskToDoListResult;
+    int? myTaskToDoListResult;
 
     taskListResult = await queryTaskListRecordOnce(
       parent: FFAppState().customerData.customerRef,
@@ -53,17 +54,20 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
           )
           .orderBy('create_date', descending: true),
     );
-    myTaskToDoListResult = await queryWorkerListRecordOnce(
-      queryBuilder: (workerListRecord) => workerListRecord
-          .where(
-        'member_ref',
-        isEqualTo: FFAppState().memberReference,
-      )
-          .whereIn('status', [0, 1, 4]),
-    );
-    myTaskToDoList = functions
-        .getStillWorkTaskList(taskListResult!.toList())
-        .toList()
-        .cast<TaskListRecord>();
+    while (taskIndex < taskListResult!.length) {
+      FFAppState().tmpTaskReference = taskListResult?[taskIndex]?.reference;
+      myTaskToDoListResult = await queryWorkerListRecordCount(
+        queryBuilder: (workerListRecord) => workerListRecord
+            .where(
+          'member_ref',
+          isEqualTo: FFAppState().memberReference,
+        )
+            .whereIn('status', [0, 1, 4]),
+      );
+      if (myTaskToDoListResult! > 0) {
+        addToMyTaskToDoList(taskListResult![taskIndex]);
+      }
+      taskIndex = taskIndex + 1;
+    }
   }
 }
