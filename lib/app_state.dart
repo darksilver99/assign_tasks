@@ -92,4 +92,42 @@ class FFAppState extends ChangeNotifier {
       int index, DocumentReference value) {
     memberReferenceSelected.insert(index, value);
   }
+
+  List<DataStatusStruct> _taskStatusList = [
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"กำลังทำงาน\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"รอตรวจสอบ\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"3\",\"subject\":\"เสร็จสิ้น\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"4\",\"subject\":\"ยังไม่ผ่าน\"}'))
+  ];
+  List<DataStatusStruct> get taskStatusList => _taskStatusList;
+  set taskStatusList(List<DataStatusStruct> value) {
+    _taskStatusList = value;
+  }
+
+  void addToTaskStatusList(DataStatusStruct value) {
+    taskStatusList.add(value);
+  }
+
+  void removeFromTaskStatusList(DataStatusStruct value) {
+    taskStatusList.remove(value);
+  }
+
+  void removeAtIndexFromTaskStatusList(int index) {
+    taskStatusList.removeAt(index);
+  }
+
+  void updateTaskStatusListAtIndex(
+    int index,
+    DataStatusStruct Function(DataStatusStruct) updateFn,
+  ) {
+    taskStatusList[index] = updateFn(_taskStatusList[index]);
+  }
+
+  void insertAtIndexInTaskStatusList(int index, DataStatusStruct value) {
+    taskStatusList.insert(index, value);
+  }
 }
