@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/task_form_view/task_form_view_widget.dart';
-import '/task_view/task_send_detail_view/task_send_detail_view_widget.dart';
+import '/task_view/task_send_listl_view/task_send_listl_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -166,7 +166,7 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                       return Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: TaskSendDetailViewWidget(
+                                        child: TaskSendListlViewWidget(
                                           taskDocument: listViewTaskListRecord,
                                         ),
                                       );
