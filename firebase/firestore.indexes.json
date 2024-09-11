@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "task_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "worker_ref",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "create_date",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
 }
