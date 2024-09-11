@@ -118,53 +118,125 @@ class _SelectMemberListViewWidgetState
                           ],
                         ),
                         Expanded(
-                          child: FutureBuilder<List<MemberListRecord>>(
-                            future: queryMemberListRecordOnce(
-                              parent: FFAppState().customerData.customerRef,
-                              queryBuilder: (memberListRecord) =>
-                                  memberListRecord.orderBy('display_name'),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
-                                      ),
-                                    ),
+                          child: Builder(
+                            builder: (context) {
+                              if (_model.isSelectedAll) {
+                                return FutureBuilder<List<MemberListRecord>>(
+                                  future: queryMemberListRecordOnce(
+                                    parent:
+                                        FFAppState().customerData.customerRef,
+                                    queryBuilder: (memberListRecord) =>
+                                        memberListRecord
+                                            .orderBy('display_name'),
                                   ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<MemberListRecord>
+                                        listViewMemberListRecordList =
+                                        snapshot.data!;
+
+                                    return ListView.separated(
+                                      padding: EdgeInsets.fromLTRB(
+                                        0,
+                                        8.0,
+                                        0,
+                                        64.0,
+                                      ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          listViewMemberListRecordList.length,
+                                      separatorBuilder: (_, __) =>
+                                          SizedBox(height: 8.0),
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewMemberListRecord =
+                                            listViewMemberListRecordList[
+                                                listViewIndex];
+                                        return MemberViewWidget(
+                                          key: Key(
+                                              'Keyd34_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
+                                          memberDocument:
+                                              listViewMemberListRecord,
+                                          isSelected: true,
+                                        );
+                                      },
+                                    );
+                                  },
+                                );
+                              } else {
+                                return FutureBuilder<List<MemberListRecord>>(
+                                  future: queryMemberListRecordOnce(
+                                    parent:
+                                        FFAppState().customerData.customerRef,
+                                    queryBuilder: (memberListRecord) =>
+                                        memberListRecord
+                                            .orderBy('display_name'),
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50.0,
+                                          height: 50.0,
+                                          child: CircularProgressIndicator(
+                                            valueColor:
+                                                AlwaysStoppedAnimation<Color>(
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<MemberListRecord>
+                                        listViewMemberListRecordList =
+                                        snapshot.data!;
+
+                                    return ListView.separated(
+                                      padding: EdgeInsets.fromLTRB(
+                                        0,
+                                        8.0,
+                                        0,
+                                        64.0,
+                                      ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount:
+                                          listViewMemberListRecordList.length,
+                                      separatorBuilder: (_, __) =>
+                                          SizedBox(height: 8.0),
+                                      itemBuilder: (context, listViewIndex) {
+                                        final listViewMemberListRecord =
+                                            listViewMemberListRecordList[
+                                                listViewIndex];
+                                        return MemberViewWidget(
+                                          key: Key(
+                                              'Keyxvd_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
+                                          memberDocument:
+                                              listViewMemberListRecord,
+                                          isSelected: false,
+                                        );
+                                      },
+                                    );
+                                  },
                                 );
                               }
-                              List<MemberListRecord>
-                                  listViewMemberListRecordList = snapshot.data!;
-
-                              return ListView.separated(
-                                padding: EdgeInsets.fromLTRB(
-                                  0,
-                                  8.0,
-                                  0,
-                                  64.0,
-                                ),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewMemberListRecordList.length,
-                                separatorBuilder: (_, __) =>
-                                    SizedBox(height: 8.0),
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewMemberListRecord =
-                                      listViewMemberListRecordList[
-                                          listViewIndex];
-                                  return MemberViewWidget(
-                                    key: Key(
-                                        'Key0vg_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
-                                    memberDocument: listViewMemberListRecord,
-                                  );
-                                },
-                              );
                             },
                           ),
                         ),
@@ -199,6 +271,8 @@ class _SelectMemberListViewWidgetState
                                     _model.memberListResult!.toList())
                                 .toList()
                                 .cast<DocumentReference>();
+                            _model.isSelectedAll = true;
+                            safeSetState(() {});
 
                             safeSetState(() {});
                           },
