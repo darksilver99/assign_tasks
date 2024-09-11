@@ -34,6 +34,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await action_blocks.initConfig(context);
       await action_blocks.initCustomer(context);
+      await action_blocks.initMember(context);
     });
   }
 

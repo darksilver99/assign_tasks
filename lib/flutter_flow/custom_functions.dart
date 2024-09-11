@@ -171,3 +171,7 @@ List<DocumentReference> getAllMemberRefFromMemeberList(
     List<MemberListRecord> memberList) {
   return memberList.map((item) => item.reference).toList();
 }
+
+DocumentReference getCustomerReferenceFromDocID(String docID) {
+  return FirebaseFirestore.instance.doc("customer_name/${docID}");
+}

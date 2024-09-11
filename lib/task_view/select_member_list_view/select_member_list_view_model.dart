@@ -18,6 +18,8 @@ class SelectMemberListViewModel
 
   int memberIndex = 0;
 
+  bool isSelectedAll = false;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
