@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/components/worker_name_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -328,22 +329,13 @@ class _TaskSendDetailViewWidgetState extends State<TaskSendDetailViewWidget> {
                                                           MainAxisSize.max,
                                                       children: [
                                                         Expanded(
-                                                          child: Text(
-                                                            'นาย กกกก กกกกก',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Kanit',
-                                                                  fontSize:
-                                                                      18.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
+                                                          child:
+                                                              WorkerNameViewWidget(
+                                                            key: Key(
+                                                                'Keyzrq_${columnIndex}_of_${columnWorkerListRecordList.length}'),
+                                                            memberReference:
+                                                                columnWorkerListRecord
+                                                                    .memberRef!,
                                                           ),
                                                         ),
                                                       ],
