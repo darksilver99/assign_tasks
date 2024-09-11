@@ -356,7 +356,6 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                     .set(createSendListRecordData(
                                   remark: _model.remarkTextController.text,
                                   sendDate: getCurrentTimestamp,
-                                  status: 0,
                                 ));
                                 await showDialog(
                                   context: context,

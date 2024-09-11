@@ -42,6 +42,7 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
   /// Action blocks.
   Future initMyTaskToDoList(BuildContext context) async {
     List<TaskListRecord>? taskListResult;
+    List<WorkerListRecord>? myTaskToDoListResult;
 
     taskListResult = await queryTaskListRecordOnce(
       parent: FFAppState().customerData.customerRef,
@@ -51,6 +52,14 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
             arrayContains: FFAppState().memberReference,
           )
           .orderBy('create_date', descending: true),
+    );
+    myTaskToDoListResult = await queryWorkerListRecordOnce(
+      queryBuilder: (workerListRecord) => workerListRecord
+          .where(
+        'member_ref',
+        isEqualTo: FFAppState().memberReference,
+      )
+          .whereIn('status', [0, 1, 4]),
     );
     myTaskToDoList = functions
         .getStillWorkTaskList(taskListResult!.toList())
