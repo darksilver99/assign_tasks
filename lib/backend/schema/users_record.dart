@@ -51,6 +51,11 @@ class UsersRecord extends FirestoreRecord {
   String get fullName => _fullName ?? '';
   bool hasFullName() => _fullName != null;
 
+  // "current_customer_ref" field.
+  DocumentReference? _currentCustomerRef;
+  DocumentReference? get currentCustomerRef => _currentCustomerRef;
+  bool hasCurrentCustomerRef() => _currentCustomerRef != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -59,6 +64,8 @@ class UsersRecord extends FirestoreRecord {
     _createdTime = snapshotData['created_time'] as DateTime?;
     _phoneNumber = snapshotData['phone_number'] as String?;
     _fullName = snapshotData['full_name'] as String?;
+    _currentCustomerRef =
+        snapshotData['current_customer_ref'] as DocumentReference?;
   }
 
   static CollectionReference get collection =>
@@ -102,6 +109,7 @@ Map<String, dynamic> createUsersRecordData({
   DateTime? createdTime,
   String? phoneNumber,
   String? fullName,
+  DocumentReference? currentCustomerRef,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -112,6 +120,7 @@ Map<String, dynamic> createUsersRecordData({
       'created_time': createdTime,
       'phone_number': phoneNumber,
       'full_name': fullName,
+      'current_customer_ref': currentCustomerRef,
     }.withoutNulls,
   );
 
@@ -129,7 +138,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.uid == e2?.uid &&
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
-        e1?.fullName == e2?.fullName;
+        e1?.fullName == e2?.fullName &&
+        e1?.currentCustomerRef == e2?.currentCustomerRef;
   }
 
   @override
@@ -140,7 +150,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.uid,
         e?.createdTime,
         e?.phoneNumber,
-        e?.fullName
+        e?.fullName,
+        e?.currentCustomerRef
       ]);
 
   @override

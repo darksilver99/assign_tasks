@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '/backend/backend.dart';
+import '/backend/schema/structs/index.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 
@@ -33,5 +34,31 @@ class FFAppState extends ChangeNotifier {
   int get appBuildVersion => _appBuildVersion;
   set appBuildVersion(int value) {
     _appBuildVersion = value;
+  }
+
+  CustomerDataStruct _customerData = CustomerDataStruct();
+  CustomerDataStruct get customerData => _customerData;
+  set customerData(CustomerDataStruct value) {
+    _customerData = value;
+  }
+
+  void updateCustomerDataStruct(Function(CustomerDataStruct) updateFn) {
+    updateFn(_customerData);
+  }
+
+  ConfigDataStruct _configData = ConfigDataStruct();
+  ConfigDataStruct get configData => _configData;
+  set configData(ConfigDataStruct value) {
+    _configData = value;
+  }
+
+  void updateConfigDataStruct(Function(ConfigDataStruct) updateFn) {
+    updateFn(_configData);
+  }
+
+  DocumentReference? _memberReference;
+  DocumentReference? get memberReference => _memberReference;
+  set memberReference(DocumentReference? value) {
+    _memberReference = value;
   }
 }
