@@ -309,11 +309,11 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     if (FFAppState()
                                         .memberReferenceSelected
                                         .isNotEmpty) {
-                                      await TaskListRecord.createDoc(
-                                              FFAppState()
-                                                  .customerData
-                                                  .customerRef!)
-                                          .set({
+                                      var taskListRecordReference =
+                                          TaskListRecord.createDoc(FFAppState()
+                                              .customerData
+                                              .customerRef!);
+                                      await taskListRecordReference.set({
                                         ...createTaskListRecordData(
                                           createDate: getCurrentTimestamp,
                                           createBy:
@@ -331,6 +331,27 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                           },
                                         ),
                                       });
+                                      _model.insertedTask =
+                                          TaskListRecord.getDocumentFromData({
+                                        ...createTaskListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          createBy:
+                                              FFAppState().memberReference,
+                                          status: 1,
+                                          subject:
+                                              _model.subjectTextController.text,
+                                          detail:
+                                              _model.detailTextController.text,
+                                        ),
+                                        ...mapToFirestore(
+                                          {
+                                            'worker_list': FFAppState()
+                                                .memberReferenceSelected,
+                                          },
+                                        ),
+                                      }, taskListRecordReference);
+                                      FFAppState().tmpTaskReference =
+                                          _model.insertedTask?.reference;
                                       while (_model.memberIndex <
                                           FFAppState()
                                               .memberReferenceSelected
@@ -389,6 +410,8 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                         },
                                       );
                                     }
+
+                                    safeSetState(() {});
                                   },
                                   text: 'สร้างงาน',
                                   options: FFButtonOptions(
