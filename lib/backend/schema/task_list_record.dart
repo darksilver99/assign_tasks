@@ -71,15 +71,10 @@ class TaskListRecord extends FirestoreRecord {
   List<String> get fileList => _fileList ?? const [];
   bool hasFileList() => _fileList != null;
 
-  // "worker_ref" field.
-  DocumentReference? _workerRef;
-  DocumentReference? get workerRef => _workerRef;
-  bool hasWorkerRef() => _workerRef != null;
-
-  // "task_id" field.
-  String? _taskId;
-  String get taskId => _taskId ?? '';
-  bool hasTaskId() => _taskId != null;
+  // "worker_list" field.
+  List<DocumentReference>? _workerList;
+  List<DocumentReference> get workerList => _workerList ?? const [];
+  bool hasWorkerList() => _workerList != null;
 
   DocumentReference get parentReference => reference.parent.parent!;
 
@@ -95,8 +90,7 @@ class TaskListRecord extends FirestoreRecord {
     _endDate = snapshotData['end_date'] as DateTime?;
     _imageList = getDataList(snapshotData['image_list']);
     _fileList = getDataList(snapshotData['file_list']);
-    _workerRef = snapshotData['worker_ref'] as DocumentReference?;
-    _taskId = snapshotData['task_id'] as String?;
+    _workerList = getDataList(snapshotData['worker_list']);
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -148,8 +142,6 @@ Map<String, dynamic> createTaskListRecordData({
   String? detail,
   DateTime? startDate,
   DateTime? endDate,
-  DocumentReference? workerRef,
-  String? taskId,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -162,8 +154,6 @@ Map<String, dynamic> createTaskListRecordData({
       'detail': detail,
       'start_date': startDate,
       'end_date': endDate,
-      'worker_ref': workerRef,
-      'task_id': taskId,
     }.withoutNulls,
   );
 
@@ -187,8 +177,7 @@ class TaskListRecordDocumentEquality implements Equality<TaskListRecord> {
         e1?.endDate == e2?.endDate &&
         listEquality.equals(e1?.imageList, e2?.imageList) &&
         listEquality.equals(e1?.fileList, e2?.fileList) &&
-        e1?.workerRef == e2?.workerRef &&
-        e1?.taskId == e2?.taskId;
+        listEquality.equals(e1?.workerList, e2?.workerList);
   }
 
   @override
@@ -204,8 +193,7 @@ class TaskListRecordDocumentEquality implements Equality<TaskListRecord> {
         e?.endDate,
         e?.imageList,
         e?.fileList,
-        e?.workerRef,
-        e?.taskId
+        e?.workerList
       ]);
 
   @override

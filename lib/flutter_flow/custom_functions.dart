@@ -187,3 +187,9 @@ String? getStatusText(
   }
   return '-';
 }
+
+List<TaskListRecord> getStillWorkTaskList(List<TaskListRecord> taskList) {
+  return taskList
+      .where((task) => task.status == 0 || task.status == 1 || task.status == 4)
+      .toList();
+}

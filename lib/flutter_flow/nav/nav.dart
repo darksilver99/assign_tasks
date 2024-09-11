@@ -89,11 +89,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : LoginPageWidget(),
         ),
         FFRoute(
-          name: 'HomePage',
-          path: '/homePage',
+          name: 'TaskToDoPage',
+          path: '/taskToDoPage',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'HomePage')
-              : HomePageWidget(),
+              ? NavBarPage(initialPage: 'TaskToDoPage')
+              : TaskToDoPageWidget(),
         ),
         FFRoute(
           name: 'LoginPage',
@@ -116,6 +116,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ScanAndUploadQRCodePage',
           path: '/scanAndUploadQRCodePage',
           builder: (context, params) => ScanAndUploadQRCodePageWidget(),
+        ),
+        FFRoute(
+          name: 'TaskToCheckPage',
+          path: '/taskToCheckPage',
+          builder: (context, params) => params.isEmpty
+              ? NavBarPage(initialPage: 'TaskToCheckPage')
+              : TaskToCheckPageWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

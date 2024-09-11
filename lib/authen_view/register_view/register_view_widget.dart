@@ -721,7 +721,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                     );
 
                                     context.goNamedAuth(
-                                        'HomePage', context.mounted);
+                                        'TaskToDoPage', context.mounted);
                                   },
                                   text: 'สมัครสมาชิก',
                                   options: FFButtonOptions(
