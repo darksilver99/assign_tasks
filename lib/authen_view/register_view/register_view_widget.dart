@@ -4,6 +4,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -664,6 +665,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                             .validate()) {
                                       return;
                                     }
+                                    await action_blocks.clearData(context);
                                     GoRouter.of(context).prepareAuthEvent();
                                     if (_model.passwordTextController.text !=
                                         _model.password2TextController.text) {
