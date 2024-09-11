@@ -46,13 +46,20 @@ Future initCustomer(BuildContext context) async {
   CustomerNameRecord? customerResult;
 
   if (currentUserDocument?.currentCustomerRef != null) {
-    customerResult = await CustomerNameRecord.getDocumentOnce(
-        currentUserDocument!.currentCustomerRef!);
-    FFAppState().customerData = CustomerDataStruct(
-      customerName: customerResult?.customerName,
-      expireDate: customerResult?.expireDate,
-      customerRef: customerResult?.reference,
-    );
+    customerResult = await queryCustomerNameRecordOnce(
+      queryBuilder: (customerNameRecord) => customerNameRecord.where(
+        'customer_id',
+        isEqualTo: currentUserDocument?.currentCustomerRef?.id,
+      ),
+      singleRecord: true,
+    ).then((s) => s.firstOrNull);
+    if (customerResult != null) {
+      FFAppState().customerData = CustomerDataStruct(
+        customerName: customerResult?.customerName,
+        expireDate: customerResult?.expireDate,
+        customerRef: customerResult?.reference,
+      );
+    }
   }
 }
 
