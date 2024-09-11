@@ -48,6 +48,8 @@ class _TaskSendDetailViewWidgetState extends State<TaskSendDetailViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
       child: Container(
@@ -226,35 +228,222 @@ class _TaskSendDetailViewWidgetState extends State<TaskSendDetailViewWidget> {
                         thickness: 2.0,
                         color: FlutterFlowTheme.of(context).alternate,
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'รายละเอียดการส่งงาน',
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        fontSize: 22.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'ผู้ที่ได้รับมอบหมาย',
+                                    textAlign: TextAlign.start,
+                                    maxLines: 1,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          fontSize: 22.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Divider(
-                        height: 32.0,
-                        thickness: 2.0,
-                        color: FlutterFlowTheme.of(context).alternate,
+                              ],
+                            ),
+                            StreamBuilder<List<WorkerListRecord>>(
+                              stream: queryWorkerListRecord(),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
+                                List<WorkerListRecord>
+                                    columnWorkerListRecordList = snapshot.data!;
+
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: List.generate(
+                                      columnWorkerListRecordList.length,
+                                      (columnIndex) {
+                                    final columnWorkerListRecord =
+                                        columnWorkerListRecordList[columnIndex];
+                                    return Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Container(
+                                          width: double.infinity,
+                                          height: 60.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 8.0, 0.0),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Icon(
+                                                      Icons.account_circle,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 48.0,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            'นาย กกกก กกกกก',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Text(
+                                                            valueOrDefault<
+                                                                String>(
+                                                              functions.getStatusText(
+                                                                  columnWorkerListRecord
+                                                                      .status,
+                                                                  FFAppState()
+                                                                      .taskStatusList
+                                                                      .toList()),
+                                                              '-',
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  color: () {
+                                                                    if (columnWorkerListRecord
+                                                                            .status ==
+                                                                        0) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .accent1;
+                                                                    } else if (columnWorkerListRecord
+                                                                            .status ==
+                                                                        1) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .tertiary;
+                                                                    } else if (columnWorkerListRecord
+                                                                            .status ==
+                                                                        3) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .success;
+                                                                    } else if (columnWorkerListRecord
+                                                                            .status ==
+                                                                        4) {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error;
+                                                                    } else {
+                                                                      return FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryText;
+                                                                    }
+                                                                  }(),
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Icon(
+                                                    Icons.navigate_next_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          width: double.infinity,
+                                          height: 1.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
@@ -267,7 +456,7 @@ class _TaskSendDetailViewWidgetState extends State<TaskSendDetailViewWidget> {
                                 onPressed: () {
                                   print('Button pressed ...');
                                 },
-                                text: 'ไม่ผ่าน',
+                                text: 'ยกเลิกงาน',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 50.0,
@@ -276,38 +465,6 @@ class _TaskSendDetailViewWidgetState extends State<TaskSendDetailViewWidget> {
                                   iconPadding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 0.0),
                                   color: FlutterFlowTheme.of(context).error,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  4.0, 0.0, 0.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
-                                },
-                                text: 'เสร็จสิน',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .titleSmall
                                       .override(
