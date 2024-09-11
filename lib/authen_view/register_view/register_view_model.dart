@@ -4,6 +4,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'register_view_widget.dart' show RegisterViewWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

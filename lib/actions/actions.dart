@@ -152,3 +152,8 @@ Future initMember(BuildContext context) async {
     );
   }
 }
+
+Future clearData(BuildContext context) async {
+  FFAppState().memberReference = null;
+  FFAppState().customerData = CustomerDataStruct();
+}

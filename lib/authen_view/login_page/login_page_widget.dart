@@ -3,6 +3,7 @@ import '/authen_view/register_view/register_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -298,6 +299,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 !_model.formKey.currentState!.validate()) {
                               return;
                             }
+                            await action_blocks.clearData(context);
                             GoRouter.of(context).prepareAuthEvent();
 
                             final user = await authManager.signInWithEmail(
