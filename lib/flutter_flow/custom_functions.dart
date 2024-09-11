@@ -175,3 +175,15 @@ List<DocumentReference> getAllMemberRefFromMemeberList(
 DocumentReference getCustomerReferenceFromDocID(String docID) {
   return FirebaseFirestore.instance.doc("customer_name/${docID}");
 }
+
+String? getStatusText(
+  int status,
+  List<DataStatusStruct> statusList,
+) {
+  for (var dataStatus in statusList) {
+    if (dataStatus.status == status) {
+      return dataStatus.subject;
+    }
+  }
+  return '-';
+}
