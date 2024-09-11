@@ -36,11 +36,6 @@ class SendListRecord extends FirestoreRecord {
   DateTime? get sendDate => _sendDate;
   bool hasSendDate() => _sendDate != null;
 
-  // "status" field.
-  int? _status;
-  int get status => _status ?? 0;
-  bool hasStatus() => _status != null;
-
   // "reply" field.
   String? _reply;
   String get reply => _reply ?? '';
@@ -68,7 +63,6 @@ class SendListRecord extends FirestoreRecord {
     _imageList = getDataList(snapshotData['image_list']);
     _fileList = getDataList(snapshotData['file_list']);
     _sendDate = snapshotData['send_date'] as DateTime?;
-    _status = castToType<int>(snapshotData['status']);
     _reply = snapshotData['reply'] as String?;
     _imageReplyList = getDataList(snapshotData['image_reply_list']);
     _fileReplyList = getDataList(snapshotData['file_reply_list']);
@@ -117,7 +111,6 @@ class SendListRecord extends FirestoreRecord {
 Map<String, dynamic> createSendListRecordData({
   String? remark,
   DateTime? sendDate,
-  int? status,
   String? reply,
   DateTime? replyDate,
 }) {
@@ -125,7 +118,6 @@ Map<String, dynamic> createSendListRecordData({
     <String, dynamic>{
       'remark': remark,
       'send_date': sendDate,
-      'status': status,
       'reply': reply,
       'reply_date': replyDate,
     }.withoutNulls,
@@ -144,7 +136,6 @@ class SendListRecordDocumentEquality implements Equality<SendListRecord> {
         listEquality.equals(e1?.imageList, e2?.imageList) &&
         listEquality.equals(e1?.fileList, e2?.fileList) &&
         e1?.sendDate == e2?.sendDate &&
-        e1?.status == e2?.status &&
         e1?.reply == e2?.reply &&
         listEquality.equals(e1?.imageReplyList, e2?.imageReplyList) &&
         listEquality.equals(e1?.fileReplyList, e2?.fileReplyList) &&
@@ -157,7 +148,6 @@ class SendListRecordDocumentEquality implements Equality<SendListRecord> {
         e?.imageList,
         e?.fileList,
         e?.sendDate,
-        e?.status,
         e?.reply,
         e?.imageReplyList,
         e?.fileReplyList,
