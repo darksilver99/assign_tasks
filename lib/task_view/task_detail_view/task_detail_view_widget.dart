@@ -334,6 +334,9 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                               0.0, 0.0, 0.0, 16.0),
                           child: FFButtonWidget(
                             onPressed: () async {
+                              FFAppState().tmpTaskReference =
+                                  widget!.taskDocument?.reference;
+
                               await SendListRecord.collection
                                   .doc()
                                   .set(createSendListRecordData(

@@ -130,4 +130,10 @@ class FFAppState extends ChangeNotifier {
   void insertAtIndexInTaskStatusList(int index, DataStatusStruct value) {
     taskStatusList.insert(index, value);
   }
+
+  DocumentReference? _tmpTaskReference;
+  DocumentReference? get tmpTaskReference => _tmpTaskReference;
+  set tmpTaskReference(DocumentReference? value) {
+    _tmpTaskReference = value;
+  }
 }
