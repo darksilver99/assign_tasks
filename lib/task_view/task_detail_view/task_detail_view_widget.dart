@@ -4,6 +4,8 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -236,6 +238,7 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                       ),
                       Column(
                         mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
                             mainAxisSize: MainAxisSize.max,
@@ -323,11 +326,199 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                       fontSize: 18.0,
                                       letterSpacing: 0.0,
                                     ),
+                                maxLines: 5,
+                                keyboardType: TextInputType.multiline,
                                 cursorColor:
                                     FlutterFlowTheme.of(context).primaryText,
                                 validator: _model.remarkTextControllerValidator
                                     .asValidator(context),
                               ),
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 16.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      final imageListView =
+                                          _model.tmpImageList.toList();
+
+                                      return Wrap(
+                                        spacing: 8.0,
+                                        runSpacing: 8.0,
+                                        alignment: WrapAlignment.start,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.start,
+                                        direction: Axis.horizontal,
+                                        runAlignment: WrapAlignment.start,
+                                        verticalDirection:
+                                            VerticalDirection.down,
+                                        clipBehavior: Clip.none,
+                                        children:
+                                            List.generate(imageListView.length,
+                                                (imageListViewIndex) {
+                                          final imageListViewItem =
+                                              imageListView[imageListViewIndex];
+                                          return Container(
+                                            width: 64.0,
+                                            height: 64.0,
+                                            child: Stack(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          8.0),
+                                                  child: Image.memory(
+                                                    imageListViewItem.bytes ??
+                                                        Uint8List.fromList([]),
+                                                    width: double.infinity,
+                                                    height: double.infinity,
+                                                    fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          1.0, -1.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 4.0,
+                                                                4.0, 0.0),
+                                                    child: InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        _model.isConfirm =
+                                                            await action_blocks
+                                                                .confirmBlock(
+                                                          context,
+                                                          title:
+                                                              'ต้องการลบรูป?',
+                                                        );
+                                                        if (_model.isConfirm!) {
+                                                          _model.removeFromTmpImageList(
+                                                              imageListViewItem);
+                                                          safeSetState(() {});
+                                                        }
+
+                                                        safeSetState(() {});
+                                                      },
+                                                      child: Icon(
+                                                        Icons.cancel_rounded,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        size: 24.0,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    final selectedMedia =
+                                        await selectMediaWithSourceBottomSheet(
+                                      context: context,
+                                      allowPhoto: true,
+                                    );
+                                    if (selectedMedia != null &&
+                                        selectedMedia.every((m) =>
+                                            validateFileFormat(
+                                                m.storagePath, context))) {
+                                      safeSetState(
+                                          () => _model.isDataUploading = true);
+                                      var selectedUploadedFiles =
+                                          <FFUploadedFile>[];
+
+                                      try {
+                                        selectedUploadedFiles = selectedMedia
+                                            .map((m) => FFUploadedFile(
+                                                  name: m.storagePath
+                                                      .split('/')
+                                                      .last,
+                                                  bytes: m.bytes,
+                                                  height: m.dimensions?.height,
+                                                  width: m.dimensions?.width,
+                                                  blurHash: m.blurHash,
+                                                ))
+                                            .toList();
+                                      } finally {
+                                        _model.isDataUploading = false;
+                                      }
+                                      if (selectedUploadedFiles.length ==
+                                          selectedMedia.length) {
+                                        safeSetState(() {
+                                          _model.uploadedLocalFile =
+                                              selectedUploadedFiles.first;
+                                        });
+                                      } else {
+                                        safeSetState(() {});
+                                        return;
+                                      }
+                                    }
+
+                                    if (_model.uploadedLocalFile != null &&
+                                        (_model.uploadedLocalFile.bytes
+                                                ?.isNotEmpty ??
+                                            false)) {
+                                      _model.addToTmpImageList(
+                                          _model.uploadedLocalFile);
+                                      safeSetState(() {});
+                                    }
+                                    safeSetState(() {
+                                      _model.isDataUploading = false;
+                                      _model.uploadedLocalFile = FFUploadedFile(
+                                          bytes: Uint8List.fromList([]));
+                                    });
+                                  },
+                                  text: 'แนบรูป',
+                                  icon: Icon(
+                                    Icons.image_rounded,
+                                    size: 22.0,
+                                  ),
+                                  options: FFButtonOptions(
+                                    height: 36.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],
@@ -351,12 +542,26 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                               ).then((s) => s.firstOrNull);
                               if (_model.workerReferenceResult?.reference !=
                                   null) {
+                                _model.urlList =
+                                    await actions.uploadImageToFirebase(
+                                  '${FFAppState().customerData.customerRef?.id}/${FFAppState().memberReference?.id}',
+                                  _model.tmpImageList.toList(),
+                                  false,
+                                );
+
                                 await SendListRecord.createDoc(
                                         _model.workerReferenceResult!.reference)
-                                    .set(createSendListRecordData(
-                                  remark: _model.remarkTextController.text,
-                                  sendDate: getCurrentTimestamp,
-                                ));
+                                    .set({
+                                  ...createSendListRecordData(
+                                    remark: _model.remarkTextController.text,
+                                    sendDate: getCurrentTimestamp,
+                                  ),
+                                  ...mapToFirestore(
+                                    {
+                                      'image_list': _model.urlList,
+                                    },
+                                  ),
+                                });
 
                                 await _model.workerReferenceResult!.reference
                                     .update(createWorkerListRecordData(
