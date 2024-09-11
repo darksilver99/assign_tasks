@@ -44,9 +44,6 @@ class TaskFormViewModel extends FlutterFlowModel<TaskFormViewWidget> {
     return null;
   }
 
-  // Stores action output result for [Custom Action - generateRandomString] action in Button widget.
-  String? taskID;
-
   @override
   void initState(BuildContext context) {
     subjectTextControllerValidator = _subjectTextControllerValidator;

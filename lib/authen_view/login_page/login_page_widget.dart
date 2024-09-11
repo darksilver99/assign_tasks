@@ -311,7 +311,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               return;
                             }
 
-                            context.goNamedAuth('HomePage', context.mounted);
+                            context.goNamedAuth(
+                                'TaskToDoPage', context.mounted);
                           },
                           text: 'เข้าสู่ระบบ',
                           options: FFButtonOptions(

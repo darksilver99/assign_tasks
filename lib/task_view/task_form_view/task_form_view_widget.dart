@@ -290,8 +290,6 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                             .validate()) {
                                       return;
                                     }
-                                    _model.taskID =
-                                        await actions.generateRandomString();
                                     FFAppState().memberReferenceSelected = [];
                                     await showModalBottomSheet(
                                       isScrollControlled: true,
@@ -311,35 +309,40 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     if (FFAppState()
                                         .memberReferenceSelected
                                         .isNotEmpty) {
+                                      await TaskListRecord.createDoc(
+                                              FFAppState()
+                                                  .customerData
+                                                  .customerRef!)
+                                          .set({
+                                        ...createTaskListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          createBy:
+                                              FFAppState().memberReference,
+                                          status: 1,
+                                          subject:
+                                              _model.subjectTextController.text,
+                                          detail:
+                                              _model.detailTextController.text,
+                                        ),
+                                        ...mapToFirestore(
+                                          {
+                                            'worker_list': FFAppState()
+                                                .memberReferenceSelected,
+                                          },
+                                        ),
+                                      });
                                       while (_model.memberIndex <
                                           FFAppState()
                                               .memberReferenceSelected
                                               .length) {
-                                        await TaskListRecord.createDoc(
-                                                FFAppState()
-                                                    .customerData
-                                                    .customerRef!)
-                                            .set({
-                                          ...createTaskListRecordData(
-                                            createBy:
-                                                FFAppState().memberReference,
-                                            subject: _model
-                                                .subjectTextController.text,
-                                            detail: _model
-                                                .detailTextController.text,
-                                            status: 1,
-                                            taskId: _model.taskID,
-                                            workerRef: FFAppState()
-                                                    .memberReferenceSelected[
-                                                _model.memberIndex],
-                                          ),
-                                          ...mapToFirestore(
-                                            {
-                                              'create_date':
-                                                  FieldValue.serverTimestamp(),
-                                            },
-                                          ),
-                                        });
+                                        await WorkerListRecord.collection
+                                            .doc()
+                                            .set(createWorkerListRecordData(
+                                              status: 0,
+                                              memberRef: FFAppState()
+                                                      .memberReferenceSelected[
+                                                  _model.memberIndex],
+                                            ));
                                         _model.memberIndex =
                                             _model.memberIndex + 1;
                                       }
@@ -386,8 +389,6 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                         },
                                       );
                                     }
-
-                                    safeSetState(() {});
                                   },
                                   text: 'สร้างงาน',
                                   options: FFButtonOptions(

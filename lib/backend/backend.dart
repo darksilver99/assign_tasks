@@ -10,7 +10,7 @@ import 'schema/config_record.dart';
 import 'schema/customer_name_record.dart';
 import 'schema/member_list_record.dart';
 import 'schema/task_list_record.dart';
-import 'schema/reply_list_record.dart';
+import 'schema/worker_list_record.dart';
 import 'schema/send_list_record.dart';
 import 'dart:async';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
@@ -27,7 +27,7 @@ export 'schema/config_record.dart';
 export 'schema/customer_name_record.dart';
 export 'schema/member_list_record.dart';
 export 'schema/task_list_record.dart';
-export 'schema/reply_list_record.dart';
+export 'schema/worker_list_record.dart';
 export 'schema/send_list_record.dart';
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
@@ -428,53 +428,53 @@ Future<FFFirestorePage<TaskListRecord>> queryTaskListRecordPage({
       return page;
     });
 
-/// Functions to query ReplyListRecords (as a Stream and as a Future).
-Future<int> queryReplyListRecordCount({
+/// Functions to query WorkerListRecords (as a Stream and as a Future).
+Future<int> queryWorkerListRecordCount({
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      ReplyListRecord.collection,
+      WorkerListRecord.collection,
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
-Stream<List<ReplyListRecord>> queryReplyListRecord({
+Stream<List<WorkerListRecord>> queryWorkerListRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      ReplyListRecord.collection,
-      ReplyListRecord.fromSnapshot,
+      WorkerListRecord.collection,
+      WorkerListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<List<ReplyListRecord>> queryReplyListRecordOnce({
+Future<List<WorkerListRecord>> queryWorkerListRecordOnce({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      ReplyListRecord.collection,
-      ReplyListRecord.fromSnapshot,
+      WorkerListRecord.collection,
+      WorkerListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
-Future<FFFirestorePage<ReplyListRecord>> queryReplyListRecordPage({
+Future<FFFirestorePage<WorkerListRecord>> queryWorkerListRecordPage({
   Query Function(Query)? queryBuilder,
   DocumentSnapshot? nextPageMarker,
   required int pageSize,
   required bool isStream,
-  required PagingController<DocumentSnapshot?, ReplyListRecord> controller,
+  required PagingController<DocumentSnapshot?, WorkerListRecord> controller,
   List<StreamSubscription?>? streamSubscriptions,
 }) =>
     queryCollectionPage(
-      ReplyListRecord.collection,
-      ReplyListRecord.fromSnapshot,
+      WorkerListRecord.collection,
+      WorkerListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
@@ -486,7 +486,7 @@ Future<FFFirestorePage<ReplyListRecord>> queryReplyListRecordPage({
       );
       if (isStream) {
         final streamSubscription =
-            (page.dataStream)?.listen((List<ReplyListRecord> data) {
+            (page.dataStream)?.listen((List<WorkerListRecord> data) {
           data.forEach((item) {
             final itemIndexes = controller.itemList!
                 .asMap()
@@ -508,22 +508,24 @@ Future<FFFirestorePage<ReplyListRecord>> queryReplyListRecordPage({
 
 /// Functions to query SendListRecords (as a Stream and as a Future).
 Future<int> querySendListRecordCount({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
 }) =>
     queryCollectionCount(
-      SendListRecord.collection,
+      SendListRecord.collection(parent),
       queryBuilder: queryBuilder,
       limit: limit,
     );
 
 Stream<List<SendListRecord>> querySendListRecord({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      SendListRecord.collection,
+      SendListRecord.collection(parent),
       SendListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
@@ -531,18 +533,20 @@ Stream<List<SendListRecord>> querySendListRecord({
     );
 
 Future<List<SendListRecord>> querySendListRecordOnce({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      SendListRecord.collection,
+      SendListRecord.collection(parent),
       SendListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 Future<FFFirestorePage<SendListRecord>> querySendListRecordPage({
+  DocumentReference? parent,
   Query Function(Query)? queryBuilder,
   DocumentSnapshot? nextPageMarker,
   required int pageSize,
@@ -551,7 +555,7 @@ Future<FFFirestorePage<SendListRecord>> querySendListRecordPage({
   List<StreamSubscription?>? streamSubscriptions,
 }) =>
     queryCollectionPage(
-      SendListRecord.collection,
+      SendListRecord.collection(parent),
       SendListRecord.fromSnapshot,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,

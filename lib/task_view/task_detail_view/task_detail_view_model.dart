@@ -8,7 +8,9 @@ import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_detail_view_widget.dart' show TaskDetailViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -23,6 +25,8 @@ class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
   FocusNode? remarkFocusNode;
   TextEditingController? remarkTextController;
   String? Function(BuildContext, String?)? remarkTextControllerValidator;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  WorkerListRecord? workerReferenceResult;
 
   @override
   void initState(BuildContext context) {}

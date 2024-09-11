@@ -36,15 +36,52 @@ class SendListRecord extends FirestoreRecord {
   DateTime? get sendDate => _sendDate;
   bool hasSendDate() => _sendDate != null;
 
+  // "status" field.
+  int? _status;
+  int get status => _status ?? 0;
+  bool hasStatus() => _status != null;
+
+  // "reply" field.
+  String? _reply;
+  String get reply => _reply ?? '';
+  bool hasReply() => _reply != null;
+
+  // "image_reply_list" field.
+  List<String>? _imageReplyList;
+  List<String> get imageReplyList => _imageReplyList ?? const [];
+  bool hasImageReplyList() => _imageReplyList != null;
+
+  // "file_reply_list" field.
+  List<String>? _fileReplyList;
+  List<String> get fileReplyList => _fileReplyList ?? const [];
+  bool hasFileReplyList() => _fileReplyList != null;
+
+  // "reply_date" field.
+  DateTime? _replyDate;
+  DateTime? get replyDate => _replyDate;
+  bool hasReplyDate() => _replyDate != null;
+
+  DocumentReference get parentReference => reference.parent.parent!;
+
   void _initializeFields() {
     _remark = snapshotData['remark'] as String?;
     _imageList = getDataList(snapshotData['image_list']);
     _fileList = getDataList(snapshotData['file_list']);
     _sendDate = snapshotData['send_date'] as DateTime?;
+    _status = castToType<int>(snapshotData['status']);
+    _reply = snapshotData['reply'] as String?;
+    _imageReplyList = getDataList(snapshotData['image_reply_list']);
+    _fileReplyList = getDataList(snapshotData['file_reply_list']);
+    _replyDate = snapshotData['reply_date'] as DateTime?;
   }
 
-  static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('${FFAppState().tmpTaskReference!.path}/send_list');
+  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+      parent != null
+          ? parent.collection('send_list')
+          : FirebaseFirestore.instance.collectionGroup('send_list');
+
+  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
+      parent.collection('send_list').doc(id);
 
   static Stream<SendListRecord> getDocument(DocumentReference ref) =>
       ref.snapshots().map((s) => SendListRecord.fromSnapshot(s));
@@ -80,11 +117,17 @@ class SendListRecord extends FirestoreRecord {
 Map<String, dynamic> createSendListRecordData({
   String? remark,
   DateTime? sendDate,
+  int? status,
+  String? reply,
+  DateTime? replyDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
       'remark': remark,
       'send_date': sendDate,
+      'status': status,
+      'reply': reply,
+      'reply_date': replyDate,
     }.withoutNulls,
   );
 
@@ -100,12 +143,26 @@ class SendListRecordDocumentEquality implements Equality<SendListRecord> {
     return e1?.remark == e2?.remark &&
         listEquality.equals(e1?.imageList, e2?.imageList) &&
         listEquality.equals(e1?.fileList, e2?.fileList) &&
-        e1?.sendDate == e2?.sendDate;
+        e1?.sendDate == e2?.sendDate &&
+        e1?.status == e2?.status &&
+        e1?.reply == e2?.reply &&
+        listEquality.equals(e1?.imageReplyList, e2?.imageReplyList) &&
+        listEquality.equals(e1?.fileReplyList, e2?.fileReplyList) &&
+        e1?.replyDate == e2?.replyDate;
   }
 
   @override
-  int hash(SendListRecord? e) => const ListEquality()
-      .hash([e?.remark, e?.imageList, e?.fileList, e?.sendDate]);
+  int hash(SendListRecord? e) => const ListEquality().hash([
+        e?.remark,
+        e?.imageList,
+        e?.fileList,
+        e?.sendDate,
+        e?.status,
+        e?.reply,
+        e?.imageReplyList,
+        e?.fileReplyList,
+        e?.replyDate
+      ]);
 
   @override
   bool isValidKey(Object? o) => o is SendListRecord;

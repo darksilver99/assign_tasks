@@ -3,35 +3,34 @@ import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/task_view/task_detail_view/task_detail_view_widget.dart';
 import '/task_view/task_form_view/task_form_view_widget.dart';
+import '/task_view/task_send_detail_view/task_send_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
-import 'home_page_model.dart';
-export 'home_page_model.dart';
+import 'task_to_check_page_model.dart';
+export 'task_to_check_page_model.dart';
 
-class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({super.key});
+class TaskToCheckPageWidget extends StatefulWidget {
+  const TaskToCheckPageWidget({super.key});
 
   @override
-  State<HomePageWidget> createState() => _HomePageWidgetState();
+  State<TaskToCheckPageWidget> createState() => _TaskToCheckPageWidgetState();
 }
 
-class _HomePageWidgetState extends State<HomePageWidget> {
-  late HomePageModel _model;
+class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
+  late TaskToCheckPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => HomePageModel());
+    _model = createModel(context, () => TaskToCheckPageModel());
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
@@ -100,12 +99,19 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                             TaskListRecord.collection(
                                     FFAppState().customerData.customerRef)
                                 .where(
-                                  'worker_ref',
-                                  isEqualTo: FFAppState().memberReference,
-                                )
-                                .orderBy('create_date', descending: true),
+                              'create_by',
+                              isEqualTo: FFAppState().memberReference,
+                            )
+                                .whereIn('status', [0, 1, 4]).orderBy(
+                                    'create_date',
+                                    descending: true),
                             parent: FFAppState().customerData.customerRef),
-                        padding: EdgeInsets.zero,
+                        padding: EdgeInsets.fromLTRB(
+                          0,
+                          16.0,
+                          0,
+                          32.0,
+                        ),
                         shrinkWrap: true,
                         reverse: false,
                         scrollDirection: Axis.vertical,
@@ -160,7 +166,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                       return Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: TaskDetailViewWidget(
+                                        child: TaskSendDetailViewWidget(
                                           taskDocument: listViewTaskListRecord,
                                         ),
                                       );
@@ -273,64 +279,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        valueOrDefault<String>(
-                                                          functions.getStatusText(
-                                                              listViewTaskListRecord
-                                                                  .status,
-                                                              FFAppState()
-                                                                  .taskStatusList
-                                                                  .toList()),
-                                                          '-',
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.start,
-                                                        maxLines: 1,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Kanit',
-                                                                  color: () {
-                                                                    if (listViewTaskListRecord
-                                                                            .status ==
-                                                                        0) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .accent1;
-                                                                    } else if (listViewTaskListRecord
-                                                                            .status ==
-                                                                        1) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .tertiary;
-                                                                    } else if (listViewTaskListRecord
-                                                                            .status ==
-                                                                        3) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .success;
-                                                                    } else if (listViewTaskListRecord
-                                                                            .status ==
-                                                                        4) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error;
-                                                                    } else {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText;
-                                                                    }
-                                                                  }(),
-                                                                  fontSize: 8.0,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                      ),
-                                                    ),
                                                     Expanded(
                                                       child: Text(
                                                         'ครบกำหนด 13 มกราคม 2555',
