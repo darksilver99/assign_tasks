@@ -90,7 +90,7 @@ class _SelectMemberListViewWidgetState
                     ],
                   ),
                 ),
-                if (_model.isLoading)
+                if (!_model.isLoading)
                   Expanded(
                     child: Padding(
                       padding:
