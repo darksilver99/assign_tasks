@@ -595,7 +595,8 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                 ),
                               ),
                             ),
-                            if (widget!.workerDocument?.status == 1)
+                            if ((widget!.workerDocument?.status == 1) ||
+                                (widget!.workerDocument?.status == 3))
                               Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
