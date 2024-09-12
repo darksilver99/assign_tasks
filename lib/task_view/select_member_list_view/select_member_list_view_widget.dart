@@ -90,89 +90,93 @@ class _SelectMemberListViewWidgetState
                     ],
                   ),
                 ),
-                Expanded(
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                'เลือกผู้ทำงาน',
-                                textAlign: TextAlign.start,
-                                maxLines: 1,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      fontSize: 22.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                if (_model.isLoading)
+                  Expanded(
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: Text(
+                                  'เลือกผู้ทำงาน',
+                                  textAlign: TextAlign.start,
+                                  maxLines: 1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 22.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        Expanded(
-                          child: FutureBuilder<List<MemberListRecord>>(
-                            future: queryMemberListRecordOnce(
-                              parent: FFAppState().customerData.customerRef,
-                              queryBuilder: (memberListRecord) =>
-                                  memberListRecord.orderBy('display_name'),
-                            ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
+                            ],
+                          ),
+                          Expanded(
+                            child: FutureBuilder<List<MemberListRecord>>(
+                              future: queryMemberListRecordOnce(
+                                parent: FFAppState().customerData.customerRef,
+                                queryBuilder: (memberListRecord) =>
+                                    memberListRecord.orderBy('display_name'),
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: CircularProgressIndicator(
+                                        valueColor:
+                                            AlwaysStoppedAnimation<Color>(
+                                          FlutterFlowTheme.of(context).primary,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }
-                              List<MemberListRecord>
-                                  listViewMemberListRecordList = snapshot.data!;
-
-                              return ListView.separated(
-                                padding: EdgeInsets.fromLTRB(
-                                  0,
-                                  8.0,
-                                  0,
-                                  64.0,
-                                ),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                itemCount: listViewMemberListRecordList.length,
-                                separatorBuilder: (_, __) =>
-                                    SizedBox(height: 8.0),
-                                itemBuilder: (context, listViewIndex) {
-                                  final listViewMemberListRecord =
-                                      listViewMemberListRecordList[
-                                          listViewIndex];
-                                  return MemberViewWidget(
-                                    key: Key(
-                                        'Keynw6_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
-                                    memberDocument: listViewMemberListRecord,
-                                    isSelected: _model.isSelectedAll,
                                   );
-                                },
-                              );
-                            },
+                                }
+                                List<MemberListRecord>
+                                    listViewMemberListRecordList =
+                                    snapshot.data!;
+
+                                return ListView.separated(
+                                  padding: EdgeInsets.fromLTRB(
+                                    0,
+                                    8.0,
+                                    0,
+                                    64.0,
+                                  ),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount:
+                                      listViewMemberListRecordList.length,
+                                  separatorBuilder: (_, __) =>
+                                      SizedBox(height: 8.0),
+                                  itemBuilder: (context, listViewIndex) {
+                                    final listViewMemberListRecord =
+                                        listViewMemberListRecordList[
+                                            listViewIndex];
+                                    return MemberViewWidget(
+                                      key: Key(
+                                          'Keynw6_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
+                                      memberDocument: listViewMemberListRecord,
+                                      isSelected: _model.isSelectedAll,
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
               ]
                   .addToStart(SizedBox(height: 16.0))
                   .addToEnd(SizedBox(height: 32.0)),
@@ -190,8 +194,11 @@ class _SelectMemberListViewWidgetState
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
+                            _model.isLoading = false;
+                            safeSetState(() {});
                             FFAppState().memberReferenceSelected = [];
                             _model.isSelectedAll = false;
+                            _model.isLoading = false;
                             safeSetState(() {});
                           },
                           text: 'ไม่เลือกทั้งหมด',
@@ -221,6 +228,8 @@ class _SelectMemberListViewWidgetState
                             EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
+                            _model.isLoading = true;
+                            safeSetState(() {});
                             FFAppState().memberReferenceSelected = [];
                             _model.memberListResult =
                                 await queryMemberListRecordOnce(
@@ -232,6 +241,7 @@ class _SelectMemberListViewWidgetState
                                 .toList()
                                 .cast<DocumentReference>();
                             _model.isSelectedAll = true;
+                            _model.isLoading = false;
                             safeSetState(() {});
 
                             safeSetState(() {});

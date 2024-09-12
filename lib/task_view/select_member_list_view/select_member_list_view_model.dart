@@ -16,9 +16,9 @@ class SelectMemberListViewModel
     extends FlutterFlowModel<SelectMemberListViewWidget> {
   ///  Local state fields for this component.
 
-  int memberIndex = 0;
-
   bool isSelectedAll = false;
+
+  bool isLoading = false;
 
   ///  State fields for stateful widgets in this component.
 
