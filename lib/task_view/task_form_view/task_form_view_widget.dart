@@ -10,6 +10,7 @@ import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'task_form_view_model.dart';
@@ -35,6 +36,11 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => TaskFormViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      FFAppState().memberReferenceSelected = [];
+    });
 
     _model.subjectTextController ??= TextEditingController();
     _model.subjectFocusNode ??= FocusNode();
@@ -157,14 +163,16 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -187,7 +195,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     ),
                                     filled: true,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        FlutterFlowTheme.of(context).info,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -233,14 +241,16 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -263,7 +273,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     ),
                                     filled: true,
                                     fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        FlutterFlowTheme.of(context).info,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -477,6 +487,76 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                 ],
                               ),
                             ),
+                            Divider(
+                              thickness: 2.0,
+                              color: FlutterFlowTheme.of(context).alternate,
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: SelectMemberListViewWidget(),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 16.0, 8.0, 16.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'เลือกผู้ทำงาน ${FFAppState().memberReferenceSelected.length.toString()} คน',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 18.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                        Icon(
+                                          Icons.navigate_next_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                          size: 24.0,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                             Builder(
                               builder: (context) => Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -488,22 +568,6 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                             .validate()) {
                                       return;
                                     }
-                                    FFAppState().memberReferenceSelected = [];
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      enableDrag: false,
-                                      useSafeArea: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: SelectMemberListViewWidget(),
-                                        );
-                                      },
-                                    ).then((value) => safeSetState(() {}));
-
                                     if (FFAppState()
                                         .memberReferenceSelected
                                         .isNotEmpty) {

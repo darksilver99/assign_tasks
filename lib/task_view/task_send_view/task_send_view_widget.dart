@@ -143,6 +143,9 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                       0.0, 0.0, 0.0, 8.0),
                                   child: Container(
                                     width: double.infinity,
+                                    constraints: BoxConstraints(
+                                      minHeight: 100.0,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .alternate,
@@ -280,7 +283,7 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            CrossAxisAlignment.center,
                                         children: [
                                           Expanded(
                                             child: Text(
@@ -294,6 +297,12 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                                         letterSpacing: 0.0,
                                                       ),
                                             ),
+                                          ),
+                                          Icon(
+                                            Icons.calendar_today_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 24.0,
                                           ),
                                         ],
                                       ),
