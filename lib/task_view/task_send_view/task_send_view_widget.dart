@@ -400,6 +400,13 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        _model.sendListWithOutFirstIndex =
+                                            _model.sendList
+                                                .toList()
+                                                .cast<SendListRecord>();
+                                        _model
+                                            .removeAtIndexFromSendListWithOutFirstIndex(
+                                                0);
                                         await showModalBottomSheet(
                                           isScrollControlled: true,
                                           backgroundColor: Colors.transparent,
@@ -411,8 +418,8 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                               padding: MediaQuery.viewInsetsOf(
                                                   context),
                                               child: TaskSendHistoryViewWidget(
-                                                sendDocumentList:
-                                                    _model.sendList,
+                                                sendDocumentList: _model
+                                                    .sendListWithOutFirstIndex,
                                               ),
                                             );
                                           },

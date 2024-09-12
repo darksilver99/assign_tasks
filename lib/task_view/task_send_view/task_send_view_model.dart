@@ -29,6 +29,21 @@ class TaskSendViewModel extends FlutterFlowModel<TaskSendViewWidget> {
   void updateSendListAtIndex(int index, Function(SendListRecord) updateFn) =>
       sendList[index] = updateFn(sendList[index]);
 
+  List<SendListRecord> sendListWithOutFirstIndex = [];
+  void addToSendListWithOutFirstIndex(SendListRecord item) =>
+      sendListWithOutFirstIndex.add(item);
+  void removeFromSendListWithOutFirstIndex(SendListRecord item) =>
+      sendListWithOutFirstIndex.remove(item);
+  void removeAtIndexFromSendListWithOutFirstIndex(int index) =>
+      sendListWithOutFirstIndex.removeAt(index);
+  void insertAtIndexInSendListWithOutFirstIndex(
+          int index, SendListRecord item) =>
+      sendListWithOutFirstIndex.insert(index, item);
+  void updateSendListWithOutFirstIndexAtIndex(
+          int index, Function(SendListRecord) updateFn) =>
+      sendListWithOutFirstIndex[index] =
+          updateFn(sendListWithOutFirstIndex[index]);
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Firestore Query - Query a collection] action in TaskSendView widget.
