@@ -63,6 +63,10 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
             'worker_list',
             arrayContains: FFAppState().memberReference,
           )
+          .where(
+            'status',
+            isEqualTo: 0,
+          )
           .orderBy('end_date'),
     );
     while (taskIndex < taskListResult!.length) {
