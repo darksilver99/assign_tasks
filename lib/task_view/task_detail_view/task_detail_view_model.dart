@@ -6,12 +6,14 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/task_view/reply_detail_view/reply_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_detail_view_widget.dart' show TaskDetailViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,8 +22,6 @@ import 'package:provider/provider.dart';
 
 class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
   ///  Local state fields for this component.
-
-  int memberIndex = 0;
 
   List<FFUploadedFile> tmpImageList = [];
   void addToTmpImageList(FFUploadedFile item) => tmpImageList.add(item);
@@ -33,8 +33,14 @@ class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
           int index, Function(FFUploadedFile) updateFn) =>
       tmpImageList[index] = updateFn(tmpImageList[index]);
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this component.
 
+  // Stores action output result for [Firestore Query - Query a collection] action in TaskDetailView widget.
+  WorkerListRecord? workerReferenceResult;
+  // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
+  SendListRecord? sendDocumentResult;
   // State field(s) for remark widget.
   FocusNode? remarkFocusNode;
   TextEditingController? remarkTextController;
@@ -45,8 +51,6 @@ class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  WorkerListRecord? workerReferenceResult;
   // Stores action output result for [Custom Action - uploadImageToFirebase] action in Button widget.
   List<String>? urlList;
 
