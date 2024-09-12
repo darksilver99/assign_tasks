@@ -175,8 +175,13 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                     ),
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
-                                          .alternate,
+                                          .alternate2,
                                       borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(8.0),
@@ -214,83 +219,122 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .alternate,
+                                            .alternate2,
                                         borderRadius:
                                             BorderRadius.circular(8.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(8.0),
-                                        child: Builder(
-                                          builder: (context) {
-                                            final imageList = _model
-                                                .sendList.first.imageList
-                                                .toList();
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'รูปแนบ : ',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                            Builder(
+                                              builder: (context) {
+                                                final imageList = _model
+                                                    .sendList.first.imageList
+                                                    .toList();
 
-                                            return Wrap(
-                                              spacing: 8.0,
-                                              runSpacing: 8.0,
-                                              alignment: WrapAlignment.start,
-                                              crossAxisAlignment:
-                                                  WrapCrossAlignment.start,
-                                              direction: Axis.horizontal,
-                                              runAlignment: WrapAlignment.start,
-                                              verticalDirection:
-                                                  VerticalDirection.down,
-                                              clipBehavior: Clip.none,
-                                              children: List.generate(
-                                                  imageList.length,
-                                                  (imageListIndex) {
-                                                final imageListItem =
-                                                    imageList[imageListIndex];
-                                                return InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .fade,
-                                                        child:
-                                                            FlutterFlowExpandedImageView(
-                                                          image: Image.network(
-                                                            imageListItem,
-                                                            fit: BoxFit.contain,
+                                                return Wrap(
+                                                  spacing: 8.0,
+                                                  runSpacing: 8.0,
+                                                  alignment:
+                                                      WrapAlignment.start,
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.start,
+                                                  direction: Axis.horizontal,
+                                                  runAlignment:
+                                                      WrapAlignment.start,
+                                                  verticalDirection:
+                                                      VerticalDirection.down,
+                                                  clipBehavior: Clip.none,
+                                                  children: List.generate(
+                                                      imageList.length,
+                                                      (imageListIndex) {
+                                                    final imageListItem =
+                                                        imageList[
+                                                            imageListIndex];
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        await Navigator.push(
+                                                          context,
+                                                          PageTransition(
+                                                            type:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                            child:
+                                                                FlutterFlowExpandedImageView(
+                                                              image:
+                                                                  Image.network(
+                                                                imageListItem,
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
+                                                              allowRotation:
+                                                                  false,
+                                                              tag:
+                                                                  imageListItem,
+                                                              useHeroAnimation:
+                                                                  true,
+                                                            ),
                                                           ),
-                                                          allowRotation: false,
-                                                          tag: imageListItem,
-                                                          useHeroAnimation:
-                                                              true,
+                                                        );
+                                                      },
+                                                      child: Hero(
+                                                        tag: imageListItem,
+                                                        transitionOnUserGestures:
+                                                            true,
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.network(
+                                                            imageListItem,
+                                                            width: 60.0,
+                                                            height: 60.0,
+                                                            fit: BoxFit.cover,
+                                                          ),
                                                         ),
                                                       ),
                                                     );
-                                                  },
-                                                  child: Hero(
-                                                    tag: imageListItem,
-                                                    transitionOnUserGestures:
-                                                        true,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.network(
-                                                        imageListItem,
-                                                        width: 60.0,
-                                                        height: 60.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
+                                                  }),
                                                 );
-                                              }),
-                                            );
-                                          },
+                                              },
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),
@@ -303,9 +347,14 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                       width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .alternate,
+                                            .alternate2,
                                         borderRadius:
                                             BorderRadius.circular(8.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(8.0),
@@ -322,8 +371,10 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Kanit',
-                                                          fontSize: 20.0,
+                                                          fontSize: 16.0,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w300,
                                                         ),
                                               ),
                                             ),
