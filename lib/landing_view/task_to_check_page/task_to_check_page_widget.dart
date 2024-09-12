@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/task_form_view/task_form_view_widget.dart';
 import '/task_view/task_send_listl_view/task_send_listl_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -231,14 +232,14 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                       child: Text(
                                                         listViewTaskListRecord
                                                             .subject,
-                                                        maxLines: 1,
+                                                        maxLines: 2,
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
                                                             .override(
                                                               fontFamily:
                                                                   'Kanit',
-                                                              fontSize: 16.0,
+                                                              fontSize: 18.0,
                                                               letterSpacing:
                                                                   0.0,
                                                               fontWeight:
@@ -255,9 +256,9 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                   children: [
                                                     Expanded(
                                                       child: Text(
-                                                        'ครบกำหนด 13 มกราคม 2555',
+                                                        '(กำหนดส่ง ${functions.dateTh(listViewTaskListRecord.endDate)})',
                                                         textAlign:
-                                                            TextAlign.end,
+                                                            TextAlign.start,
                                                         maxLines: 1,
                                                         style:
                                                             FlutterFlowTheme.of(
@@ -269,7 +270,8 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
                                                                       .secondaryText,
-                                                                  fontSize: 8.0,
+                                                                  fontSize:
+                                                                      12.0,
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
