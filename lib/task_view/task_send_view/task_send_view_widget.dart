@@ -122,18 +122,42 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Expanded(
-                                      child: Text(
-                                        'รายละเอียดการส่งงาน',
-                                        textAlign: TextAlign.start,
-                                        maxLines: 1,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              fontSize: 22.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                      child: Builder(
+                                        builder: (context) {
+                                          if (_model.sendList.length > 1) {
+                                            return Text(
+                                              'รายละเอียดการส่งงาน (รอบ ${_model.sendList.length.toString()})',
+                                              textAlign: TextAlign.start,
+                                              maxLines: 1,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 22.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            );
+                                          } else {
+                                            return Text(
+                                              'รายละเอียดการส่งงาน',
+                                              textAlign: TextAlign.start,
+                                              maxLines: 1,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 22.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                            );
+                                          }
+                                        },
                                       ),
                                     ),
                                   ],
