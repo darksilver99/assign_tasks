@@ -14,11 +14,13 @@ class TaskAndWorkerStatusDataStruct extends FFFirebaseStruct {
     DocumentReference? taskReference,
     String? subject,
     String? detail,
+    DateTime? endDate,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _status = status,
         _taskReference = taskReference,
         _subject = subject,
         _detail = detail,
+        _endDate = endDate,
         super(firestoreUtilData);
 
   // "status" field.
@@ -51,12 +53,20 @@ class TaskAndWorkerStatusDataStruct extends FFFirebaseStruct {
 
   bool hasDetail() => _detail != null;
 
+  // "end_date" field.
+  DateTime? _endDate;
+  DateTime? get endDate => _endDate;
+  set endDate(DateTime? val) => _endDate = val;
+
+  bool hasEndDate() => _endDate != null;
+
   static TaskAndWorkerStatusDataStruct fromMap(Map<String, dynamic> data) =>
       TaskAndWorkerStatusDataStruct(
         status: castToType<int>(data['status']),
         taskReference: data['taskReference'] as DocumentReference?,
         subject: data['subject'] as String?,
         detail: data['detail'] as String?,
+        endDate: data['end_date'] as DateTime?,
       );
 
   static TaskAndWorkerStatusDataStruct? maybeFromMap(dynamic data) =>
@@ -69,6 +79,7 @@ class TaskAndWorkerStatusDataStruct extends FFFirebaseStruct {
         'taskReference': _taskReference,
         'subject': _subject,
         'detail': _detail,
+        'end_date': _endDate,
       }.withoutNulls;
 
   @override
@@ -88,6 +99,10 @@ class TaskAndWorkerStatusDataStruct extends FFFirebaseStruct {
         'detail': serializeParam(
           _detail,
           ParamType.String,
+        ),
+        'end_date': serializeParam(
+          _endDate,
+          ParamType.DateTime,
         ),
       }.withoutNulls;
 
@@ -115,6 +130,11 @@ class TaskAndWorkerStatusDataStruct extends FFFirebaseStruct {
           ParamType.String,
           false,
         ),
+        endDate: deserializeParam(
+          data['end_date'],
+          ParamType.DateTime,
+          false,
+        ),
       );
 
   @override
@@ -126,12 +146,13 @@ class TaskAndWorkerStatusDataStruct extends FFFirebaseStruct {
         status == other.status &&
         taskReference == other.taskReference &&
         subject == other.subject &&
-        detail == other.detail;
+        detail == other.detail &&
+        endDate == other.endDate;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([status, taskReference, subject, detail]);
+  int get hashCode => const ListEquality()
+      .hash([status, taskReference, subject, detail, endDate]);
 }
 
 TaskAndWorkerStatusDataStruct createTaskAndWorkerStatusDataStruct({
@@ -139,6 +160,7 @@ TaskAndWorkerStatusDataStruct createTaskAndWorkerStatusDataStruct({
   DocumentReference? taskReference,
   String? subject,
   String? detail,
+  DateTime? endDate,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -149,6 +171,7 @@ TaskAndWorkerStatusDataStruct createTaskAndWorkerStatusDataStruct({
       taskReference: taskReference,
       subject: subject,
       detail: detail,
+      endDate: endDate,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

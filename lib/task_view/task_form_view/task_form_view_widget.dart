@@ -651,7 +651,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                         if (_model.endDate != null)
                                           Expanded(
                                             child: Text(
-                                              'วันกำหนดส่ง ${functions.dateTh(_model.endDate)}',
+                                              'วันที่กำหนดส่ง ${functions.dateTh(_model.endDate)}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

@@ -9,6 +9,7 @@ import '/task_view/task_detail_view/task_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -178,7 +179,7 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Kanit',
-                                                                fontSize: 16.0,
+                                                                fontSize: 18.0,
                                                                 letterSpacing:
                                                                     0.0,
                                                                 fontWeight:
@@ -196,84 +197,94 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      Text(
-                                                        valueOrDefault<String>(
-                                                          functions.getStatusText(
-                                                              taskListItem
-                                                                  .status,
-                                                              FFAppState()
-                                                                  .taskStatusList
-                                                                  .toList()),
-                                                          '-',
-                                                        ),
-                                                        maxLines: 2,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
+                                                      Expanded(
+                                                        child: RichText(
+                                                          textScaler:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .textScaler,
+                                                          text: TextSpan(
+                                                            children: [
+                                                              TextSpan(
+                                                                text:
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                  functions.getStatusText(
+                                                                      taskListItem
+                                                                          .status,
+                                                                      FFAppState()
+                                                                          .taskStatusList
+                                                                          .toList()),
+                                                                  '-',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Kanit',
+                                                                      color:
+                                                                          () {
+                                                                        if (taskListItem.status ==
+                                                                            0) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .accent1;
+                                                                        } else if (taskListItem.status ==
+                                                                            1) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .tertiary;
+                                                                        } else if (taskListItem.status ==
+                                                                            3) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .secondary;
+                                                                        } else if (taskListItem.status ==
+                                                                            4) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .error;
+                                                                        } else {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .primaryText;
+                                                                        }
+                                                                      }(),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                              TextSpan(
+                                                                text:
+                                                                    ' (กำหนดส่ง ${functions.dateTh(taskListItem.endDate)})',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Kanit',
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .error,
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .normal,
+                                                                    ),
+                                                              )
+                                                            ],
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Kanit',
-                                                                  color: () {
-                                                                    if (taskListItem
-                                                                            .status ==
-                                                                        0) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .accent1;
-                                                                    } else if (taskListItem
-                                                                            .status ==
-                                                                        1) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .tertiary;
-                                                                    } else if (taskListItem
-                                                                            .status ==
-                                                                        3) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary;
-                                                                    } else if (taskListItem
-                                                                            .status ==
-                                                                        4) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .error;
-                                                                    } else {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText;
-                                                                    }
-                                                                  }(),
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Text(
-                                                          'ครบกำหนด 13 มกราคม 2555',
-                                                          textAlign:
-                                                              TextAlign.end,
-                                                          maxLines: 1,
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Kanit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
-                                                                fontSize: 8.0,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ],
