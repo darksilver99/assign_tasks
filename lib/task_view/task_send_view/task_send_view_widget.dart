@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/task_view/reply_view/reply_view_widget.dart';
 import '/task_view/task_send_history_view/task_send_history_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -549,14 +550,35 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                         0.0, 0.0, 4.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        await widget!.workerDocument!.reference
-                                            .update(createWorkerListRecordData(
-                                          status: 4,
-                                          updateDate: getCurrentTimestamp,
-                                          updateBy:
-                                              FFAppState().memberReference,
-                                        ));
-                                        Navigator.pop(context);
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          useSafeArea: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: ReplyViewWidget(
+                                                isPass: false,
+                                                workerDocument:
+                                                    widget!.workerDocument!,
+                                                sendDocument:
+                                                    _model.sendList.first,
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(
+                                            () => _model.isUpdate2 = value));
+
+                                        if ((_model.isUpdate2 != null &&
+                                                _model.isUpdate2 != '') &&
+                                            (_model.isUpdate2 == 'update')) {
+                                          Navigator.pop(context);
+                                        }
+
+                                        safeSetState(() {});
                                       },
                                       text: 'ไม่ผ่าน',
                                       options: FFButtonOptions(
@@ -591,14 +613,35 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                         4.0, 0.0, 0.0, 0.0),
                                     child: FFButtonWidget(
                                       onPressed: () async {
-                                        await widget!.workerDocument!.reference
-                                            .update(createWorkerListRecordData(
-                                          status: 3,
-                                          updateDate: getCurrentTimestamp,
-                                          updateBy:
-                                              FFAppState().memberReference,
-                                        ));
-                                        Navigator.pop(context);
+                                        await showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          backgroundColor: Colors.transparent,
+                                          enableDrag: false,
+                                          useSafeArea: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: ReplyViewWidget(
+                                                isPass: true,
+                                                workerDocument:
+                                                    widget!.workerDocument!,
+                                                sendDocument:
+                                                    _model.sendList.first,
+                                              ),
+                                            );
+                                          },
+                                        ).then((value) => safeSetState(
+                                            () => _model.isUpdate = value));
+
+                                        if ((_model.isUpdate != null &&
+                                                _model.isUpdate != '') &&
+                                            (_model.isUpdate == 'update')) {
+                                          Navigator.pop(context);
+                                        }
+
+                                        safeSetState(() {});
                                       },
                                       text: 'เสร็จสิ้น',
                                       options: FFButtonOptions(
