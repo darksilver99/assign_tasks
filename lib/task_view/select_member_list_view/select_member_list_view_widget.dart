@@ -90,34 +90,34 @@ class _SelectMemberListViewWidgetState
                     ],
                   ),
                 ),
-                if (!_model.isLoading)
-                  Expanded(
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  'เลือกผู้ทำงาน',
-                                  textAlign: TextAlign.start,
-                                  maxLines: 1,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        fontSize: 22.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
+                Expanded(
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                'เลือกผู้ทำงาน',
+                                textAlign: TextAlign.start,
+                                maxLines: 1,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      fontSize: 22.0,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
+                        ),
+                        if (!_model.isLoading)
                           Expanded(
                             child: FutureBuilder<List<MemberListRecord>>(
                               future: queryMemberListRecordOnce(
@@ -173,10 +173,10 @@ class _SelectMemberListViewWidgetState
                               },
                             ),
                           ),
-                        ],
-                      ),
+                      ],
                     ),
                   ),
+                ),
               ]
                   .addToStart(SizedBox(height: 16.0))
                   .addToEnd(SizedBox(height: 32.0)),
@@ -194,9 +194,11 @@ class _SelectMemberListViewWidgetState
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 4.0, 0.0),
                         child: FFButtonWidget(
                           onPressed: () async {
-                            _model.isLoading = false;
+                            _model.isLoading = true;
                             safeSetState(() {});
                             FFAppState().memberReferenceSelected = [];
+                            await Future.delayed(
+                                const Duration(milliseconds: 100));
                             _model.isSelectedAll = false;
                             _model.isLoading = false;
                             safeSetState(() {});
