@@ -166,7 +166,10 @@ class _SelectMemberListViewWidgetState
                                       key: Key(
                                           'Keynw6_${listViewIndex}_of_${listViewMemberListRecordList.length}'),
                                       memberDocument: listViewMemberListRecord,
-                                      isSelected: _model.isSelectedAll,
+                                      isSelected: FFAppState()
+                                          .memberReferenceSelected
+                                          .contains(listViewMemberListRecord
+                                              .reference),
                                     );
                                   },
                                 );
