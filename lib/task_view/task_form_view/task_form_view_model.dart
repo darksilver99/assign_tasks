@@ -8,8 +8,10 @@ import '/flutter_flow/upload_data.dart';
 import '/task_view/select_member_list_view/select_member_list_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_form_view_widget.dart' show TaskFormViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +31,8 @@ class TaskFormViewModel extends FlutterFlowModel<TaskFormViewWidget> {
   void updateTmpImageListAtIndex(
           int index, Function(FFUploadedFile) updateFn) =>
       tmpImageList[index] = updateFn(tmpImageList[index]);
+
+  DateTime? endDate;
 
   ///  State fields for stateful widgets in this component.
 
@@ -55,6 +59,7 @@ class TaskFormViewModel extends FlutterFlowModel<TaskFormViewWidget> {
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  DateTime? datePicked;
   // Stores action output result for [Custom Action - uploadImageToFirebase] action in Button widget.
   List<String>? urlList;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
