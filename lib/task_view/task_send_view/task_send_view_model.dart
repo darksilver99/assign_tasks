@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/task_view/reply_view/reply_view_widget.dart';
 import '/task_view/task_send_history_view/task_send_history_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_send_view_widget.dart' show TaskSendViewWidget;
@@ -32,6 +33,10 @@ class TaskSendViewModel extends FlutterFlowModel<TaskSendViewWidget> {
 
   // Stores action output result for [Firestore Query - Query a collection] action in TaskSendView widget.
   List<SendListRecord>? sendListResult;
+  // Stores action output result for [Bottom Sheet - ReplyView] action in Button widget.
+  String? isUpdate2;
+  // Stores action output result for [Bottom Sheet - ReplyView] action in Button widget.
+  String? isUpdate;
 
   @override
   void initState(BuildContext context) {}
