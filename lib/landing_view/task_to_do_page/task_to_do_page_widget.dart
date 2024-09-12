@@ -75,7 +75,9 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                         builder: (context) {
                           final taskList = _model.myTaskToDoList.toList();
                           if (taskList.isEmpty) {
-                            return NoDataViewWidget();
+                            return Center(
+                              child: NoDataViewWidget(),
+                            );
                           }
 
                           return ListView.separated(
