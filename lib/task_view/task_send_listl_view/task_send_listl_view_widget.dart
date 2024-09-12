@@ -1,9 +1,11 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/components/worker_name_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/task_send_view/task_send_view_widget.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -538,10 +540,25 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 4.0, 0.0),
                               child: FFButtonWidget(
-                                onPressed: () {
-                                  print('Button pressed ...');
+                                onPressed: () async {
+                                  _model.isConfirm =
+                                      await action_blocks.confirmBlock(
+                                    context,
+                                    title: 'ยืนยันการปิดงาน',
+                                  );
+                                  if (_model.isConfirm!) {
+                                    await widget!.taskDocument!.reference
+                                        .update(createTaskListRecordData(
+                                      status: 1,
+                                      updateDate: getCurrentTimestamp,
+                                      updateBy: FFAppState().memberReference,
+                                    ));
+                                    Navigator.pop(context);
+                                  }
+
+                                  safeSetState(() {});
                                 },
-                                text: 'ยกเลิกงาน',
+                                text: 'ปิดงาน',
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 50.0,
