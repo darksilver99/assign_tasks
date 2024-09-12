@@ -144,8 +144,9 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                               ),
                             ),
                           ),
-                          noItemsFoundIndicatorBuilder: (_) =>
-                              NoDataViewWidget(),
+                          noItemsFoundIndicatorBuilder: (_) => Center(
+                            child: NoDataViewWidget(),
+                          ),
                           itemBuilder: (context, _, listViewIndex) {
                             final listViewTaskListRecord = _model
                                 .listViewPagingController!
