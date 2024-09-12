@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/reply_view/reply_view_widget.dart';
-import '/task_view/task_send_history_view/task_send_history_view_widget.dart';
+import '/task_view/task_send_history_list_view/task_send_history_list_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_send_view_widget.dart' show TaskSendViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
