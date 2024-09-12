@@ -93,7 +93,7 @@ class FFAppState extends ChangeNotifier {
     memberReferenceSelected.insert(index, value);
   }
 
-  List<DataStatusStruct> _taskStatusList = [
+  List<DataStatusStruct> _taskWorkerStatusList = [
     DataStatusStruct.fromSerializableMap(
         jsonDecode('{\"status\":\"0\",\"subject\":\"กำลังทำงาน\"}')),
     DataStatusStruct.fromSerializableMap(
@@ -102,6 +102,40 @@ class FFAppState extends ChangeNotifier {
         jsonDecode('{\"status\":\"3\",\"subject\":\"เสร็จสิ้น\"}')),
     DataStatusStruct.fromSerializableMap(
         jsonDecode('{\"status\":\"4\",\"subject\":\"ยังไม่ผ่าน\"}'))
+  ];
+  List<DataStatusStruct> get taskWorkerStatusList => _taskWorkerStatusList;
+  set taskWorkerStatusList(List<DataStatusStruct> value) {
+    _taskWorkerStatusList = value;
+  }
+
+  void addToTaskWorkerStatusList(DataStatusStruct value) {
+    taskWorkerStatusList.add(value);
+  }
+
+  void removeFromTaskWorkerStatusList(DataStatusStruct value) {
+    taskWorkerStatusList.remove(value);
+  }
+
+  void removeAtIndexFromTaskWorkerStatusList(int index) {
+    taskWorkerStatusList.removeAt(index);
+  }
+
+  void updateTaskWorkerStatusListAtIndex(
+    int index,
+    DataStatusStruct Function(DataStatusStruct) updateFn,
+  ) {
+    taskWorkerStatusList[index] = updateFn(_taskWorkerStatusList[index]);
+  }
+
+  void insertAtIndexInTaskWorkerStatusList(int index, DataStatusStruct value) {
+    taskWorkerStatusList.insert(index, value);
+  }
+
+  List<DataStatusStruct> _taskStatusList = [
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"0\",\"subject\":\"กำลังดำเนินการ\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"1\",\"subject\":\"เสร็จสิ้น\"}'))
   ];
   List<DataStatusStruct> get taskStatusList => _taskStatusList;
   set taskStatusList(List<DataStatusStruct> value) {

@@ -13,8 +13,8 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "create_date",
-          "order": "DESCENDING"
+          "fieldPath": "end_date",
+          "order": "ASCENDING"
         }
       ]
     },
@@ -27,8 +27,8 @@
           "arrayConfig": "CONTAINS"
         },
         {
-          "fieldPath": "create_date",
-          "order": "DESCENDING"
+          "fieldPath": "end_date",
+          "order": "ASCENDING"
         }
       ]
     }

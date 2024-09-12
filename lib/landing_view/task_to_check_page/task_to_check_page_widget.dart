@@ -99,12 +99,14 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                           parent: FFAppState().customerData.customerRef,
                           queryBuilder: (taskListRecord) => taskListRecord
                               .where(
-                            'create_by',
-                            isEqualTo: FFAppState().memberReference,
-                          )
-                              .whereIn('status', [0, 1, 4]).orderBy(
-                                  'create_date',
-                                  descending: true),
+                                'create_by',
+                                isEqualTo: FFAppState().memberReference,
+                              )
+                              .where(
+                                'status',
+                                isEqualTo: 0,
+                              )
+                              .orderBy('end_date'),
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.

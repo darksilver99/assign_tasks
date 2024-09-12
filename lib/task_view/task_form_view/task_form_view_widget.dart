@@ -704,7 +704,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                           createDate: getCurrentTimestamp,
                                           createBy:
                                               FFAppState().memberReference,
-                                          status: 1,
+                                          status: 0,
                                           subject:
                                               _model.subjectTextController.text,
                                           detail:
@@ -725,7 +725,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                           createDate: getCurrentTimestamp,
                                           createBy:
                                               FFAppState().memberReference,
-                                          status: 1,
+                                          status: 0,
                                           subject:
                                               _model.subjectTextController.text,
                                           detail:

@@ -219,7 +219,7 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                                                       taskListItem
                                                                           .status,
                                                                       FFAppState()
-                                                                          .taskStatusList
+                                                                          .taskWorkerStatusList
                                                                           .toList()),
                                                                   '-',
                                                                 ),

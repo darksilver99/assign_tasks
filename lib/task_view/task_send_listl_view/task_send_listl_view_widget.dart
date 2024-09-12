@@ -432,7 +432,7 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                                                     columnWorkerListRecord
                                                                         .status,
                                                                     FFAppState()
-                                                                        .taskStatusList
+                                                                        .taskWorkerStatusList
                                                                         .toList()),
                                                                 '-',
                                                               ),
