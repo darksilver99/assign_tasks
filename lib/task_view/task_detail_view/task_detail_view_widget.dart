@@ -181,8 +181,13 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        FlutterFlowTheme.of(context).alternate2,
                                     borderRadius: BorderRadius.circular(8.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 1.0,
+                                    ),
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.all(8.0),
@@ -203,6 +208,7 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                   fontFamily: 'Kanit',
                                                   fontSize: 20.0,
                                                   letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w300,
                                                 ),
                                           ),
                                         ),
@@ -223,8 +229,13 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                     ),
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
-                                          .alternate,
+                                          .alternate2,
                                       borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(8.0),
@@ -246,6 +257,8 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                         fontFamily: 'Kanit',
                                                         fontSize: 20.0,
                                                         letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.w300,
                                                       ),
                                             ),
                                           ),
@@ -263,8 +276,13 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                     width: double.infinity,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
-                                          .alternate,
+                                          .alternate2,
                                       borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        width: 1.0,
+                                      ),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsets.all(8.0),
@@ -285,6 +303,8 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                           fontFamily: 'Kanit',
                                                           fontSize: 20.0,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.w300,
                                                         ),
                                               ),
                                             ],
@@ -388,8 +408,12 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        FlutterFlowTheme.of(context).alternate2,
                                     borderRadius: BorderRadius.circular(8.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                    ),
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.all(8.0),
@@ -405,8 +429,9 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Kanit',
-                                                  fontSize: 20.0,
+                                                  fontSize: 16.0,
                                                   letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w300,
                                                 ),
                                           ),
                                         ),
@@ -422,8 +447,13 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color:
-                                        FlutterFlowTheme.of(context).alternate,
+                                        FlutterFlowTheme.of(context).alternate2,
                                     borderRadius: BorderRadius.circular(8.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 1.0,
+                                    ),
                                   ),
                                   child: Padding(
                                     padding: EdgeInsets.all(8.0),
@@ -439,8 +469,9 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Kanit',
-                                                  fontSize: 20.0,
+                                                  fontSize: 16.0,
                                                   letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.w300,
                                                 ),
                                           ),
                                         ),
@@ -455,8 +486,8 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                 child: Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate2,
                                     borderRadius: BorderRadius.circular(8.0),
                                     border: Border.all(
                                       color: FlutterFlowTheme.of(context)
@@ -483,10 +514,10 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Kanit',
-                                                        fontSize: 18.0,
+                                                        fontSize: 16.0,
                                                         letterSpacing: 0.0,
                                                         fontWeight:
-                                                            FontWeight.normal,
+                                                            FontWeight.w300,
                                                       ),
                                                 ),
                                                 TextSpan(
@@ -956,6 +987,7 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                     ...createSendListRecordData(
                                       remark: _model.remarkTextController.text,
                                       sendDate: getCurrentTimestamp,
+                                      status: 1,
                                     ),
                                     ...mapToFirestore(
                                       {
