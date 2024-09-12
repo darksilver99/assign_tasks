@@ -262,6 +262,37 @@ class _SelectMemberListViewWidgetState
                         child: FFButtonWidget(
                           onPressed: () async {
                             FFAppState().memberReferenceSelected = [];
+                            _model.isSelectedAll = false;
+                            safeSetState(() {});
+                          },
+                          text: 'ไม่เลือกทั้งหมด',
+                          options: FFButtonOptions(
+                            height: 40.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).error,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            FFAppState().memberReferenceSelected = [];
                             _model.memberListResult =
                                 await queryMemberListRecordOnce(
                               parent: FFAppState().customerData.customerRef,

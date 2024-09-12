@@ -139,10 +139,10 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                   children: [
                                     Expanded(
                                       child: Text(
-                                        valueOrDefault<String>(
+                                        'หัวข้อ : ${valueOrDefault<String>(
                                           widget!.taskDocument?.subject,
                                           '-',
-                                        ),
+                                        )}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -157,41 +157,47 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 8.0),
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        valueOrDefault<String>(
-                                          widget!.taskDocument?.detail,
-                                          '-',
+                          if (widget!.taskDocument?.detail != null &&
+                              widget!.taskDocument?.detail != '')
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: Container(
+                                width: double.infinity,
+                                constraints: BoxConstraints(
+                                  minHeight: 100.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  borderRadius: BorderRadius.circular(8.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'รายละเอียด : ${valueOrDefault<String>(
+                                            widget!.taskDocument?.detail,
+                                            '-',
+                                          )}',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 20.0,
+                                                letterSpacing: 0.0,
+                                              ),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
-                                            ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 8.0),
@@ -205,11 +211,12 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                 padding: EdgeInsets.all(8.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Expanded(
                                       child: Text(
                                         'วันที่ให้งาน : ${functions.dateTimeTh(widget!.taskDocument?.createDate)}',
+                                        maxLines: 1,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -218,6 +225,12 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                               letterSpacing: 0.0,
                                             ),
                                       ),
+                                    ),
+                                    Icon(
+                                      Icons.calendar_today_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      size: 24.0,
                                     ),
                                   ],
                                 ),
@@ -433,13 +446,26 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Icon(
-                                                      Icons
-                                                          .navigate_next_rounded,
+                                                      Icons.remove_red_eye,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       size: 24.0,
+                                                    ),
+                                                    Text(
+                                                      'ตรวจสอบ',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 8.0,
+                                                            letterSpacing: 0.0,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
                                                     ),
                                                   ],
                                                 ),
