@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/component/no_data_view/no_data_view_widget.dart';
 import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -143,7 +144,8 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                               ),
                             ),
                           ),
-
+                          noItemsFoundIndicatorBuilder: (_) =>
+                              NoDataViewWidget(),
                           itemBuilder: (context, _, listViewIndex) {
                             final listViewTaskListRecord = _model
                                 .listViewPagingController!
