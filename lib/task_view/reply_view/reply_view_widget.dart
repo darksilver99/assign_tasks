@@ -441,6 +441,7 @@ class _ReplyViewWidgetState extends State<ReplyViewWidget> {
                                       ...createSendListRecordData(
                                         reply: _model.remarkTextController.text,
                                         replyDate: getCurrentTimestamp,
+                                        status: widget!.isPass ? 3 : 4,
                                       ),
                                       ...mapToFirestore(
                                         {

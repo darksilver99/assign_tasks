@@ -130,8 +130,12 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: FlutterFlowTheme.of(context).alternate2,
                                 borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 1.0,
+                                ),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -151,6 +155,7 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                               fontFamily: 'Kanit',
                                               fontSize: 20.0,
                                               letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w300,
                                             ),
                                       ),
                                     ),
@@ -170,8 +175,14 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                   minHeight: 100.0,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color:
+                                      FlutterFlowTheme.of(context).alternate2,
                                   borderRadius: BorderRadius.circular(8.0),
+                                  border: Border.all(
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    width: 1.0,
+                                  ),
                                 ),
                                 child: Padding(
                                   padding: EdgeInsets.all(8.0),
@@ -192,6 +203,7 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                                 fontFamily: 'Kanit',
                                                 fontSize: 20.0,
                                                 letterSpacing: 0.0,
+                                                fontWeight: FontWeight.w300,
                                               ),
                                         ),
                                       ),
@@ -206,8 +218,12 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: FlutterFlowTheme.of(context).alternate2,
                                 borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 1.0,
+                                ),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -223,8 +239,9 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Kanit',
-                                              fontSize: 20.0,
+                                              fontSize: 16.0,
                                               letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w300,
                                             ),
                                       ),
                                     ),
@@ -245,8 +262,12 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                             child: Container(
                               width: double.infinity,
                               decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).alternate,
+                                color: FlutterFlowTheme.of(context).alternate2,
                                 borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 1.0,
+                                ),
                               ),
                               child: Padding(
                                 padding: EdgeInsets.all(8.0),
@@ -262,8 +283,9 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Kanit',
-                                              fontSize: 20.0,
+                                              fontSize: 16.0,
                                               letterSpacing: 0.0,
+                                              fontWeight: FontWeight.w300,
                                             ),
                                       ),
                                     ),
