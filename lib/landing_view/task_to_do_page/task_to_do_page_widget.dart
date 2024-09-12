@@ -1,6 +1,7 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
+import '/component/no_data_view/no_data_view_widget.dart';
 import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -73,6 +74,9 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                       return Builder(
                         builder: (context) {
                           final taskList = _model.myTaskToDoList.toList();
+                          if (taskList.isEmpty) {
+                            return NoDataViewWidget();
+                          }
 
                           return ListView.separated(
                             padding: EdgeInsets.fromLTRB(
