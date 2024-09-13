@@ -675,7 +675,8 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                             thickness: 2.0,
                             color: FlutterFlowTheme.of(context).alternate,
                           ),
-                          if (_model.workerReferenceResult?.status != 3)
+                          if ((_model.workerReferenceResult?.status != 3) ||
+                              (widget!.taskDocument?.status == 0))
                             Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -1122,6 +1123,58 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   ),
                                 ),
                               ],
+                            ),
+                          if (widget!.taskDocument?.status == 1)
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 16.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'ผู้มอบหมายปิดงานนี้แล้ว',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                fontSize: 22.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Text(
+                                          'เมื่อ : ${functions.dateTimeTh(widget!.taskDocument?.updateDate)}',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryText,
+                                                fontSize: 12.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
                             ),
                         ],
                       ),
