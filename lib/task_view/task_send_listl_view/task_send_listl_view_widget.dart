@@ -427,52 +427,72 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                                             MainAxisSize.max,
                                                         children: [
                                                           Expanded(
-                                                            child: Text(
-                                                              valueOrDefault<
-                                                                  String>(
-                                                                functions.getStatusText(
-                                                                    columnWorkerListRecord
-                                                                        .status,
-                                                                    FFAppState()
-                                                                        .taskWorkerStatusList
-                                                                        .toList()),
-                                                                '-',
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Kanit',
-                                                                    color: () {
-                                                                      if (columnWorkerListRecord
-                                                                              .status ==
-                                                                          0) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .accent1;
-                                                                      } else if (columnWorkerListRecord
-                                                                              .status ==
-                                                                          1) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .tertiary;
-                                                                      } else if (columnWorkerListRecord
-                                                                              .status ==
-                                                                          3) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .success;
-                                                                      } else if (columnWorkerListRecord
-                                                                              .status ==
-                                                                          4) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .error;
-                                                                      } else {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .primaryText;
-                                                                      }
-                                                                    }(),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                  ),
+                                                            child: Builder(
+                                                              builder:
+                                                                  (context) {
+                                                                if ((widget!.taskDocument
+                                                                            ?.status ==
+                                                                        1) &&
+                                                                    ((columnWorkerListRecord.status ==
+                                                                            0) ||
+                                                                        (columnWorkerListRecord.status ==
+                                                                            4))) {
+                                                                  return Text(
+                                                                    'ไม่ได้ส่งงาน',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Kanit',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).error,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  );
+                                                                } else {
+                                                                  return Text(
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      functions.getStatusText(
+                                                                          columnWorkerListRecord
+                                                                              .status,
+                                                                          FFAppState()
+                                                                              .taskWorkerStatusList
+                                                                              .toList()),
+                                                                      '-',
+                                                                    ),
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Kanit',
+                                                                          color:
+                                                                              () {
+                                                                            if (columnWorkerListRecord.status ==
+                                                                                0) {
+                                                                              return FlutterFlowTheme.of(context).accent1;
+                                                                            } else if (columnWorkerListRecord.status ==
+                                                                                1) {
+                                                                              return FlutterFlowTheme.of(context).tertiary;
+                                                                            } else if (columnWorkerListRecord.status ==
+                                                                                3) {
+                                                                              return FlutterFlowTheme.of(context).success;
+                                                                            } else if (columnWorkerListRecord.status ==
+                                                                                4) {
+                                                                              return FlutterFlowTheme.of(context).error;
+                                                                            } else {
+                                                                              return FlutterFlowTheme.of(context).primaryText;
+                                                                            }
+                                                                          }(),
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  );
+                                                                }
+                                                              },
                                                             ),
                                                           ),
                                                         ],

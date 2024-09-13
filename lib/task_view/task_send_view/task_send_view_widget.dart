@@ -756,32 +756,66 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                       ),
                     );
                   } else {
-                    return Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.settings_rounded,
-                            color: FlutterFlowTheme.of(context).primary,
-                            size: 64.0,
-                          ),
-                          Text(
-                            'พนักงานกำลังทำงาน',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  fontSize: 22.0,
-                                  letterSpacing: 0.0,
-                                  fontWeight: FontWeight.bold,
+                    return Builder(
+                      builder: (context) {
+                        if (widget!.workerDocument?.status == 1) {
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.error_rounded,
+                                  color: FlutterFlowTheme.of(context).error,
+                                  size: 64.0,
                                 ),
-                          ),
-                        ],
-                      ),
+                                Text(
+                                  'พนักงานยังไม่ได้เริ่มทำงาน',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 22.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.settings_rounded,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 64.0,
+                                ),
+                                Text(
+                                  'พนักงานกำลังทำงาน',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 22.0,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
                     );
                   }
                 },
