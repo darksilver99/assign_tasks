@@ -165,7 +165,7 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                 return ListView.separated(
                                   padding: EdgeInsets.fromLTRB(
                                     0,
-                                    16.0,
+                                    8.0,
                                     0,
                                     32.0,
                                   ),
