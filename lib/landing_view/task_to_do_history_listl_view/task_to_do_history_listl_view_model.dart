@@ -72,6 +72,14 @@ class TaskToDoHistoryListlViewModel
             'worker_list',
             arrayContains: FFAppState().memberReference,
           )
+          .where(
+            'end_date',
+            isGreaterThanOrEqualTo: startDate,
+          )
+          .where(
+            'end_date',
+            isLessThanOrEqualTo: endDate,
+          )
           .orderBy('end_date'),
     );
     while (taskIndex < taskListResult!.length) {

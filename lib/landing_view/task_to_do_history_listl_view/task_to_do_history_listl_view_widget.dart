@@ -146,6 +146,8 @@ class _TaskToDoHistoryListlViewWidgetState
                               functions.getDateByMonthAndYear(
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
+                          await _model.iniTaskList(context);
+                          safeSetState(() {});
                         },
                         width: double.infinity,
                         height: 56.0,
@@ -198,6 +200,8 @@ class _TaskToDoHistoryListlViewWidgetState
                               functions.getDateByMonthAndYear(
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
+                          await _model.iniTaskList(context);
+                          safeSetState(() {});
                         },
                         width: 300.0,
                         height: 56.0,
