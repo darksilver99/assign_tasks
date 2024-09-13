@@ -274,7 +274,8 @@ class _ReplyDetailViewWidgetState extends State<ReplyDetailViewWidget> {
                           ),
                         ),
                       Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 8.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
