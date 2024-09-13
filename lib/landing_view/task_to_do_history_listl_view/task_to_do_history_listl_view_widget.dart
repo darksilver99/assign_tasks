@@ -44,6 +44,8 @@ class _TaskToDoHistoryListlViewWidgetState
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.isLoading = true;
+      _model.startDate = functions.getFirstDayOfMonth(getCurrentTimestamp);
+      _model.endDate = functions.getLastDayOfMonth(getCurrentTimestamp);
       safeSetState(() {});
       await _model.iniTaskList(context);
       _model.isLoading = false;
