@@ -43,6 +43,8 @@ class TaskToDoHistoryListlViewModel
           int index, Function(TaskAndWorkerStatusDataStruct) updateFn) =>
       myTaskToDoList[index] = updateFn(myTaskToDoList[index]);
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for DropDown widget.
@@ -65,6 +67,7 @@ class TaskToDoHistoryListlViewModel
     List<TaskListRecord>? taskListResult;
     WorkerListRecord? myTaskToDoListResult;
 
+    taskIndex = 0;
     taskListResult = await queryTaskListRecordOnce(
       parent: FFAppState().customerData.customerRef,
       queryBuilder: (taskListRecord) => taskListRecord
