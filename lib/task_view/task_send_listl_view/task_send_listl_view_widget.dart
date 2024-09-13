@@ -213,7 +213,8 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                               ),
                             ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                8.0, 0.0, 8.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -246,7 +247,8 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.all(8.0),
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                8.0, 0.0, 8.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -280,7 +282,8 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                           ),
                           if (widget!.taskDocument?.closeDate != null)
                             Padding(
-                              padding: EdgeInsets.all(8.0),
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 8.0, 8.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -297,7 +300,7 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      'วันที่ปิดงาน : ${functions.dateTh(widget!.taskDocument?.closeDate)}',
+                                      'วันที่ปิดงาน : ${functions.dateTimeTh(widget!.taskDocument?.closeDate)}',
                                       maxLines: 1,
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
