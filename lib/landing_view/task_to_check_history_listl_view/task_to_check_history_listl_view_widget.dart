@@ -418,26 +418,18 @@ class _TaskToCheckHistoryListlViewWidgetState
                                                   child: Text(
                                                     '(วันที่มอบหมายงาน ${functions.dateTh(listViewTaskListRecord.createDate)} | กำหนดส่ง ${functions.dateTh(listViewTaskListRecord.endDate)})',
                                                     textAlign: TextAlign.start,
-                                                    maxLines: 1,
-                                                    style:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Kanit',
-                                                              color: listViewTaskListRecord.endDate! <=
-                                                                      getCurrentTimestamp
-                                                                  ? FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .error
-                                                                  : FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondaryText,
-                                                              fontSize: 12.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                            ),
+                                                    maxLines: 2,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 9.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
                                                   ),
                                                 ),
                                               ],
