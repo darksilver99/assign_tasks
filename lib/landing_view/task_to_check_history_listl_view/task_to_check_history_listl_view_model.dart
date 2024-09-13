@@ -25,14 +25,13 @@ class TaskToCheckHistoryListlViewModel
 
   bool isLoading = true;
 
-  int totalTask = 0;
-
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
-  Completer<List<TaskListRecord>>? firestoreRequestCompleter;
+  Completer<int>? firestoreRequestCompleter2;
+  Completer<List<TaskListRecord>>? firestoreRequestCompleter1;
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
@@ -44,7 +43,7 @@ class TaskToCheckHistoryListlViewModel
   void dispose() {}
 
   /// Additional helper methods.
-  Future waitForFirestoreRequestCompleted({
+  Future waitForFirestoreRequestCompleted2({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -52,7 +51,22 @@ class TaskToCheckHistoryListlViewModel
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = firestoreRequestCompleter?.isCompleted ?? false;
+      final requestComplete = firestoreRequestCompleter2?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForFirestoreRequestCompleted1({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = firestoreRequestCompleter1?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }
