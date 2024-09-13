@@ -266,9 +266,15 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                               .override(
                                                                 fontFamily:
                                                                     'Kanit',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryText,
+                                                                color: listViewTaskListRecord
+                                                                            .endDate! <=
+                                                                        getCurrentTimestamp
+                                                                    ? FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .error
+                                                                    : FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
                                                                 fontSize: 12.0,
                                                                 letterSpacing:
                                                                     0.0,
