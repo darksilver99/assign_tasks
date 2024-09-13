@@ -112,7 +112,7 @@ class _TaskToDoHistoryListlViewWidgetState
                 children: [
                   Expanded(
                     child: Text(
-                      'ประวัติงาน',
+                      'ประวัติงานที่ได้รับ',
                       textAlign: TextAlign.start,
                       maxLines: 1,
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -127,7 +127,7 @@ class _TaskToDoHistoryListlViewWidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 8.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -247,6 +247,23 @@ class _TaskToDoHistoryListlViewWidgetState
                 ],
               ),
             ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    '${_model.myTaskToDoList.length.toString()} รายการ',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Kanit',
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          fontSize: 12.0,
+                          letterSpacing: 0.0,
+                        ),
+                  ),
+                ],
+              ),
+            ),
             if (!_model.isLoading)
               Expanded(
                 child: Builder(
@@ -261,7 +278,7 @@ class _TaskToDoHistoryListlViewWidgetState
                     return ListView.separated(
                       padding: EdgeInsets.fromLTRB(
                         0,
-                        16.0,
+                        8.0,
                         0,
                         32.0,
                       ),
