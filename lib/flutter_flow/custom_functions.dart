@@ -213,3 +213,32 @@ String compareDates(
     return "เหลือ ${difference.abs()} วัน"; // "Remaining n days"
   }
 }
+
+List<String> getYearFromCurrent(int len) {
+  List<String> yearList = [];
+  int currentYear = DateTime.now().year + 543;
+  for (var i = currentYear - len; i <= currentYear; i++) {
+    yearList.add(i.toString());
+  }
+  return yearList;
+}
+
+DateTime getFirstDayOfMonth(DateTime date) {
+  DateTime firstDayOfCurrentMonth = DateTime(date.year, date.month, 1);
+  return firstDayOfCurrentMonth;
+}
+
+DateTime getDateByMonthAndYear(
+  String month,
+  String year,
+) {
+  DateTime currentDate = DateTime.now();
+  return DateTime((int.parse(year) - 543), int.parse(month), currentDate.day);
+}
+
+DateTime getLastDayOfMonth(DateTime date) {
+  DateTime firstDayOfNextMonth = DateTime(date.year, date.month + 1, 1);
+  DateTime lastDayOfCurrentMonth =
+      firstDayOfNextMonth.subtract(Duration(seconds: 1));
+  return lastDayOfCurrentMonth;
+}
