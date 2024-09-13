@@ -278,6 +278,40 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                               ],
                             ),
                           ),
+                          if (widget!.taskDocument?.closeDate != null)
+                            Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 4.0, 0.0),
+                                    child: Icon(
+                                      Icons.access_time_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                      'วันที่ปิดงาน : ${functions.dateTh(widget!.taskDocument?.closeDate)}',
+                                      maxLines: 1,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 16.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                         ],
                       ),
                       Divider(
@@ -575,6 +609,7 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                         status: 1,
                                         updateDate: getCurrentTimestamp,
                                         updateBy: FFAppState().memberReference,
+                                        closeDate: getCurrentTimestamp,
                                       ));
                                       Navigator.pop(context);
                                     }
