@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/task_view/own_task_name_view/own_task_name_view_widget.dart';
 import '/task_view/reply_detail_view/reply_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
@@ -39,6 +40,8 @@ class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
 
   // Stores action output result for [Firestore Query - Query a collection] action in TaskDetailView widget.
   WorkerListRecord? workerReferenceResult;
+  // Model for OwnTaskNameView component.
+  late OwnTaskNameViewModel ownTaskNameViewModel;
   // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
   SendListRecord? sendDocumentResult;
   // State field(s) for remark widget.
@@ -55,10 +58,13 @@ class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
   List<String>? urlList;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    ownTaskNameViewModel = createModel(context, () => OwnTaskNameViewModel());
+  }
 
   @override
   void dispose() {
+    ownTaskNameViewModel.dispose();
     remarkFocusNode?.dispose();
     remarkTextController?.dispose();
   }
