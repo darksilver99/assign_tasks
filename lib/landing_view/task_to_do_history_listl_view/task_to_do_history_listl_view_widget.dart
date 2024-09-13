@@ -242,103 +242,84 @@ class _TaskToDoHistoryListlViewWidgetState
                 ],
               ),
             ),
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  final taskList = _model.myTaskToDoList.toList();
-                  if (taskList.isEmpty) {
-                    return Center(
-                      child: NoDataViewWidget(),
-                    );
-                  }
+            if (!_model.isLoading)
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    final taskList = _model.myTaskToDoList.toList();
+                    if (taskList.isEmpty) {
+                      return Center(
+                        child: NoDataViewWidget(),
+                      );
+                    }
 
-                  return ListView.separated(
-                    padding: EdgeInsets.fromLTRB(
-                      0,
-                      16.0,
-                      0,
-                      32.0,
-                    ),
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: taskList.length,
-                    separatorBuilder: (_, __) => SizedBox(height: 8.0),
-                    itemBuilder: (context, taskListIndex) {
-                      final taskListItem = taskList[taskListIndex];
-                      return Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            _model.taskDocument =
-                                await TaskListRecord.getDocumentOnce(
-                                    taskListItem.taskReference!);
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              enableDrag: false,
-                              useSafeArea: true,
-                              context: context,
-                              builder: (context) {
-                                return Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: TaskDetailViewWidget(
-                                    taskDocument: _model.taskDocument!,
-                                  ),
-                                );
-                              },
-                            ).then((value) => safeSetState(() {}));
+                    return ListView.separated(
+                      padding: EdgeInsets.fromLTRB(
+                        0,
+                        16.0,
+                        0,
+                        32.0,
+                      ),
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: taskList.length,
+                      separatorBuilder: (_, __) => SizedBox(height: 8.0),
+                      itemBuilder: (context, taskListIndex) {
+                        final taskListItem = taskList[taskListIndex];
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              16.0, 0.0, 16.0, 0.0),
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              _model.taskDocument =
+                                  await TaskListRecord.getDocumentOnce(
+                                      taskListItem.taskReference!);
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                useSafeArea: true,
+                                context: context,
+                                builder: (context) {
+                                  return Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: TaskDetailViewWidget(
+                                      taskDocument: _model.taskDocument!,
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
 
-                            safeSetState(() {});
-                          },
-                          child: Container(
-                            width: double.infinity,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 1.0,
-                              ),
-                            ),
+                              safeSetState(() {});
+                            },
                             child: Container(
                               width: double.infinity,
-                              height: double.infinity,
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 8.0, 16.0, 8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 8.0, 0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              FaIcon(
-                                                FontAwesomeIcons.paste,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                size: 32.0,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(8.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Container(
+                                width: double.infinity,
+                                height: double.infinity,
+                                child: Stack(
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          16.0, 8.0, 16.0, 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
                                                     0.0, 0.0, 8.0, 0.0),
@@ -347,179 +328,197 @@ class _TaskToDoHistoryListlViewWidgetState
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
                                               children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        taskListItem.subject,
-                                                        maxLines: 1,
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Kanit',
-                                                              fontSize: 18.0,
-                                                              letterSpacing:
-                                                                  0.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ],
+                                                FaIcon(
+                                                  FontAwesomeIcons.paste,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 32.0,
                                                 ),
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Expanded(
-                                                      child: RichText(
-                                                        textScaler:
-                                                            MediaQuery.of(
-                                                                    context)
-                                                                .textScaler,
-                                                        text: TextSpan(
-                                                          children: [
-                                                            TextSpan(
-                                                              text:
-                                                                  valueOrDefault<
-                                                                      String>(
-                                                                functions.getStatusText(
-                                                                    taskListItem
-                                                                        .status,
-                                                                    FFAppState()
-                                                                        .taskWorkerStatusList
-                                                                        .toList()),
-                                                                '-',
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Kanit',
-                                                                    color: () {
-                                                                      if (taskListItem
-                                                                              .status ==
-                                                                          0) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .accent1;
-                                                                      } else if (taskListItem
-                                                                              .status ==
-                                                                          1) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .tertiary;
-                                                                      } else if (taskListItem
-                                                                              .status ==
-                                                                          3) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .secondary;
-                                                                      } else if (taskListItem
-                                                                              .status ==
-                                                                          4) {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .error;
-                                                                      } else {
-                                                                        return FlutterFlowTheme.of(context)
-                                                                            .primaryText;
-                                                                      }
-                                                                    }(),
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w300,
-                                                                  ),
-                                                            )
-                                                          ],
+                                              ],
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Expanded(
+                                                        child: Text(
+                                                          taskListItem.subject,
+                                                          maxLines: 1,
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
                                                               .override(
                                                                 fontFamily:
                                                                     'Kanit',
+                                                                fontSize: 18.0,
                                                                 letterSpacing:
                                                                     0.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
                                                               ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Expanded(
+                                                        child: RichText(
+                                                          textScaler:
+                                                              MediaQuery.of(
+                                                                      context)
+                                                                  .textScaler,
+                                                          text: TextSpan(
+                                                            children: [
+                                                              TextSpan(
+                                                                text:
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                  functions.getStatusText(
+                                                                      taskListItem
+                                                                          .status,
+                                                                      FFAppState()
+                                                                          .taskWorkerStatusList
+                                                                          .toList()),
+                                                                  '-',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Kanit',
+                                                                      color:
+                                                                          () {
+                                                                        if (taskListItem.status ==
+                                                                            0) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .accent1;
+                                                                        } else if (taskListItem.status ==
+                                                                            1) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .tertiary;
+                                                                        } else if (taskListItem.status ==
+                                                                            3) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .secondary;
+                                                                        } else if (taskListItem.status ==
+                                                                            4) {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .error;
+                                                                        } else {
+                                                                          return FlutterFlowTheme.of(context)
+                                                                              .primaryText;
+                                                                        }
+                                                                      }(),
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w300,
+                                                                    ),
+                                                              )
+                                                            ],
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Icon(
-                                              Icons.navigate_next_rounded,
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              size: 24.0,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.0, 1.0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 16.0, 8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              ' (กำหนดส่ง ${functions.dateTh(taskListItem.endDate)} ${functions.compareDates(getCurrentTimestamp, taskListItem.endDate!)})',
-                                              textAlign: TextAlign.end,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Kanit',
-                                                    color: taskListItem
-                                                                .endDate! <=
-                                                            getCurrentTimestamp
-                                                        ? FlutterFlowTheme.of(
-                                                                context)
-                                                            .error
-                                                        : FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondaryText,
-                                                    fontSize: 12.0,
-                                                    letterSpacing: 0.0,
-                                                    fontWeight: FontWeight.w200,
-                                                  ),
-                                            ),
+                                          Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Icon(
+                                                Icons.navigate_next_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                size: 24.0,
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    Align(
+                                      alignment: AlignmentDirectional(0.0, 1.0),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 16.0, 8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                ' (กำหนดส่ง ${functions.dateTh(taskListItem.endDate)} ${functions.compareDates(getCurrentTimestamp, taskListItem.endDate!)})',
+                                                textAlign: TextAlign.end,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      color: taskListItem
+                                                                  .endDate! <=
+                                                              getCurrentTimestamp
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondaryText,
+                                                      fontSize: 12.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.w200,
+                                                    ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                },
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
-            ),
           ].addToStart(SizedBox(height: 16.0)).addToEnd(SizedBox(height: 32.0)),
         ),
       ),
