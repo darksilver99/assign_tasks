@@ -46,6 +46,7 @@ class _TaskToDoHistoryListlViewWidgetState
       _model.isLoading = true;
       _model.startDate = functions.getFirstDayOfMonth(getCurrentTimestamp);
       _model.endDate = functions.getLastDayOfMonth(getCurrentTimestamp);
+      _model.myTaskToDoList = [];
       safeSetState(() {});
       await _model.iniTaskList(context);
       _model.isLoading = false;
@@ -151,6 +152,7 @@ class _TaskToDoHistoryListlViewWidgetState
                               functions.getDateByMonthAndYear(
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
+                          _model.myTaskToDoList = [];
                           _model.isLoading = true;
                           safeSetState(() {});
                           await _model.iniTaskList(context);
@@ -208,6 +210,7 @@ class _TaskToDoHistoryListlViewWidgetState
                               functions.getDateByMonthAndYear(
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
+                          _model.myTaskToDoList = [];
                           _model.isLoading = true;
                           safeSetState(() {});
                           await _model.iniTaskList(context);
