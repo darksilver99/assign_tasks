@@ -2,15 +2,14 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/schema/structs/index.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
-import '/customer_view/create_customer_view/create_customer_view_widget.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import '/landing_view/task_to_do_history_listl_view/task_to_do_history_listl_view_widget.dart';
+import '/flutter_flow/form_field_controller.dart';
 import '/task_view/task_detail_view/task_detail_view_widget.dart';
-import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'task_to_do_page_widget.dart' show TaskToDoPageWidget;
+import 'task_to_do_history_listl_view_widget.dart'
+    show TaskToDoHistoryListlViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/gestures.dart';
@@ -20,10 +19,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
-  ///  Local state fields for this page.
+class TaskToDoHistoryListlViewModel
+    extends FlutterFlowModel<TaskToDoHistoryListlViewWidget> {
+  ///  Local state fields for this component.
 
-  bool isLoading = true;
+  DateTime? startDate;
+
+  DateTime? endDate;
+
+  int taskIndex = 0;
 
   List<TaskAndWorkerStatusDataStruct> myTaskToDoList = [];
   void addToMyTaskToDoList(TaskAndWorkerStatusDataStruct item) =>
@@ -39,10 +43,14 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
           int index, Function(TaskAndWorkerStatusDataStruct) updateFn) =>
       myTaskToDoList[index] = updateFn(myTaskToDoList[index]);
 
-  int taskIndex = 0;
+  ///  State fields for stateful widgets in this component.
 
-  ///  State fields for stateful widgets in this page.
-
+  // State field(s) for DropDown widget.
+  String? dropDownValue1;
+  FormFieldController<String>? dropDownValueController1;
+  // State field(s) for DropDown widget.
+  String? dropDownValue2;
+  FormFieldController<String>? dropDownValueController2;
   // Stores action output result for [Backend Call - Read Document] action in Container widget.
   TaskListRecord? taskDocument;
 
@@ -53,7 +61,7 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
   void dispose() {}
 
   /// Action blocks.
-  Future initMyTaskToDoList(BuildContext context) async {
+  Future iniTaskList(BuildContext context) async {
     List<TaskListRecord>? taskListResult;
     WorkerListRecord? myTaskToDoListResult;
 
@@ -64,10 +72,6 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
             'worker_list',
             arrayContains: FFAppState().memberReference,
           )
-          .where(
-            'status',
-            isEqualTo: 0,
-          )
           .orderBy('end_date'),
     );
     while (taskIndex < taskListResult!.length) {
@@ -75,18 +79,21 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
       myTaskToDoListResult = await queryWorkerListRecordOnce(
         queryBuilder: (workerListRecord) => workerListRecord
             .where(
-          'member_ref',
-          isEqualTo: FFAppState().memberReference,
-        )
-            .whereIn('status', [0, 1, 4]),
+              'member_ref',
+              isEqualTo: FFAppState().memberReference,
+            )
+            .where(
+              'status',
+              isEqualTo: 3,
+            ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
       if (myTaskToDoListResult != null) {
         addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
+          status: taskListResult?[taskIndex]?.status,
           taskReference: taskListResult?[taskIndex]?.reference,
           subject: taskListResult?[taskIndex]?.subject,
           detail: taskListResult?[taskIndex]?.detail,
-          status: myTaskToDoListResult?.status,
           endDate: taskListResult?[taskIndex]?.endDate,
         ));
       }

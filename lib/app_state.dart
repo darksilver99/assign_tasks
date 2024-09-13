@@ -170,4 +170,33 @@ class FFAppState extends ChangeNotifier {
   set tmpTaskReference(DocumentReference? value) {
     _tmpTaskReference = value;
   }
+
+  List<MonthDataStruct> _monthList = [];
+  List<MonthDataStruct> get monthList => _monthList;
+  set monthList(List<MonthDataStruct> value) {
+    _monthList = value;
+  }
+
+  void addToMonthList(MonthDataStruct value) {
+    monthList.add(value);
+  }
+
+  void removeFromMonthList(MonthDataStruct value) {
+    monthList.remove(value);
+  }
+
+  void removeAtIndexFromMonthList(int index) {
+    monthList.removeAt(index);
+  }
+
+  void updateMonthListAtIndex(
+    int index,
+    MonthDataStruct Function(MonthDataStruct) updateFn,
+  ) {
+    monthList[index] = updateFn(_monthList[index]);
+  }
+
+  void insertAtIndexInMonthList(int index, MonthDataStruct value) {
+    monthList.insert(index, value);
+  }
 }
