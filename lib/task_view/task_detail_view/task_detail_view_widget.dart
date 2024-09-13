@@ -408,6 +408,16 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 4.0, 0.0),
+                                      child: Icon(
+                                        Icons.access_time_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                    ),
                                     Expanded(
                                       child: Text(
                                         'วันที่ให้งาน : ${functions.dateTimeTh(widget!.taskDocument?.createDate)}',
@@ -430,6 +440,16 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 4.0, 0.0),
+                                      child: Icon(
+                                        Icons.access_time_rounded,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                    ),
                                     Expanded(
                                       child: Text(
                                         'วันที่กำหนดส่ง : ${functions.dateTh(widget!.taskDocument?.endDate)}',
@@ -452,6 +472,16 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 4.0, 0.0),
+                                      child: Icon(
+                                        Icons.account_circle_outlined,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                    ),
                                     Expanded(
                                       child: wrapWithModel(
                                         model: _model.ownTaskNameViewModel,

@@ -218,6 +218,16 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 4.0, 0.0),
+                                  child: Icon(
+                                    Icons.access_time_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                ),
                                 Expanded(
                                   child: Text(
                                     'วันที่ให้งาน : ${functions.dateTimeTh(widget!.taskDocument?.createDate)}',
@@ -241,6 +251,16 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 4.0, 0.0),
+                                  child: Icon(
+                                    Icons.access_time_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                ),
                                 Expanded(
                                   child: Text(
                                     'วันที่กำหนดส่ง : ${functions.dateTh(widget!.taskDocument?.endDate)}',

@@ -285,6 +285,16 @@ class _TaskSendHistoryViewWidgetState extends State<TaskSendHistoryViewWidget> {
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 4.0, 0.0),
+                                  child: Icon(
+                                    Icons.access_time_rounded,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 24.0,
+                                  ),
+                                ),
                                 Expanded(
                                   child: Text(
                                     'วันที่ส่งงาน : ${functions.dateTimeTh(widget!.sendDocument?.sendDate)}',
@@ -504,6 +514,16 @@ class _TaskSendHistoryViewWidgetState extends State<TaskSendHistoryViewWidget> {
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 4.0, 0.0),
+                                    child: Icon(
+                                      Icons.access_time_rounded,
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryText,
+                                      size: 24.0,
+                                    ),
+                                  ),
                                   Expanded(
                                     child: Text(
                                       'วันที่ตอบกลับ : ${functions.dateTimeTh(widget!.sendDocument?.replyDate)}',
