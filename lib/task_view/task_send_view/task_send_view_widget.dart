@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/task_view/reply_detail_view/reply_detail_view_widget.dart';
 import '/task_view/reply_view/reply_view_widget.dart';
 import '/task_view/task_send_history_list_view/task_send_history_list_view_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -471,10 +472,6 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                   ),
                               ],
                             ),
-                            Divider(
-                              thickness: 2.0,
-                              color: FlutterFlowTheme.of(context).alternate,
-                            ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   0.0, 4.0, 0.0, 8.0),
@@ -574,175 +571,54 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                           ),
                                         ),
                                       ),
+                                      if (_model.sendList.first.status != 0)
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              useSafeArea: true,
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: ReplyDetailViewWidget(
+                                                    sendDocument:
+                                                        _model.sendList.first,
+                                                  ),
+                                                );
+                                              },
+                                            ).then(
+                                                (value) => safeSetState(() {}));
+                                          },
+                                          child: Text(
+                                            'ราละเอียด',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  letterSpacing: 0.0,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                          ),
+                                        ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            if (_model.sendList.first.imageReplyList.isNotEmpty)
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
-                                child: Container(
-                                  width: double.infinity,
-                                  constraints: BoxConstraints(
-                                    minHeight: 100.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate2,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            'รายละเอียด : ${valueOrDefault<String>(
-                                              _model.sendList.first.reply,
-                                              '-',
-                                            )}',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  fontSize: 20.0,
-                                                  letterSpacing: 0.0,
-                                                ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            if (_model.sendList.first.imageReplyList.isNotEmpty)
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
-                                child: Container(
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate2,
-                                    borderRadius: BorderRadius.circular(8.0),
-                                    border: Border.all(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      width: 1.0,
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'รูปแนบ : ',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
-                                        Builder(
-                                          builder: (context) {
-                                            final imageList2 = _model
-                                                .sendList.first.imageReplyList
-                                                .toList();
-
-                                            return Wrap(
-                                              spacing: 8.0,
-                                              runSpacing: 8.0,
-                                              alignment: WrapAlignment.start,
-                                              crossAxisAlignment:
-                                                  WrapCrossAlignment.start,
-                                              direction: Axis.horizontal,
-                                              runAlignment: WrapAlignment.start,
-                                              verticalDirection:
-                                                  VerticalDirection.down,
-                                              clipBehavior: Clip.none,
-                                              children: List.generate(
-                                                  imageList2.length,
-                                                  (imageList2Index) {
-                                                final imageList2Item =
-                                                    imageList2[imageList2Index];
-                                                return InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await Navigator.push(
-                                                      context,
-                                                      PageTransition(
-                                                        type: PageTransitionType
-                                                            .fade,
-                                                        child:
-                                                            FlutterFlowExpandedImageView(
-                                                          image: Image.network(
-                                                            imageList2Item,
-                                                            fit: BoxFit.contain,
-                                                          ),
-                                                          allowRotation: false,
-                                                          tag: imageList2Item,
-                                                          useHeroAnimation:
-                                                              true,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                  child: Hero(
-                                                    tag: imageList2Item,
-                                                    transitionOnUserGestures:
-                                                        true,
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.network(
-                                                        imageList2Item,
-                                                        width: 60.0,
-                                                        height: 60.0,
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                );
-                                              }),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
                             if ((widget!.workerDocument?.status == 1) ||
                                 (widget!.workerDocument?.status == 3))
                               Row(
