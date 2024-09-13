@@ -76,6 +76,11 @@ class TaskListRecord extends FirestoreRecord {
   List<DocumentReference> get workerList => _workerList ?? const [];
   bool hasWorkerList() => _workerList != null;
 
+  // "close_date" field.
+  DateTime? _closeDate;
+  DateTime? get closeDate => _closeDate;
+  bool hasCloseDate() => _closeDate != null;
+
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
@@ -91,6 +96,7 @@ class TaskListRecord extends FirestoreRecord {
     _imageList = getDataList(snapshotData['image_list']);
     _fileList = getDataList(snapshotData['file_list']);
     _workerList = getDataList(snapshotData['worker_list']);
+    _closeDate = snapshotData['close_date'] as DateTime?;
   }
 
   static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
@@ -142,6 +148,7 @@ Map<String, dynamic> createTaskListRecordData({
   String? detail,
   DateTime? startDate,
   DateTime? endDate,
+  DateTime? closeDate,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -154,6 +161,7 @@ Map<String, dynamic> createTaskListRecordData({
       'detail': detail,
       'start_date': startDate,
       'end_date': endDate,
+      'close_date': closeDate,
     }.withoutNulls,
   );
 
@@ -177,7 +185,8 @@ class TaskListRecordDocumentEquality implements Equality<TaskListRecord> {
         e1?.endDate == e2?.endDate &&
         listEquality.equals(e1?.imageList, e2?.imageList) &&
         listEquality.equals(e1?.fileList, e2?.fileList) &&
-        listEquality.equals(e1?.workerList, e2?.workerList);
+        listEquality.equals(e1?.workerList, e2?.workerList) &&
+        e1?.closeDate == e2?.closeDate;
   }
 
   @override
@@ -193,7 +202,8 @@ class TaskListRecordDocumentEquality implements Equality<TaskListRecord> {
         e?.endDate,
         e?.imageList,
         e?.fileList,
-        e?.workerList
+        e?.workerList,
+        e?.closeDate
       ]);
 
   @override
