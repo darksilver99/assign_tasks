@@ -714,7 +714,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                           await actions.uploadImageToFirebase(
                                         '${FFAppState().customerData.customerRef?.id}/${FFAppState().memberReference?.id}',
                                         _model.tmpImageList.toList(),
-                                        false,
+                                        true,
                                       );
 
                                       var taskListRecordReference =

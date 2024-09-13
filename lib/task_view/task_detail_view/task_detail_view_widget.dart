@@ -1038,7 +1038,7 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                             await actions.uploadImageToFirebase(
                                           '${FFAppState().customerData.customerRef?.id}/${FFAppState().memberReference?.id}',
                                           _model.tmpImageList.toList(),
-                                          false,
+                                          true,
                                         );
 
                                         await SendListRecord.createDoc(_model
