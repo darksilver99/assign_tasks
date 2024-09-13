@@ -571,7 +571,7 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                           ),
                                         ),
                                       ),
-                                      if ((_model.sendList.first.status == 3) &&
+                                      if ((_model.sendList.first.status == 3) ||
                                           (_model.sendList.first.status == 4))
                                         InkWell(
                                           splashColor: Colors.transparent,
