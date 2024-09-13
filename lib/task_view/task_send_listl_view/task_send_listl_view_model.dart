@@ -1,10 +1,10 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
-import '/components/worker_name_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/task_view/task_send_view/task_send_view_widget.dart';
+import '/task_view/worker_name_view/worker_name_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'task_send_listl_view_widget.dart' show TaskSendListlViewWidget;
