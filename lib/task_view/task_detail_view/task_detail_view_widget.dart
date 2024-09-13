@@ -672,292 +672,429 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                             thickness: 2.0,
                             color: FlutterFlowTheme.of(context).alternate,
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      'รายละเอียดการส่งงาน',
-                                      textAlign: TextAlign.start,
-                                      maxLines: 1,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Kanit',
-                                            fontSize: 22.0,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
-                                child: Container(
-                                  width: double.infinity,
-                                  child: TextFormField(
-                                    controller: _model.remarkTextController,
-                                    focusNode: _model.remarkFocusNode,
-                                    autofocus: false,
-                                    obscureText: false,
-                                    decoration: InputDecoration(
-                                      isDense: true,
-                                      labelText: 'รายละเอียดเพิ่มเติม',
-                                      labelStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Kanit',
-                                            fontSize: 18.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                      hintStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .override(
-                                            fontFamily: 'Kanit',
-                                            fontSize: 18.0,
-                                            letterSpacing: 0.0,
-                                          ),
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          color: FlutterFlowTheme.of(context)
-                                              .error,
-                                          width: 1.0,
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
-                                      filled: true,
-                                      fillColor:
-                                          FlutterFlowTheme.of(context).info,
-                                    ),
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 18.0,
-                                          letterSpacing: 0.0,
-                                        ),
-                                    maxLines: 5,
-                                    keyboardType: TextInputType.multiline,
-                                    cursorColor: FlutterFlowTheme.of(context)
-                                        .primaryText,
-                                    validator: _model
-                                        .remarkTextControllerValidator
-                                        .asValidator(context),
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 16.0),
-                                child: Column(
+                          if (_model.workerReferenceResult?.status != 3)
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Column(
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'รายละเอียดการส่งงาน',
+                                            textAlign: TextAlign.start,
+                                            maxLines: 1,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 22.0,
+                                                  letterSpacing: 0.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           0.0, 0.0, 0.0, 8.0),
-                                      child: Builder(
-                                        builder: (context) {
-                                          final imageListView =
-                                              _model.tmpImageList.toList();
-
-                                          return Wrap(
-                                            spacing: 8.0,
-                                            runSpacing: 8.0,
-                                            alignment: WrapAlignment.start,
-                                            crossAxisAlignment:
-                                                WrapCrossAlignment.start,
-                                            direction: Axis.horizontal,
-                                            runAlignment: WrapAlignment.start,
-                                            verticalDirection:
-                                                VerticalDirection.down,
-                                            clipBehavior: Clip.none,
-                                            children: List.generate(
-                                                imageListView.length,
-                                                (imageListViewIndex) {
-                                              final imageListViewItem =
-                                                  imageListView[
-                                                      imageListViewIndex];
-                                              return Container(
-                                                width: 64.0,
-                                                height: 64.0,
-                                                child: Stack(
-                                                  children: [
-                                                    ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.memory(
-                                                        imageListViewItem
-                                                                .bytes ??
-                                                            Uint8List.fromList(
-                                                                []),
-                                                        width: double.infinity,
-                                                        height: double.infinity,
-                                                        fit: BoxFit.cover,
-                                                      ),
+                                      child: Container(
+                                        width: double.infinity,
+                                        child: TextFormField(
+                                          controller:
+                                              _model.remarkTextController,
+                                          focusNode: _model.remarkFocusNode,
+                                          autofocus: false,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            labelText: 'รายละเอียดเพิ่มเติม',
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      fontSize: 18.0,
+                                                      letterSpacing: 0.0,
                                                     ),
-                                                    Align(
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                              1.0, -1.0),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    4.0,
-                                                                    4.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            _model.isConfirm =
-                                                                await action_blocks
-                                                                    .confirmBlock(
-                                                              context,
-                                                              title:
-                                                                  'ต้องการลบรูป?',
-                                                            );
-                                                            if (_model
-                                                                .isConfirm!) {
-                                                              _model.removeFromTmpImageList(
-                                                                  imageListViewItem);
-                                                              safeSetState(
-                                                                  () {});
-                                                            }
-
-                                                            safeSetState(() {});
-                                                          },
-                                                          child: Icon(
-                                                            Icons
-                                                                .cancel_rounded,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            size: 24.0,
-                                                          ),
-                                                        ),
-                                                      ),
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      fontSize: 18.0,
+                                                      letterSpacing: 0.0,
                                                     ),
-                                                  ],
-                                                ),
-                                              );
-                                            }),
-                                          );
-                                        },
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            filled: true,
+                                            fillColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .info,
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 18.0,
+                                                letterSpacing: 0.0,
+                                              ),
+                                          maxLines: 5,
+                                          keyboardType: TextInputType.multiline,
+                                          cursorColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primaryText,
+                                          validator: _model
+                                              .remarkTextControllerValidator
+                                              .asValidator(context),
+                                        ),
                                       ),
                                     ),
-                                    FFButtonWidget(
-                                      onPressed: () async {
-                                        final selectedMedia =
-                                            await selectMediaWithSourceBottomSheet(
-                                          context: context,
-                                          allowPhoto: true,
-                                        );
-                                        if (selectedMedia != null &&
-                                            selectedMedia.every((m) =>
-                                                validateFileFormat(
-                                                    m.storagePath, context))) {
-                                          safeSetState(() =>
-                                              _model.isDataUploading = true);
-                                          var selectedUploadedFiles =
-                                              <FFUploadedFile>[];
-
-                                          try {
-                                            selectedUploadedFiles =
-                                                selectedMedia
-                                                    .map((m) => FFUploadedFile(
-                                                          name: m.storagePath
-                                                              .split('/')
-                                                              .last,
-                                                          bytes: m.bytes,
-                                                          height: m.dimensions
-                                                              ?.height,
-                                                          width: m.dimensions
-                                                              ?.width,
-                                                          blurHash: m.blurHash,
-                                                        ))
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 16.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 8.0),
+                                            child: Builder(
+                                              builder: (context) {
+                                                final imageListView = _model
+                                                    .tmpImageList
                                                     .toList();
-                                          } finally {
-                                            _model.isDataUploading = false;
-                                          }
-                                          if (selectedUploadedFiles.length ==
-                                              selectedMedia.length) {
-                                            safeSetState(() {
-                                              _model.uploadedLocalFile =
-                                                  selectedUploadedFiles.first;
-                                            });
-                                          } else {
-                                            safeSetState(() {});
-                                            return;
-                                          }
-                                        }
 
-                                        if (_model.uploadedLocalFile != null &&
-                                            (_model.uploadedLocalFile.bytes
-                                                    ?.isNotEmpty ??
-                                                false)) {
-                                          _model.addToTmpImageList(
-                                              _model.uploadedLocalFile);
-                                          safeSetState(() {});
-                                        }
-                                        safeSetState(() {
-                                          _model.isDataUploading = false;
-                                          _model.uploadedLocalFile =
-                                              FFUploadedFile(
-                                                  bytes:
-                                                      Uint8List.fromList([]));
-                                        });
-                                      },
-                                      text: 'แนบรูป',
-                                      icon: Icon(
-                                        Icons.image_rounded,
-                                        size: 22.0,
+                                                return Wrap(
+                                                  spacing: 8.0,
+                                                  runSpacing: 8.0,
+                                                  alignment:
+                                                      WrapAlignment.start,
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.start,
+                                                  direction: Axis.horizontal,
+                                                  runAlignment:
+                                                      WrapAlignment.start,
+                                                  verticalDirection:
+                                                      VerticalDirection.down,
+                                                  clipBehavior: Clip.none,
+                                                  children: List.generate(
+                                                      imageListView.length,
+                                                      (imageListViewIndex) {
+                                                    final imageListViewItem =
+                                                        imageListView[
+                                                            imageListViewIndex];
+                                                    return Container(
+                                                      width: 64.0,
+                                                      height: 64.0,
+                                                      child: Stack(
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.memory(
+                                                              imageListViewItem
+                                                                      .bytes ??
+                                                                  Uint8List
+                                                                      .fromList(
+                                                                          []),
+                                                              width: double
+                                                                  .infinity,
+                                                              height: double
+                                                                  .infinity,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    1.0, -1.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          4.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  _model.isConfirm =
+                                                                      await action_blocks
+                                                                          .confirmBlock(
+                                                                    context,
+                                                                    title:
+                                                                        'ต้องการลบรูป?',
+                                                                  );
+                                                                  if (_model
+                                                                      .isConfirm!) {
+                                                                    _model.removeFromTmpImageList(
+                                                                        imageListViewItem);
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  }
+
+                                                                  safeSetState(
+                                                                      () {});
+                                                                },
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .cancel_rounded,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .error,
+                                                                  size: 24.0,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    );
+                                                  }),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          FFButtonWidget(
+                                            onPressed: () async {
+                                              final selectedMedia =
+                                                  await selectMediaWithSourceBottomSheet(
+                                                context: context,
+                                                allowPhoto: true,
+                                              );
+                                              if (selectedMedia != null &&
+                                                  selectedMedia.every((m) =>
+                                                      validateFileFormat(
+                                                          m.storagePath,
+                                                          context))) {
+                                                safeSetState(() => _model
+                                                    .isDataUploading = true);
+                                                var selectedUploadedFiles =
+                                                    <FFUploadedFile>[];
+
+                                                try {
+                                                  selectedUploadedFiles =
+                                                      selectedMedia
+                                                          .map((m) =>
+                                                              FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                          .toList();
+                                                } finally {
+                                                  _model.isDataUploading =
+                                                      false;
+                                                }
+                                                if (selectedUploadedFiles
+                                                        .length ==
+                                                    selectedMedia.length) {
+                                                  safeSetState(() {
+                                                    _model.uploadedLocalFile =
+                                                        selectedUploadedFiles
+                                                            .first;
+                                                  });
+                                                } else {
+                                                  safeSetState(() {});
+                                                  return;
+                                                }
+                                              }
+
+                                              if (_model.uploadedLocalFile !=
+                                                      null &&
+                                                  (_model.uploadedLocalFile
+                                                          .bytes?.isNotEmpty ??
+                                                      false)) {
+                                                _model.addToTmpImageList(
+                                                    _model.uploadedLocalFile);
+                                                safeSetState(() {});
+                                              }
+                                              safeSetState(() {
+                                                _model.isDataUploading = false;
+                                                _model.uploadedLocalFile =
+                                                    FFUploadedFile(
+                                                        bytes:
+                                                            Uint8List.fromList(
+                                                                []));
+                                              });
+                                            },
+                                            text: 'แนบรูป',
+                                            icon: Icon(
+                                              Icons.image_rounded,
+                                              size: 22.0,
+                                            ),
+                                            options: FFButtonOptions(
+                                              height: 36.0,
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      16.0, 0.0, 16.0, 0.0),
+                                              iconPadding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              textStyle:
+                                                  FlutterFlowTheme.of(context)
+                                                      .titleSmall
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                              elevation: 0.0,
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                        ],
                                       ),
+                                    ),
+                                  ],
+                                ),
+                                Builder(
+                                  builder: (context) => Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 16.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        _model.urlList =
+                                            await actions.uploadImageToFirebase(
+                                          '${FFAppState().customerData.customerRef?.id}/${FFAppState().memberReference?.id}',
+                                          _model.tmpImageList.toList(),
+                                          false,
+                                        );
+
+                                        await SendListRecord.createDoc(_model
+                                                .workerReferenceResult!
+                                                .reference)
+                                            .set({
+                                          ...createSendListRecordData(
+                                            remark: _model
+                                                .remarkTextController.text,
+                                            sendDate: getCurrentTimestamp,
+                                            status: 1,
+                                          ),
+                                          ...mapToFirestore(
+                                            {
+                                              'image_list': _model.urlList,
+                                            },
+                                          ),
+                                        });
+
+                                        await _model
+                                            .workerReferenceResult!.reference
+                                            .update(createWorkerListRecordData(
+                                          status: 1,
+                                          updateDate: getCurrentTimestamp,
+                                          updateBy:
+                                              FFAppState().memberReference,
+                                        ));
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: InfoCustomViewWidget(
+                                                title: 'ส่งงานเรียบร้อยแล้ว',
+                                                status: 'success',
+                                                detail: 'รอผู้จ่ายงานตรวจสอบ',
+                                              ),
+                                            );
+                                          },
+                                        );
+
+                                        await actions.pushReplacement(
+                                          context,
+                                          null,
+                                        );
+
+                                        safeSetState(() {});
+                                      },
+                                      text: 'ส่งงาน',
                                       options: FFButtonOptions(
-                                        height: 36.0,
+                                        width: double.infinity,
+                                        height: 50.0,
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             16.0, 0.0, 16.0, 0.0),
                                         iconPadding:
@@ -970,7 +1107,7 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                             .override(
                                               fontFamily: 'Kanit',
                                               color: Colors.white,
-                                              fontSize: 14.0,
+                                              fontSize: 20.0,
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.normal,
                                             ),
@@ -979,96 +1116,10 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                             BorderRadius.circular(8.0),
                                       ),
                                     ),
-                                  ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          Builder(
-                            builder: (context) => Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 16.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  _model.urlList =
-                                      await actions.uploadImageToFirebase(
-                                    '${FFAppState().customerData.customerRef?.id}/${FFAppState().memberReference?.id}',
-                                    _model.tmpImageList.toList(),
-                                    false,
-                                  );
-
-                                  await SendListRecord.createDoc(_model
-                                          .workerReferenceResult!.reference)
-                                      .set({
-                                    ...createSendListRecordData(
-                                      remark: _model.remarkTextController.text,
-                                      sendDate: getCurrentTimestamp,
-                                      status: 1,
-                                    ),
-                                    ...mapToFirestore(
-                                      {
-                                        'image_list': _model.urlList,
-                                      },
-                                    ),
-                                  });
-
-                                  await _model.workerReferenceResult!.reference
-                                      .update(createWorkerListRecordData(
-                                    status: 1,
-                                    updateDate: getCurrentTimestamp,
-                                    updateBy: FFAppState().memberReference,
-                                  ));
-                                  await showDialog(
-                                    context: context,
-                                    builder: (dialogContext) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        insetPadding: EdgeInsets.zero,
-                                        backgroundColor: Colors.transparent,
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        child: InfoCustomViewWidget(
-                                          title: 'ส่งงานเรียบร้อยแล้ว',
-                                          status: 'success',
-                                          detail: 'รอผู้จ่ายงานตรวจสอบ',
-                                        ),
-                                      );
-                                    },
-                                  );
-
-                                  await actions.pushReplacement(
-                                    context,
-                                    null,
-                                  );
-
-                                  safeSetState(() {});
-                                },
-                                text: 'ส่งงาน',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
+                              ],
                             ),
-                          ),
                         ],
                       ),
                     ),
