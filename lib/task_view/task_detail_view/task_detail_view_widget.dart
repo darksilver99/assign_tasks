@@ -644,7 +644,7 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                               safeSetState(() {});
                                             },
                                             child: Text(
-                                              'ดูรายละเอียด ',
+                                              'รายละเอียด ',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

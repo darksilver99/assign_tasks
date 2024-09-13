@@ -99,7 +99,7 @@ class _ReplyDetailViewWidgetState extends State<ReplyDetailViewWidget> {
                         children: [
                           Expanded(
                             child: Text(
-                              'หมายเหตุ',
+                              'รายละเอียดการตอบกลับ',
                               textAlign: TextAlign.start,
                               maxLines: 1,
                               style: FlutterFlowTheme.of(context)
@@ -114,49 +114,51 @@ class _ReplyDetailViewWidgetState extends State<ReplyDetailViewWidget> {
                           ),
                         ],
                       ),
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                        child: Container(
-                          width: double.infinity,
-                          constraints: BoxConstraints(
-                            minHeight: 100.0,
-                          ),
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).alternate2,
-                            borderRadius: BorderRadius.circular(8.0),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).alternate,
-                              width: 1.0,
+                      if (widget!.sendDocument?.reply != null &&
+                          widget!.sendDocument?.reply != '')
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Container(
+                            width: double.infinity,
+                            constraints: BoxConstraints(
+                              minHeight: 100.0,
                             ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'รายละเอียด : ${valueOrDefault<String>(
-                                      widget!.sendDocument?.reply,
-                                      '-',
-                                    )}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Kanit',
-                                          fontSize: 20.0,
-                                          letterSpacing: 0.0,
-                                          fontWeight: FontWeight.w300,
-                                        ),
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context).alternate2,
+                              borderRadius: BorderRadius.circular(8.0),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).alternate,
+                                width: 1.0,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      'รายละเอียด : ${valueOrDefault<String>(
+                                        widget!.sendDocument?.reply,
+                                        '-',
+                                      )}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 20.0,
+                                            letterSpacing: 0.0,
+                                            fontWeight: FontWeight.w300,
+                                          ),
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
                       if (widget!.sendDocument?.imageReplyList != null &&
                           (widget!.sendDocument?.imageReplyList)!.isNotEmpty)
                         Padding(
