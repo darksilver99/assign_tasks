@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/task_view/own_task_name_view/own_task_name_view_widget.dart';
 import '/task_view/reply_detail_view/reply_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
@@ -440,6 +441,26 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                               letterSpacing: 0.0,
                                               fontWeight: FontWeight.w300,
                                             ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: wrapWithModel(
+                                        model: _model.ownTaskNameViewModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: OwnTaskNameViewWidget(
+                                          memberReference:
+                                              widget!.taskDocument!.createBy!,
+                                        ),
                                       ),
                                     ),
                                   ],
