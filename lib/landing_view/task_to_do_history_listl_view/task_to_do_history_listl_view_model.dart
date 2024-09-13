@@ -77,20 +77,15 @@ class TaskToDoHistoryListlViewModel
     while (taskIndex < taskListResult!.length) {
       FFAppState().tmpTaskReference = taskListResult?[taskIndex]?.reference;
       myTaskToDoListResult = await queryWorkerListRecordOnce(
-        queryBuilder: (workerListRecord) => workerListRecord
-            .where(
-              'member_ref',
-              isEqualTo: FFAppState().memberReference,
-            )
-            .where(
-              'status',
-              isEqualTo: 3,
-            ),
+        queryBuilder: (workerListRecord) => workerListRecord.where(
+          'member_ref',
+          isEqualTo: FFAppState().memberReference,
+        ),
         singleRecord: true,
       ).then((s) => s.firstOrNull);
       if (myTaskToDoListResult != null) {
         addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
-          status: taskListResult?[taskIndex]?.status,
+          status: myTaskToDoListResult?.status,
           taskReference: taskListResult?[taskIndex]?.reference,
           subject: taskListResult?[taskIndex]?.subject,
           detail: taskListResult?[taskIndex]?.detail,
