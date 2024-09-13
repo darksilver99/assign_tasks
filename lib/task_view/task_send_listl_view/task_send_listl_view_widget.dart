@@ -472,10 +472,9 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                                                 if ((widget!.taskDocument
                                                                             ?.status ==
                                                                         1) &&
-                                                                    ((columnWorkerListRecord.status ==
-                                                                            0) ||
-                                                                        (columnWorkerListRecord.status ==
-                                                                            4))) {
+                                                                    (columnWorkerListRecord
+                                                                            .status ==
+                                                                        0)) {
                                                                   return Text(
                                                                     'ไม่ได้ส่งงาน',
                                                                     style: FlutterFlowTheme.of(
