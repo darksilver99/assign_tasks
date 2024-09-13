@@ -193,3 +193,23 @@ List<TaskListRecord> getStillWorkTaskList(List<TaskListRecord> taskList) {
       .where((task) => task.status == 0 || task.status == 1 || task.status == 4)
       .toList();
 }
+
+String compareDates(
+  DateTime date1,
+  DateTime date2,
+) {
+// Convert both dates to just the year, month, and day (ignoring time)
+  DateTime onlyDate1 = DateTime(date1.year, date1.month, date1.day);
+  DateTime onlyDate2 = DateTime(date2.year, date2.month, date2.day);
+
+  // Calculate the difference in days
+  int difference = onlyDate1.difference(onlyDate2).inDays;
+
+  if (difference == 0) {
+    return "วันนี้"; // "Today"
+  } else if (difference > 0) {
+    return "เกิน ${difference} วัน"; // "Exceeded by n days"
+  } else {
+    return "เหลือ ${difference.abs()} วัน"; // "Remaining n days"
+  }
+}

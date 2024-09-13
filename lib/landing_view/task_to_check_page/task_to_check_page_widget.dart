@@ -256,7 +256,7 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                     children: [
                                                       Expanded(
                                                         child: Text(
-                                                          '(กำหนดส่ง ${functions.dateTh(listViewTaskListRecord.endDate)})',
+                                                          '(กำหนดส่ง ${functions.dateTh(listViewTaskListRecord.endDate)} ${functions.compareDates(getCurrentTimestamp, listViewTaskListRecord.endDate!)})',
                                                           textAlign:
                                                               TextAlign.start,
                                                           maxLines: 1,

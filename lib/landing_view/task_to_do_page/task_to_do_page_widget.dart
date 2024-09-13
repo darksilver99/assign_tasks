@@ -310,7 +310,7 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                                 children: [
                                                   Expanded(
                                                     child: Text(
-                                                      ' (กำหนดส่ง ${functions.dateTh(taskListItem.endDate)})',
+                                                      ' (กำหนดส่ง ${functions.dateTh(taskListItem.endDate)} ${functions.compareDates(getCurrentTimestamp, taskListItem.endDate!)})',
                                                       textAlign: TextAlign.end,
                                                       style: FlutterFlowTheme
                                                               .of(context)
