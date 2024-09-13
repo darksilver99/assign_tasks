@@ -55,6 +55,7 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
             sendListRecord.orderBy('send_date', descending: true),
       );
       _model.sendList = _model.sendListResult!.toList().cast<SendListRecord>();
+      _model.isLoading = false;
       safeSetState(() {});
     });
   }
@@ -110,315 +111,78 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                 ],
               ),
             ),
-            Expanded(
-              child: Builder(
-                builder: (context) {
-                  if (_model.sendList.isNotEmpty) {
-                    return Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Builder(
-                                        builder: (context) {
-                                          if (_model.sendList.length > 1) {
-                                            return Text(
-                                              'รายละเอียดการส่งงาน (รอบ ${_model.sendList.length.toString()})',
-                                              textAlign: TextAlign.start,
-                                              maxLines: 1,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 22.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            );
-                                          } else {
-                                            return Text(
-                                              'รายละเอียดการส่งงาน',
-                                              textAlign: TextAlign.start,
-                                              maxLines: 1,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 22.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            );
-                                          }
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                if (_model.sendList.first.remark != null &&
-                                    _model.sendList.first.remark != '')
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      constraints: BoxConstraints(
-                                        minHeight: 100.0,
-                                      ),
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate2,
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Expanded(
-                                              child: Text(
-                                                'รายละเอียด : ${valueOrDefault<String>(
-                                                  _model.sendList.first.remark,
-                                                  '-',
-                                                )}',
+            if (!_model.isLoading)
+              Expanded(
+                child: Builder(
+                  builder: (context) {
+                    if (_model.sendList.isNotEmpty) {
+                      return Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Builder(
+                                          builder: (context) {
+                                            if (_model.sendList.length > 1) {
+                                              return Text(
+                                                'รายละเอียดการส่งงาน (รอบ ${_model.sendList.length.toString()})',
+                                                textAlign: TextAlign.start,
+                                                maxLines: 1,
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Kanit',
-                                                          fontSize: 20.0,
+                                                          fontSize: 22.0,
                                                           letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                if (_model.sendList.first.imageList.isNotEmpty)
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate2,
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        border: Border.all(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          width: 1.0,
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'รูปแนบ : ',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        fontWeight:
-                                                            FontWeight.w300,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                            Builder(
-                                              builder: (context) {
-                                                final imageList = _model
-                                                    .sendList.first.imageList
-                                                    .toList();
-
-                                                return Wrap(
-                                                  spacing: 8.0,
-                                                  runSpacing: 8.0,
-                                                  alignment:
-                                                      WrapAlignment.start,
-                                                  crossAxisAlignment:
-                                                      WrapCrossAlignment.start,
-                                                  direction: Axis.horizontal,
-                                                  runAlignment:
-                                                      WrapAlignment.start,
-                                                  verticalDirection:
-                                                      VerticalDirection.down,
-                                                  clipBehavior: Clip.none,
-                                                  children: List.generate(
-                                                      imageList.length,
-                                                      (imageListIndex) {
-                                                    final imageListItem =
-                                                        imageList[
-                                                            imageListIndex];
-                                                    return InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        await Navigator.push(
-                                                          context,
-                                                          PageTransition(
-                                                            type:
-                                                                PageTransitionType
-                                                                    .fade,
-                                                            child:
-                                                                FlutterFlowExpandedImageView(
-                                                              image:
-                                                                  Image.network(
-                                                                imageListItem,
-                                                                fit: BoxFit
-                                                                    .contain,
-                                                              ),
-                                                              allowRotation:
-                                                                  false,
-                                                              tag:
-                                                                  imageListItem,
-                                                              useHeroAnimation:
-                                                                  true,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      child: Hero(
-                                                        tag: imageListItem,
-                                                        transitionOnUserGestures:
-                                                            true,
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child: Image.network(
-                                                            imageListItem,
-                                                            width: 60.0,
-                                                            height: 60.0,
-                                                            fit: BoxFit.cover,
-                                                          ),
+                                              );
+                                            } else {
+                                              return Text(
+                                                'รายละเอียดการส่งงาน',
+                                                textAlign: TextAlign.start,
+                                                maxLines: 1,
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 22.0,
+                                                          letterSpacing: 0.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                         ),
-                                                      ),
-                                                    );
-                                                  }),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 4.0, 0.0),
-                                        child: Icon(
-                                          Icons.access_time_rounded,
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                          size: 24.0,
-                                        ),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                          'วันที่ส่งงาน : ${functions.dateTimeTh(_model.sendList.first.sendDate)}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                fontSize: 16.0,
-                                                letterSpacing: 0.0,
-                                                fontWeight: FontWeight.w300,
-                                              ),
+                                              );
+                                            }
+                                          },
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                                if (_model.sendList.length > 1)
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        _model.sendListWithOutFirstIndex =
-                                            _model.sendList
-                                                .toList()
-                                                .cast<SendListRecord>();
-                                        _model
-                                            .removeAtIndexFromSendListWithOutFirstIndex(
-                                                0);
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          useSafeArea: true,
-                                          context: context,
-                                          builder: (context) {
-                                            return Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child:
-                                                  TaskSendHistoryListViewWidget(
-                                                sendDocumentList: _model
-                                                    .sendListWithOutFirstIndex,
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => safeSetState(() {}));
-                                      },
+                                  if (_model.sendList.first.remark != null &&
+                                      _model.sendList.first.remark != '')
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
                                       child: Container(
                                         width: double.infinity,
+                                        constraints: BoxConstraints(
+                                          minHeight: 100.0,
+                                        ),
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
+                                              .alternate2,
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                           border: Border.all(
@@ -428,266 +192,458 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                           ),
                                         ),
                                         child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 16.0, 8.0, 16.0),
+                                          padding: EdgeInsets.all(8.0),
                                           child: Row(
-                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 4.0, 0.0),
-                                                child: Icon(
-                                                  Icons.history_rounded,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 24.0,
-                                                ),
-                                              ),
                                               Expanded(
                                                 child: Text(
-                                                  'ประวัติการส่งงานรอบก่อนหน้า',
+                                                  'รายละเอียด : ${valueOrDefault<String>(
+                                                    _model
+                                                        .sendList.first.remark,
+                                                    '-',
+                                                  )}',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Kanit',
-                                                        fontSize: 16.0,
+                                                        fontSize: 20.0,
                                                         letterSpacing: 0.0,
                                                       ),
                                                 ),
                                               ),
-                                              Icon(
-                                                Icons.navigate_next_rounded,
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                size: 24.0,
-                                              ),
                                             ],
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 4.0, 0.0, 8.0),
-                              child: Container(
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(8.0),
-                                  border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 16.0, 8.0, 16.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: RichText(
-                                          textScaler:
-                                              MediaQuery.of(context).textScaler,
-                                          text: TextSpan(
+                                  if (_model
+                                      .sendList.first.imageList.isNotEmpty)
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate2,
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                        ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(8.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              TextSpan(
-                                                text: 'สถานะ : ',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'รูปแนบ : ',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Kanit',
-                                                          fontSize: 18.0,
+                                                          fontSize: 16.0,
                                                           letterSpacing: 0.0,
                                                           fontWeight:
-                                                              FontWeight.normal,
+                                                              FontWeight.w300,
                                                         ),
+                                                  ),
+                                                ],
                                               ),
-                                              TextSpan(
-                                                text: valueOrDefault<String>(
-                                                  functions.getStatusText(
-                                                      widget!.workerDocument!
-                                                          .status,
-                                                      FFAppState()
-                                                          .taskWorkerStatusList
-                                                          .toList()),
-                                                  '-',
-                                                ),
-                                                style: TextStyle(
-                                                  color: () {
-                                                    if (widget!.workerDocument
-                                                            ?.status ==
-                                                        0) {
-                                                      return FlutterFlowTheme
-                                                              .of(context)
-                                                          .accent1;
-                                                    } else if (widget!
-                                                            .workerDocument
-                                                            ?.status ==
-                                                        1) {
-                                                      return FlutterFlowTheme
-                                                              .of(context)
-                                                          .tertiary;
-                                                    } else if (widget!
-                                                            .workerDocument
-                                                            ?.status ==
-                                                        3) {
-                                                      return FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondary;
-                                                    } else if (widget!
-                                                            .workerDocument
-                                                            ?.status ==
-                                                        4) {
-                                                      return FlutterFlowTheme
-                                                              .of(context)
-                                                          .error;
-                                                    } else {
-                                                      return FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryText;
-                                                    }
-                                                  }(),
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18.0,
-                                                ),
-                                              )
+                                              Builder(
+                                                builder: (context) {
+                                                  final imageList = _model
+                                                      .sendList.first.imageList
+                                                      .toList();
+
+                                                  return Wrap(
+                                                    spacing: 8.0,
+                                                    runSpacing: 8.0,
+                                                    alignment:
+                                                        WrapAlignment.start,
+                                                    crossAxisAlignment:
+                                                        WrapCrossAlignment
+                                                            .start,
+                                                    direction: Axis.horizontal,
+                                                    runAlignment:
+                                                        WrapAlignment.start,
+                                                    verticalDirection:
+                                                        VerticalDirection.down,
+                                                    clipBehavior: Clip.none,
+                                                    children: List.generate(
+                                                        imageList.length,
+                                                        (imageListIndex) {
+                                                      final imageListItem =
+                                                          imageList[
+                                                              imageListIndex];
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          await Navigator.push(
+                                                            context,
+                                                            PageTransition(
+                                                              type:
+                                                                  PageTransitionType
+                                                                      .fade,
+                                                              child:
+                                                                  FlutterFlowExpandedImageView(
+                                                                image: Image
+                                                                    .network(
+                                                                  imageListItem,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                                allowRotation:
+                                                                    false,
+                                                                tag:
+                                                                    imageListItem,
+                                                                useHeroAnimation:
+                                                                    true,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        },
+                                                        child: Hero(
+                                                          tag: imageListItem,
+                                                          transitionOnUserGestures:
+                                                              true,
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child:
+                                                                Image.network(
+                                                              imageListItem,
+                                                              width: 60.0,
+                                                              height: 60.0,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }),
+                                                  );
+                                                },
+                                              ),
                                             ],
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Kanit',
-                                                  letterSpacing: 0.0,
-                                                ),
                                           ),
                                         ),
                                       ),
-                                      if ((_model.sendList.first.status == 3) ||
-                                          (_model.sendList.first.status == 4))
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              useSafeArea: true,
-                                              context: context,
-                                              builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: ReplyDetailViewWidget(
-                                                    sendDocument:
-                                                        _model.sendList.first,
-                                                  ),
-                                                );
-                                              },
-                                            ).then(
-                                                (value) => safeSetState(() {}));
-                                          },
+                                    ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 4.0, 0.0),
+                                          child: Icon(
+                                            Icons.access_time_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ),
+                                        Expanded(
                                           child: Text(
-                                            'รายละเอียด',
+                                            'วันที่ส่งงาน : ${functions.dateTimeTh(_model.sendList.first.sendDate)}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Kanit',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
+                                                  fontSize: 16.0,
                                                   letterSpacing: 0.0,
-                                                  decoration:
-                                                      TextDecoration.underline,
+                                                  fontWeight: FontWeight.w300,
                                                 ),
                                           ),
                                         ),
-                                    ],
+                                      ],
+                                    ),
+                                  ),
+                                  if (_model.sendList.length > 1)
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          _model.sendListWithOutFirstIndex =
+                                              _model.sendList
+                                                  .toList()
+                                                  .cast<SendListRecord>();
+                                          _model
+                                              .removeAtIndexFromSendListWithOutFirstIndex(
+                                                  0);
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            useSafeArea: true,
+                                            context: context,
+                                            builder: (context) {
+                                              return Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child:
+                                                    TaskSendHistoryListViewWidget(
+                                                  sendDocumentList: _model
+                                                      .sendListWithOutFirstIndex,
+                                                ),
+                                              );
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
+                                        child: Container(
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              width: 1.0,
+                                            ),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 16.0, 8.0, 16.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 4.0, 0.0),
+                                                  child: Icon(
+                                                    Icons.history_rounded,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 24.0,
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Text(
+                                                    'ประวัติการส่งงานรอบก่อนหน้า',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 16.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                                Icon(
+                                                  Icons.navigate_next_rounded,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                  size: 24.0,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 4.0, 0.0, 8.0),
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    border: Border.all(
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 16.0, 8.0, 16.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: RichText(
+                                            textScaler: MediaQuery.of(context)
+                                                .textScaler,
+                                            text: TextSpan(
+                                              children: [
+                                                TextSpan(
+                                                  text: 'สถานะ : ',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 18.0,
+                                                        letterSpacing: 0.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                ),
+                                                TextSpan(
+                                                  text: valueOrDefault<String>(
+                                                    functions.getStatusText(
+                                                        widget!.workerDocument!
+                                                            .status,
+                                                        FFAppState()
+                                                            .taskWorkerStatusList
+                                                            .toList()),
+                                                    '-',
+                                                  ),
+                                                  style: TextStyle(
+                                                    color: () {
+                                                      if (widget!.workerDocument
+                                                              ?.status ==
+                                                          0) {
+                                                        return FlutterFlowTheme
+                                                                .of(context)
+                                                            .accent1;
+                                                      } else if (widget!
+                                                              .workerDocument
+                                                              ?.status ==
+                                                          1) {
+                                                        return FlutterFlowTheme
+                                                                .of(context)
+                                                            .tertiary;
+                                                      } else if (widget!
+                                                              .workerDocument
+                                                              ?.status ==
+                                                          3) {
+                                                        return FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondary;
+                                                      } else if (widget!
+                                                              .workerDocument
+                                                              ?.status ==
+                                                          4) {
+                                                        return FlutterFlowTheme
+                                                                .of(context)
+                                                            .error;
+                                                      } else {
+                                                        return FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryText;
+                                                      }
+                                                    }(),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18.0,
+                                                  ),
+                                                )
+                                              ],
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ),
+                                        if ((_model.sendList.first.status ==
+                                                3) ||
+                                            (_model.sendList.first.status == 4))
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await showModalBottomSheet(
+                                                isScrollControlled: true,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                enableDrag: false,
+                                                useSafeArea: true,
+                                                context: context,
+                                                builder: (context) {
+                                                  return Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child:
+                                                        ReplyDetailViewWidget(
+                                                      sendDocument:
+                                                          _model.sendList.first,
+                                                    ),
+                                                  );
+                                                },
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
+                                            },
+                                            child: Text(
+                                              'รายละเอียด',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                        letterSpacing: 0.0,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            if ((widget!.workerDocument?.status == 1) ||
-                                (widget!.workerDocument?.status == 3))
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Expanded(
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        await showModalBottomSheet(
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          enableDrag: false,
-                                          useSafeArea: true,
-                                          context: context,
-                                          builder: (context) {
-                                            return Padding(
-                                              padding: MediaQuery.viewInsetsOf(
-                                                  context),
-                                              child: ReplyViewWidget(
-                                                isPass: false,
-                                                workerDocument:
-                                                    widget!.workerDocument!,
-                                                sendDocument:
-                                                    _model.sendList.first,
-                                              ),
-                                            );
-                                          },
-                                        ).then((value) => safeSetState(
-                                            () => _model.isUpdate2 = value));
-
-                                        if ((_model.isUpdate2 != null &&
-                                                _model.isUpdate2 != '') &&
-                                            (_model.isUpdate2 == 'update')) {
-                                          Navigator.pop(context);
-                                        }
-
-                                        safeSetState(() {});
-                                      },
-                                      text: 'ไม่ผ่าน',
-                                      options: FFButtonOptions(
-                                        width: double.infinity,
-                                        height: 50.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 0.0, 16.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              color: Colors.white,
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                        elevation: 0.0,
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                      ),
-                                    ),
-                                  ),
-                                  if (widget!.workerDocument?.status != 3)
+                              if ((widget!.workerDocument?.status == 1) ||
+                                  (widget!.workerDocument?.status == 3))
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
                                     Expanded(
                                       child: FFButtonWidget(
                                         onPressed: () async {
@@ -703,7 +659,7 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                                     MediaQuery.viewInsetsOf(
                                                         context),
                                                 child: ReplyViewWidget(
-                                                  isPass: true,
+                                                  isPass: false,
                                                   workerDocument:
                                                       widget!.workerDocument!,
                                                   sendDocument:
@@ -712,17 +668,17 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                               );
                                             },
                                           ).then((value) => safeSetState(
-                                              () => _model.isUpdate = value));
+                                              () => _model.isUpdate2 = value));
 
-                                          if ((_model.isUpdate != null &&
-                                                  _model.isUpdate != '') &&
-                                              (_model.isUpdate == 'update')) {
+                                          if ((_model.isUpdate2 != null &&
+                                                  _model.isUpdate2 != '') &&
+                                              (_model.isUpdate2 == 'update')) {
                                             Navigator.pop(context);
                                           }
 
                                           safeSetState(() {});
                                         },
-                                        text: 'เสร็จสิ้น',
+                                        text: 'ไม่ผ่าน',
                                         options: FFButtonOptions(
                                           width: double.infinity,
                                           height: 50.0,
@@ -733,7 +689,7 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 0.0, 0.0, 0.0),
                                           color: FlutterFlowTheme.of(context)
-                                              .success,
+                                              .error,
                                           textStyle:
                                               FlutterFlowTheme.of(context)
                                                   .titleSmall
@@ -751,78 +707,143 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                         ),
                                       ),
                                     ),
+                                    if (widget!.workerDocument?.status != 3)
+                                      Expanded(
+                                        child: FFButtonWidget(
+                                          onPressed: () async {
+                                            await showModalBottomSheet(
+                                              isScrollControlled: true,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              enableDrag: false,
+                                              useSafeArea: true,
+                                              context: context,
+                                              builder: (context) {
+                                                return Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: ReplyViewWidget(
+                                                    isPass: true,
+                                                    workerDocument:
+                                                        widget!.workerDocument!,
+                                                    sendDocument:
+                                                        _model.sendList.first,
+                                                  ),
+                                                );
+                                              },
+                                            ).then((value) => safeSetState(
+                                                () => _model.isUpdate = value));
+
+                                            if ((_model.isUpdate != null &&
+                                                    _model.isUpdate != '') &&
+                                                (_model.isUpdate == 'update')) {
+                                              Navigator.pop(context);
+                                            }
+
+                                            safeSetState(() {});
+                                          },
+                                          text: 'เสร็จสิ้น',
+                                          options: FFButtonOptions(
+                                            width: double.infinity,
+                                            height: 50.0,
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    16.0, 0.0, 16.0, 0.0),
+                                            iconPadding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 0.0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .success,
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .titleSmall
+                                                    .override(
+                                                      fontFamily: 'Kanit',
+                                                      color: Colors.white,
+                                                      fontSize: 20.0,
+                                                      letterSpacing: 0.0,
+                                                      fontWeight:
+                                                          FontWeight.normal,
+                                                    ),
+                                            elevation: 0.0,
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                            ],
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Builder(
+                        builder: (context) {
+                          if (widget!.taskDocument?.status == 1) {
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.error_rounded,
+                                    color: FlutterFlowTheme.of(context).error,
+                                    size: 64.0,
+                                  ),
+                                  Text(
+                                    'พนักงานยังไม่ได้เริ่มทำงาน',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          fontSize: 22.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
                                 ],
                               ),
-                          ],
-                        ),
-                      ),
-                    );
-                  } else {
-                    return Builder(
-                      builder: (context) {
-                        if (widget!.taskDocument?.status == 1) {
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.error_rounded,
-                                  color: FlutterFlowTheme.of(context).error,
-                                  size: 64.0,
-                                ),
-                                Text(
-                                  'พนักงานยังไม่ได้เริ่มทำงาน',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        fontSize: 22.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          );
-                        } else {
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.settings_rounded,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  size: 64.0,
-                                ),
-                                Text(
-                                  'พนักงานกำลังทำงาน',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        fontSize: 22.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
-                    );
-                  }
-                },
+                            );
+                          } else {
+                            return Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 0.0, 16.0, 0.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.settings_rounded,
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 64.0,
+                                  ),
+                                  Text(
+                                    'พนักงานกำลังทำงาน',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          fontSize: 22.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
-            ),
           ].addToStart(SizedBox(height: 16.0)).addToEnd(SizedBox(height: 32.0)),
         ),
       ),
