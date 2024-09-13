@@ -43,7 +43,10 @@ class _TaskToDoHistoryListlViewWidgetState
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.isLoading = true;
+      safeSetState(() {});
       await _model.iniTaskList(context);
+      _model.isLoading = false;
       safeSetState(() {});
     });
   }
@@ -146,7 +149,10 @@ class _TaskToDoHistoryListlViewWidgetState
                               functions.getDateByMonthAndYear(
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
+                          _model.isLoading = true;
+                          safeSetState(() {});
                           await _model.iniTaskList(context);
+                          _model.isLoading = false;
                           safeSetState(() {});
                         },
                         width: double.infinity,
@@ -200,7 +206,10 @@ class _TaskToDoHistoryListlViewWidgetState
                               functions.getDateByMonthAndYear(
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
+                          _model.isLoading = true;
+                          safeSetState(() {});
                           await _model.iniTaskList(context);
+                          _model.isLoading = false;
                           safeSetState(() {});
                         },
                         width: 300.0,
