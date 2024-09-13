@@ -164,7 +164,8 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0x00000000),
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
                                       width: 1.0,
                                     ),
                                     borderRadius: BorderRadius.circular(8.0),
@@ -191,8 +192,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                     borderRadius: BorderRadius.circular(8.0),
                                   ),
                                   filled: true,
-                                  fillColor:
-                                      FlutterFlowTheme.of(context).alternate,
+                                  fillColor: FlutterFlowTheme.of(context).info,
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -300,7 +300,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 8.0),
+                                16.0, 32.0, 16.0, 8.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
@@ -509,6 +509,10 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                   if (_shouldSetState) safeSetState(() {});
                                 },
                                 text: 'เข้าร่วมองค์กร',
+                                icon: Icon(
+                                  Icons.qr_code_rounded,
+                                  size: 28.0,
+                                ),
                                 options: FFButtonOptions(
                                   width: double.infinity,
                                   height: 50.0,
