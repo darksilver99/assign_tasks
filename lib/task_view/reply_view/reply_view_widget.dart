@@ -112,7 +112,7 @@ class _ReplyViewWidgetState extends State<ReplyViewWidget> {
                         children: [
                           Expanded(
                             child: Text(
-                              'หมายเหตุ',
+                              'ตอบกลับ',
                               textAlign: TextAlign.start,
                               maxLines: 1,
                               style: FlutterFlowTheme.of(context)
