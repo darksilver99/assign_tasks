@@ -357,6 +357,8 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                                               child: TaskSendViewWidget(
                                                 workerDocument:
                                                     columnWorkerListRecord,
+                                                taskDocument:
+                                                    widget!.taskDocument!,
                                               ),
                                             );
                                           },

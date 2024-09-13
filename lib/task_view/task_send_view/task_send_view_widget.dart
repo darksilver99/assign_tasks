@@ -23,9 +23,11 @@ class TaskSendViewWidget extends StatefulWidget {
   const TaskSendViewWidget({
     super.key,
     required this.workerDocument,
+    required this.taskDocument,
   });
 
   final WorkerListRecord? workerDocument;
+  final TaskListRecord? taskDocument;
 
   @override
   State<TaskSendViewWidget> createState() => _TaskSendViewWidgetState();
@@ -758,7 +760,7 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                   } else {
                     return Builder(
                       builder: (context) {
-                        if (widget!.workerDocument?.status == 1) {
+                        if (widget!.taskDocument?.status == 1) {
                           return Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
