@@ -571,8 +571,8 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                           ),
                                         ),
                                       ),
-                                      if ((_model.sendList.first.status != 3) &&
-                                          (_model.sendList.first.status != 4))
+                                      if ((_model.sendList.first.status == 3) &&
+                                          (_model.sendList.first.status == 4))
                                         InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,
@@ -601,7 +601,7 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                                 (value) => safeSetState(() {}));
                                           },
                                           child: Text(
-                                            'ราละเอียด',
+                                            'รายละเอียด',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
