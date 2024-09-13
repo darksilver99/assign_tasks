@@ -598,9 +598,12 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                             ),
                                           ),
                                         ),
-                                        if (_model.workerReferenceResult
-                                                ?.status ==
-                                            4)
+                                        if ((_model.workerReferenceResult
+                                                    ?.status ==
+                                                4) ||
+                                            (_model.workerReferenceResult
+                                                    ?.status ==
+                                                3))
                                           InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
