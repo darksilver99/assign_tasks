@@ -536,6 +536,17 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 4.0, 0.0),
+                                          child: Icon(
+                                            Icons.people_alt_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ),
                                         Expanded(
                                           child: Text(
                                             'ผู้ทำงาน ${FFAppState().memberReferenceSelected.length.toString()} คน',
@@ -549,7 +560,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                           ),
                                         ),
                                         Icon(
-                                          Icons.people_alt_rounded,
+                                          Icons.navigate_next_rounded,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           size: 24.0,
@@ -648,6 +659,17 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 4.0, 0.0),
+                                          child: Icon(
+                                            Icons.calendar_today_rounded,
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryText,
+                                            size: 24.0,
+                                          ),
+                                        ),
                                         if (_model.endDate != null)
                                           Expanded(
                                             child: Text(
@@ -663,7 +685,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                             ),
                                           ),
                                         Icon(
-                                          Icons.calendar_today_rounded,
+                                          Icons.navigate_next_rounded,
                                           color: FlutterFlowTheme.of(context)
                                               .primaryText,
                                           size: 24.0,

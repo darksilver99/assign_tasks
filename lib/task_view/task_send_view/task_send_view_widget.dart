@@ -408,68 +408,59 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                           },
                                         ).then((value) => safeSetState(() {}));
                                       },
-                                      child: Material(
-                                        color: Colors.transparent,
-                                        elevation: 3.0,
-                                        shape: RoundedRectangleBorder(
+                                      child: Container(
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                           borderRadius:
                                               BorderRadius.circular(8.0),
-                                        ),
-                                        child: Container(
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
+                                          border: Border.all(
                                             color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
+                                                .alternate,
+                                            width: 1.0,
                                           ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 16.0, 8.0, 16.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 4.0, 0.0),
-                                                  child: Icon(
-                                                    Icons.history_rounded,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
-                                                    size: 24.0,
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Text(
-                                                    'ประวัติการส่งงานรอบก่อนหน้า',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Kanit',
-                                                          fontSize: 16.0,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ),
-                                                Icon(
-                                                  Icons.navigate_next_rounded,
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  8.0, 16.0, 8.0, 16.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 4.0, 0.0),
+                                                child: Icon(
+                                                  Icons.history_rounded,
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .primaryText,
+                                                      .secondaryText,
                                                   size: 24.0,
                                                 ),
-                                              ],
-                                            ),
+                                              ),
+                                              Expanded(
+                                                child: Text(
+                                                  'ประวัติการส่งงานรอบก่อนหน้า',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 16.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                              Icon(
+                                                Icons.navigate_next_rounded,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                size: 24.0,
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ),
