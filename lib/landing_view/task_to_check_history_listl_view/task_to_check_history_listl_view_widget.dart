@@ -146,8 +146,10 @@ class _TaskToCheckHistoryListlViewWidgetState
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
                           safeSetState(
-                              () => _model.firestoreRequestCompleter = null);
-                          await _model.waitForFirestoreRequestCompleted();
+                              () => _model.firestoreRequestCompleter2 = null);
+                          safeSetState(
+                              () => _model.firestoreRequestCompleter1 = null);
+                          await _model.waitForFirestoreRequestCompleted1();
                         },
                         width: double.infinity,
                         height: 56.0,
@@ -201,8 +203,10 @@ class _TaskToCheckHistoryListlViewWidgetState
                                   _model.dropDownValue2!,
                                   _model.dropDownValue1!));
                           safeSetState(
-                              () => _model.firestoreRequestCompleter = null);
-                          await _model.waitForFirestoreRequestCompleted();
+                              () => _model.firestoreRequestCompleter2 = null);
+                          safeSetState(
+                              () => _model.firestoreRequestCompleter1 = null);
+                          await _model.waitForFirestoreRequestCompleted1();
                         },
                         width: 300.0,
                         height: 56.0,
@@ -236,25 +240,68 @@ class _TaskToCheckHistoryListlViewWidgetState
             ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    '${_model.totalTask.toString()} รายการ',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Kanit',
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          fontSize: 12.0,
-                          letterSpacing: 0.0,
+              child: FutureBuilder<int>(
+                future: (_model.firestoreRequestCompleter2 ??= Completer<int>()
+                      ..complete(queryTaskListRecordCount(
+                        parent: FFAppState().customerData.customerRef,
+                        queryBuilder: (taskListRecord) => taskListRecord
+                            .where(
+                              'create_by',
+                              isEqualTo: FFAppState().memberReference,
+                            )
+                            .where(
+                              'status',
+                              isEqualTo: 1,
+                            )
+                            .where(
+                              'create_date',
+                              isGreaterThanOrEqualTo: _model.startDate,
+                            )
+                            .where(
+                              'create_date',
+                              isLessThanOrEqualTo: _model.endDate,
+                            )
+                            .orderBy('create_date', descending: true),
+                      )))
+                    .future,
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50.0,
+                        height: 50.0,
+                        child: CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            FlutterFlowTheme.of(context).primary,
+                          ),
                         ),
-                  ),
-                ],
+                      ),
+                    );
+                  }
+                  int rowCount = snapshot.data!;
+
+                  return Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        '${rowCount.toString()} รายการ',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Kanit',
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              fontSize: 12.0,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
             if (!_model.isLoading)
               Expanded(
                 child: FutureBuilder<List<TaskListRecord>>(
-                  future: (_model.firestoreRequestCompleter ??=
+                  future: (_model.firestoreRequestCompleter1 ??=
                           Completer<List<TaskListRecord>>()
                             ..complete(queryTaskListRecordOnce(
                               parent: FFAppState().customerData.customerRef,

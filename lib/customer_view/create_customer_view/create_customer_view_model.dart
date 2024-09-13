@@ -22,6 +22,14 @@ class CreateCustomerViewModel
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Action Block - qrCodeBlock] action in Button widget.
+  String? qrCode;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  CustomerNameRecord? customerResult;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  MemberListRecord? memberDocumentResullt;
+  // Stores action output result for [Backend Call - Create Document] action in Button widget.
+  MemberListRecord? insertMember;
   // State field(s) for subject widget.
   FocusNode? subjectFocusNode;
   TextEditingController? subjectTextController;
@@ -36,14 +44,6 @@ class CreateCustomerViewModel
 
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   CustomerNameRecord? insertedCustomer;
-  // Stores action output result for [Action Block - qrCodeBlock] action in Button widget.
-  String? qrCode;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  CustomerNameRecord? customerResult;
-  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
-  MemberListRecord? memberDocumentResullt;
-  // Stores action output result for [Backend Call - Create Document] action in Button widget.
-  MemberListRecord? insertMember;
 
   @override
   void initState(BuildContext context) {
