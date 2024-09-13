@@ -95,13 +95,25 @@ class TaskToDoHistoryListlViewModel
         singleRecord: true,
       ).then((s) => s.firstOrNull);
       if (myTaskToDoListResult != null) {
-        addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
-          status: myTaskToDoListResult?.status,
-          taskReference: taskListResult?[taskIndex]?.reference,
-          subject: taskListResult?[taskIndex]?.subject,
-          detail: taskListResult?[taskIndex]?.detail,
-          endDate: taskListResult?[taskIndex]?.endDate,
-        ));
+        if (taskListResult?[taskIndex]?.status == 0) {
+          if (myTaskToDoListResult?.status == 3) {
+            addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
+              status: myTaskToDoListResult?.status,
+              taskReference: taskListResult?[taskIndex]?.reference,
+              subject: taskListResult?[taskIndex]?.subject,
+              detail: taskListResult?[taskIndex]?.detail,
+              endDate: taskListResult?[taskIndex]?.endDate,
+            ));
+          }
+        } else {
+          addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
+            status: myTaskToDoListResult?.status,
+            taskReference: taskListResult?[taskIndex]?.reference,
+            subject: taskListResult?[taskIndex]?.subject,
+            detail: taskListResult?[taskIndex]?.detail,
+            endDate: taskListResult?[taskIndex]?.endDate,
+          ));
+        }
       }
       taskIndex = taskIndex + 1;
     }
