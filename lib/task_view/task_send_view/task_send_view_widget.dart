@@ -165,52 +165,55 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                     ),
                                   ],
                                 ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 8.0),
-                                  child: Container(
-                                    width: double.infinity,
-                                    constraints: BoxConstraints(
-                                      minHeight: 100.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate2,
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        width: 1.0,
+                                if (_model.sendList.first.remark != null &&
+                                    _model.sendList.first.remark != '')
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: Container(
+                                      width: double.infinity,
+                                      constraints: BoxConstraints(
+                                        minHeight: 100.0,
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'รายละเอียด : ${valueOrDefault<String>(
-                                                _model.sendList.first.remark,
-                                                '-',
-                                              )}',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 20.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate2,
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          width: 1.0,
+                                        ),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Expanded(
+                                              child: Text(
+                                                'รายละเอียด : ${valueOrDefault<String>(
+                                                  _model.sendList.first.remark,
+                                                  '-',
+                                                )}',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          fontSize: 20.0,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                              ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                 if (_model.sendList.first.imageList.isNotEmpty)
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
