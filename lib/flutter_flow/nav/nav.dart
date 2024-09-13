@@ -106,11 +106,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => TestPageWidget(),
         ),
         FFRoute(
-          name: 'ProfilePage',
-          path: '/profilePage',
+          name: 'MorePage',
+          path: '/morePage',
           builder: (context, params) => params.isEmpty
-              ? NavBarPage(initialPage: 'ProfilePage')
-              : ProfilePageWidget(),
+              ? NavBarPage(initialPage: 'MorePage')
+              : MorePageWidget(),
         ),
         FFRoute(
           name: 'ScanAndUploadQRCodePage',

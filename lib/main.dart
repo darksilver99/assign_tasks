@@ -130,7 +130,7 @@ class _NavBarPageState extends State<NavBarPage> {
     final tabs = {
       'TaskToDoPage': TaskToDoPageWidget(),
       'TaskToCheckPage': TaskToCheckPageWidget(),
-      'ProfilePage': ProfilePageWidget(),
+      'MorePage': MorePageWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
 
@@ -167,10 +167,10 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.account_circle_outlined,
+              Icons.settings_outlined,
               size: 24.0,
             ),
-            label: 'โปรไฟล์',
+            label: 'เพิ่มเติม',
             tooltip: '',
           )
         ],
