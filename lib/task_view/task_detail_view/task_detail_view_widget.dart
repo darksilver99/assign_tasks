@@ -675,7 +675,7 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                             thickness: 2.0,
                             color: FlutterFlowTheme.of(context).alternate,
                           ),
-                          if ((_model.workerReferenceResult?.status != 3) ||
+                          if ((_model.workerReferenceResult?.status != 3) &&
                               (widget!.taskDocument?.status == 0))
                             Column(
                               mainAxisSize: MainAxisSize.max,
