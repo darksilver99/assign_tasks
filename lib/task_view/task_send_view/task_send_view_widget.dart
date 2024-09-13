@@ -346,6 +346,16 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.center,
                                     children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 4.0, 0.0),
+                                        child: Icon(
+                                          Icons.access_time_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          size: 24.0,
+                                        ),
+                                      ),
                                       Expanded(
                                         child: Text(
                                           'วันที่ส่งงาน : ${functions.dateTimeTh(_model.sendList.first.sendDate)}',

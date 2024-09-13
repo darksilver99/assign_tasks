@@ -277,6 +277,16 @@ class _ReplyDetailViewWidgetState extends State<ReplyDetailViewWidget> {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 4.0, 0.0),
+                              child: Icon(
+                                Icons.access_time_rounded,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
+                              ),
+                            ),
                             Expanded(
                               child: Text(
                                 'วันที่ตอบกลับ : ${functions.dateTimeTh(widget!.sendDocument?.replyDate)}',
