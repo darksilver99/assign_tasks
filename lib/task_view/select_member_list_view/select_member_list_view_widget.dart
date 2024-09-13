@@ -73,18 +73,21 @@ class _SelectMemberListViewWidgetState
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(
-                          Icons.close_rounded,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 32.0,
+                      Opacity(
+                        opacity: 0.0,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            Navigator.pop(context);
+                          },
+                          child: Icon(
+                            Icons.close_rounded,
+                            color: FlutterFlowTheme.of(context).secondaryText,
+                            size: 32.0,
+                          ),
                         ),
                       ),
                     ],
@@ -112,6 +115,34 @@ class _SelectMemberListViewWidgetState
                                       fontSize: 22.0,
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                _model.isLoading = true;
+                                safeSetState(() {});
+                                FFAppState().memberReferenceSelected = [];
+                                await Future.delayed(
+                                    const Duration(milliseconds: 100));
+                                _model.isSelectedAll = false;
+                                _model.isLoading = false;
+                                safeSetState(() {});
+                              },
+                              child: Text(
+                                'X ล้างค่า',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Kanit',
+                                      color: FlutterFlowTheme.of(context).error,
+                                      letterSpacing: 0.0,
+                                      fontWeight: FontWeight.w600,
+                                      decoration: TextDecoration.underline,
                                     ),
                               ),
                             ),
@@ -200,42 +231,6 @@ class _SelectMemberListViewWidgetState
                             _model.isLoading = true;
                             safeSetState(() {});
                             FFAppState().memberReferenceSelected = [];
-                            await Future.delayed(
-                                const Duration(milliseconds: 100));
-                            _model.isSelectedAll = false;
-                            _model.isLoading = false;
-                            safeSetState(() {});
-                          },
-                          text: 'ไม่เลือกทั้งหมด',
-                          options: FFButtonOptions(
-                            height: 40.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 0.0, 16.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).error,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .titleSmall
-                                .override(
-                                  fontFamily: 'Kanit',
-                                  color: Colors.white,
-                                  letterSpacing: 0.0,
-                                ),
-                            elevation: 0.0,
-                            borderRadius: BorderRadius.circular(8.0),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () async {
-                            _model.isLoading = true;
-                            safeSetState(() {});
-                            FFAppState().memberReferenceSelected = [];
                             _model.memberListResult =
                                 await queryMemberListRecordOnce(
                               parent: FFAppState().customerData.customerRef,
@@ -253,17 +248,48 @@ class _SelectMemberListViewWidgetState
                           },
                           text: 'เลือกทั้งหมด',
                           options: FFButtonOptions(
-                            height: 40.0,
+                            height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
-                            color: FlutterFlowTheme.of(context).secondary,
+                            color: FlutterFlowTheme.of(context).tertiary,
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
                                   fontFamily: 'Kanit',
                                   color: Colors.white,
+                                  fontSize: 20.0,
+                                  letterSpacing: 0.0,
+                                ),
+                            elevation: 0.0,
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                          text: 'ยืนยัน',
+                          options: FFButtonOptions(
+                            height: 50.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).success,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .titleSmall
+                                .override(
+                                  fontFamily: 'Kanit',
+                                  color: Colors.white,
+                                  fontSize: 20.0,
                                   letterSpacing: 0.0,
                                 ),
                             elevation: 0.0,
