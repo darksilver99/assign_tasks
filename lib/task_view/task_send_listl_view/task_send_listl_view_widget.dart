@@ -532,58 +532,59 @@ class _TaskSendListlViewWidgetState extends State<TaskSendListlViewWidget> {
                           ],
                         ),
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 4.0, 0.0),
-                              child: FFButtonWidget(
-                                onPressed: () async {
-                                  _model.isConfirm =
-                                      await action_blocks.confirmBlock(
-                                    context,
-                                    title: 'ยืนยันการปิดงาน',
-                                  );
-                                  if (_model.isConfirm!) {
-                                    await widget!.taskDocument!.reference
-                                        .update(createTaskListRecordData(
-                                      status: 1,
-                                      updateDate: getCurrentTimestamp,
-                                      updateBy: FFAppState().memberReference,
-                                    ));
-                                    Navigator.pop(context);
-                                  }
+                      if (widget!.taskDocument?.status == 0)
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 4.0, 0.0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    _model.isConfirm =
+                                        await action_blocks.confirmBlock(
+                                      context,
+                                      title: 'ยืนยันการปิดงาน',
+                                    );
+                                    if (_model.isConfirm!) {
+                                      await widget!.taskDocument!.reference
+                                          .update(createTaskListRecordData(
+                                        status: 1,
+                                        updateDate: getCurrentTimestamp,
+                                        updateBy: FFAppState().memberReference,
+                                      ));
+                                      Navigator.pop(context);
+                                    }
 
-                                  safeSetState(() {});
-                                },
-                                text: 'ปิดงาน',
-                                options: FFButtonOptions(
-                                  width: double.infinity,
-                                  height: 50.0,
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      16.0, 0.0, 16.0, 0.0),
-                                  iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 0.0),
-                                  color: FlutterFlowTheme.of(context).error,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .titleSmall
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        color: Colors.white,
-                                        fontSize: 20.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.normal,
-                                      ),
-                                  elevation: 0.0,
-                                  borderRadius: BorderRadius.circular(8.0),
+                                    safeSetState(() {});
+                                  },
+                                  text: 'ปิดงาน',
+                                  options: FFButtonOptions(
+                                    width: double.infinity,
+                                    height: 50.0,
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        16.0, 0.0, 16.0, 0.0),
+                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                    color: FlutterFlowTheme.of(context).error,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .titleSmall
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          color: Colors.white,
+                                          fontSize: 20.0,
+                                          letterSpacing: 0.0,
+                                          fontWeight: FontWeight.normal,
+                                        ),
+                                    elevation: 0.0,
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
                     ],
                   ),
                 ),
