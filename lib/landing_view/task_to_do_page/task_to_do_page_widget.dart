@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/landing_view/task_to_do_history_listl_view/task_to_do_history_listl_view_widget.dart';
 import '/task_view/task_detail_view/task_detail_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/gestures.dart';
@@ -40,6 +41,7 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       await action_blocks.initConfig(context);
+      await actions.setAppVersion();
       await action_blocks.initCustomer(context);
       await action_blocks.initMember(context);
       await _model.initMyTaskToDoList(context);
