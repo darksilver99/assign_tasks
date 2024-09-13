@@ -317,6 +317,15 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Kanit',
+                                                            color: taskListItem
+                                                                        .endDate! <=
+                                                                    getCurrentTimestamp
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
                                                             fontSize: 12.0,
                                                             letterSpacing: 0.0,
                                                             fontWeight:
