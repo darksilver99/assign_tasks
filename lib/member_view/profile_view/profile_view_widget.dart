@@ -874,8 +874,8 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                           isEqualTo: currentUserReference,
                                         ),
                                       );
-                                      while (_model.memberListResult!.length <
-                                          _model.memberIndex!) {
+                                      while (_model.memberIndex! <
+                                          _model.memberListResult!.length) {
                                         await _model
                                             .memberListResult![
                                                 _model.memberIndex!]
