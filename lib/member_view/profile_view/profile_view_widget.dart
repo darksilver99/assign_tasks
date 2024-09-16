@@ -851,7 +851,11 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                         _model.imageList.toList(),
                                         true,
                                       );
-                                      _model.photoPath = _model.urlList?.first;
+                                      if (_model.urlList != null &&
+                                          (_model.urlList)!.isNotEmpty) {
+                                        _model.photoPath =
+                                            _model.urlList?.first;
+                                      }
 
                                       await currentUserReference!
                                           .update(createUsersRecordData(
