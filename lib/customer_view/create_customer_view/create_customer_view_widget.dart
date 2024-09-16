@@ -72,7 +72,14 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 54.0, 0.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(
+          0.0,
+          valueOrDefault<double>(
+            MediaQuery.sizeOf(context).height * 0.1,
+            0.0,
+          ),
+          0.0,
+          32.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -160,10 +167,8 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                           0.0, 0.0, 0.0, 8.0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          var _shouldSetState = false;
                                           _model.qrCode =
                                               await _model.qrCodeBlock(context);
-                                          _shouldSetState = true;
                                           if (_model.qrCode != null &&
                                               _model.qrCode != '') {
                                             _model.customerResult =
@@ -176,7 +181,6 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                               ),
                                               singleRecord: true,
                                             ).then((s) => s.firstOrNull);
-                                            _shouldSetState = true;
                                             if (_model.customerResult != null) {
                                               _model.memberDocumentResullt =
                                                   await queryMemberListRecordOnce(
@@ -192,7 +196,6 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                 ),
                                                 singleRecord: true,
                                               ).then((s) => s.firstOrNull);
-                                              _shouldSetState = true;
                                               if (_model
                                                       .memberDocumentResullt !=
                                                   null) {
@@ -214,16 +217,12 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                       child:
                                                           InfoCustomViewWidget(
                                                         title:
-                                                            'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
-                                                        status: 'warning',
+                                                            'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
+                                                        status: 'success',
                                                       ),
                                                     );
                                                   },
                                                 );
-
-                                                if (_shouldSetState)
-                                                  safeSetState(() {});
-                                                return;
                                               } else {
                                                 var memberListRecordReference =
                                                     MemberListRecord.createDoc(
@@ -254,7 +253,6 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                               '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
                                                         ),
                                                         memberListRecordReference);
-                                                _shouldSetState = true;
 
                                                 await currentUserReference!
                                                     .update(
@@ -284,18 +282,18 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                       child:
                                                           InfoCustomViewWidget(
                                                         title:
-                                                            'เข้าร่วมองค์กรเรียบร้อยแล้ว',
+                                                            'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
                                                         status: 'success',
                                                       ),
                                                     );
                                                   },
                                                 );
-
-                                                await actions.pushReplacement(
-                                                  context,
-                                                  null,
-                                                );
                                               }
+
+                                              await actions.pushReplacement(
+                                                context,
+                                                null,
+                                              );
                                             } else {
                                               await showDialog(
                                                 context: context,
@@ -346,8 +344,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                             );
                                           }
 
-                                          if (_shouldSetState)
-                                            safeSetState(() {});
+                                          safeSetState(() {});
                                         },
                                         text: 'เข้าร่วมองค์กร',
                                         icon: Icon(
