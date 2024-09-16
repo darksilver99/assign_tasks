@@ -332,7 +332,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       queryBuilder: (customerNameRecord) =>
                                           customerNameRecord.where(
                                         'create_by',
-                                        isEqualTo: currentUserReference,
+                                        isEqualTo:
+                                            containerUsersRecord.reference,
                                       ),
                                       singleRecord: true,
                                     ),
@@ -369,6 +370,56 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                               builder: (context) {
                                                 if (rowCustomerNameRecord !=
                                                     null) {
+                                                  return InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        enableDrag: false,
+                                                        useSafeArea: true,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                MemberPromoteListViewWidget(),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() {}));
+                                                    },
+                                                    child: Text(
+                                                      'โอนสิทธิ์ให้สมาชิกท่านอื่น',
+                                                      textAlign: TextAlign.end,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                    ),
+                                                  );
+                                                } else {
                                                   return Builder(
                                                     builder: (context) =>
                                                         InkWell(
@@ -463,56 +514,6 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                                           .underline,
                                                                 ),
                                                       ),
-                                                    ),
-                                                  );
-                                                } else {
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        enableDrag: false,
-                                                        useSafeArea: true,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child:
-                                                                MemberPromoteListViewWidget(),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    },
-                                                    child: Text(
-                                                      'โอนสิทธิ์ให้สมาชิกท่านอื่น',
-                                                      textAlign: TextAlign.end,
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Kanit',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .error,
-                                                            fontSize: 16.0,
-                                                            letterSpacing: 0.0,
-                                                            decoration:
-                                                                TextDecoration
-                                                                    .underline,
-                                                          ),
                                                     ),
                                                   );
                                                 }
