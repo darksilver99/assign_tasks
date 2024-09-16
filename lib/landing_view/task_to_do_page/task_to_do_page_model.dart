@@ -58,40 +58,42 @@ class TaskToDoPageModel extends FlutterFlowModel<TaskToDoPageWidget> {
     List<TaskListRecord>? taskListResult;
     WorkerListRecord? myTaskToDoListResult;
 
-    taskListResult = await queryTaskListRecordOnce(
-      parent: FFAppState().customerData.customerRef,
-      queryBuilder: (taskListRecord) => taskListRecord
-          .where(
-            'worker_list',
-            arrayContains: FFAppState().memberReference,
-          )
-          .where(
-            'status',
-            isEqualTo: 0,
-          )
-          .orderBy('end_date'),
-    );
-    while (taskIndex < taskListResult!.length) {
-      FFAppState().tmpTaskReference = taskListResult?[taskIndex]?.reference;
-      myTaskToDoListResult = await queryWorkerListRecordOnce(
-        queryBuilder: (workerListRecord) => workerListRecord
+    if (currentUserDocument?.currentCustomerRef != null) {
+      taskListResult = await queryTaskListRecordOnce(
+        parent: FFAppState().customerData.customerRef,
+        queryBuilder: (taskListRecord) => taskListRecord
             .where(
-          'member_ref',
-          isEqualTo: FFAppState().memberReference,
-        )
-            .whereIn('status', [0, 1, 4]),
-        singleRecord: true,
-      ).then((s) => s.firstOrNull);
-      if (myTaskToDoListResult != null) {
-        addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
-          taskReference: taskListResult?[taskIndex]?.reference,
-          subject: taskListResult?[taskIndex]?.subject,
-          detail: taskListResult?[taskIndex]?.detail,
-          status: myTaskToDoListResult?.status,
-          endDate: taskListResult?[taskIndex]?.endDate,
-        ));
+              'worker_list',
+              arrayContains: FFAppState().memberReference,
+            )
+            .where(
+              'status',
+              isEqualTo: 0,
+            )
+            .orderBy('end_date'),
+      );
+      while (taskIndex < taskListResult!.length) {
+        FFAppState().tmpTaskReference = taskListResult?[taskIndex]?.reference;
+        myTaskToDoListResult = await queryWorkerListRecordOnce(
+          queryBuilder: (workerListRecord) => workerListRecord
+              .where(
+            'member_ref',
+            isEqualTo: FFAppState().memberReference,
+          )
+              .whereIn('status', [0, 1, 4]),
+          singleRecord: true,
+        ).then((s) => s.firstOrNull);
+        if (myTaskToDoListResult != null) {
+          addToMyTaskToDoList(TaskAndWorkerStatusDataStruct(
+            taskReference: taskListResult?[taskIndex]?.reference,
+            subject: taskListResult?[taskIndex]?.subject,
+            detail: taskListResult?[taskIndex]?.detail,
+            status: myTaskToDoListResult?.status,
+            endDate: taskListResult?[taskIndex]?.endDate,
+          ));
+        }
+        taskIndex = taskIndex + 1;
       }
-      taskIndex = taskIndex + 1;
     }
   }
 }
