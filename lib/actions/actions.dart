@@ -6,6 +6,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -130,6 +131,7 @@ Future initMember(BuildContext context) async {
       );
     }
   } else {
+    await action_blocks.clearData(context);
     await showDialog(
       context: context,
       builder: (dialogContext) {
