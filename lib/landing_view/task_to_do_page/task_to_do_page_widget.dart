@@ -69,7 +69,8 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
-            if (!_model.isLoading)
+            if (FFAppState().customerData.customerName != null &&
+                FFAppState().customerData.customerName != '')
               Expanded(
                 child: Builder(
                   builder: (context) {
