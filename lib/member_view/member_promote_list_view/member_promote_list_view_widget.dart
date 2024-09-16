@@ -5,8 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -164,17 +162,8 @@ class _MemberPromoteListViewWidgetState
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    _model.customerResult =
-                                        await queryCustomerNameRecordOnce(
-                                      queryBuilder: (customerNameRecord) =>
-                                          customerNameRecord.where(
-                                        'create_by',
-                                        isEqualTo:
-                                            listViewMemberListRecord.createBy,
-                                      ),
-                                      singleRecord: true,
-                                    ).then((s) => s.firstOrNull);
-                                    if (!(_model.customerResult != null)) {
+                                    if (currentUserReference !=
+                                        listViewMemberListRecord.createBy) {
                                       _model.isConfirm =
                                           await action_blocks.confirmBlock(
                                         context,
@@ -271,6 +260,31 @@ class _MemberPromoteListViewWidgetState
                                               ],
                                             ),
                                           ),
+                                          if (currentUserReference ==
+                                              listViewMemberListRecord.createBy)
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'เจ้าหน้าที่',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                        fontSize: 12.0,
+                                                        letterSpacing: 0.0,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .underline,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
                                         ],
                                       ),
                                     ),
