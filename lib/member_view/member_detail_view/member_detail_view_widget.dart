@@ -4,6 +4,7 @@ import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/member_view/member_promote_list_view/member_promote_list_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -326,91 +327,201 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Builder(
-                                          builder: (context) => InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              _model.isConfirm =
-                                                  await action_blocks
-                                                      .confirmBlock(
-                                                context,
-                                                title:
-                                                    'ต้องการนำสมาชิกท่านนี้ออกจากองค์กร?',
-                                              );
-                                              if (_model.isConfirm!) {
-                                                await widget!
-                                                    .memberDocument!.reference
-                                                    .delete();
-
-                                                await containerUsersRecord
-                                                    .reference
-                                                    .update({
-                                                  ...mapToFirestore(
-                                                    {
-                                                      'current_customer_ref':
-                                                          FieldValue.delete(),
-                                                    },
-                                                  ),
-                                                });
-                                                await showDialog(
-                                                  context: context,
-                                                  builder: (dialogContext) {
-                                                    return Dialog(
-                                                      elevation: 0,
-                                                      insetPadding:
-                                                          EdgeInsets.zero,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      child:
-                                                          InfoCustomViewWidget(
-                                                        title: 'เรียบร้อยแล้ว',
-                                                        status: 'success',
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-
-                                                Navigator.pop(context);
-                                              }
-
-                                              safeSetState(() {});
-                                            },
-                                            child: Text(
-                                              'นำสมาชิกออกจากองค์กร',
-                                              textAlign: TextAlign.end,
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        fontSize: 16.0,
-                                                        letterSpacing: 0.0,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                      ),
+                                  StreamBuilder<List<CustomerNameRecord>>(
+                                    stream: queryCustomerNameRecord(
+                                      queryBuilder: (customerNameRecord) =>
+                                          customerNameRecord.where(
+                                        'create_by',
+                                        isEqualTo: currentUserReference,
+                                      ),
+                                      singleRecord: true,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    ],
+                                        );
+                                      }
+                                      List<CustomerNameRecord>
+                                          rowCustomerNameRecordList =
+                                          snapshot.data!;
+                                      final rowCustomerNameRecord =
+                                          rowCustomerNameRecordList.isNotEmpty
+                                              ? rowCustomerNameRecordList.first
+                                              : null;
+
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Builder(
+                                              builder: (context) {
+                                                if (rowCustomerNameRecord !=
+                                                    null) {
+                                                  return Builder(
+                                                    builder: (context) =>
+                                                        InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        _model.isConfirm =
+                                                            await action_blocks
+                                                                .confirmBlock(
+                                                          context,
+                                                          title:
+                                                              'ต้องการนำสมาชิกท่านนี้ออกจากองค์กร?',
+                                                        );
+                                                        if (_model.isConfirm!) {
+                                                          await widget!
+                                                              .memberDocument!
+                                                              .reference
+                                                              .delete();
+
+                                                          await containerUsersRecord
+                                                              .reference
+                                                              .update({
+                                                            ...mapToFirestore(
+                                                              {
+                                                                'current_customer_ref':
+                                                                    FieldValue
+                                                                        .delete(),
+                                                              },
+                                                            ),
+                                                          });
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (dialogContext) {
+                                                              return Dialog(
+                                                                elevation: 0,
+                                                                insetPadding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                alignment: AlignmentDirectional(
+                                                                        0.0,
+                                                                        0.0)
+                                                                    .resolve(
+                                                                        Directionality.of(
+                                                                            context)),
+                                                                child:
+                                                                    InfoCustomViewWidget(
+                                                                  title:
+                                                                      'เรียบร้อยแล้ว',
+                                                                  status:
+                                                                      'success',
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+
+                                                          Navigator.pop(
+                                                              context);
+                                                        }
+
+                                                        safeSetState(() {});
+                                                      },
+                                                      child: Text(
+                                                        'นำสมาชิกออกจากองค์กร',
+                                                        textAlign:
+                                                            TextAlign.end,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Kanit',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .error,
+                                                                  fontSize:
+                                                                      16.0,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                  decoration:
+                                                                      TextDecoration
+                                                                          .underline,
+                                                                ),
+                                                      ),
+                                                    ),
+                                                  );
+                                                } else {
+                                                  return InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        enableDrag: false,
+                                                        useSafeArea: true,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                MemberPromoteListViewWidget(),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() {}));
+                                                    },
+                                                    child: Text(
+                                                      'โอนสิทธิ์ให้สมาชิกท่านอื่น',
+                                                      textAlign: TextAlign.end,
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .error,
+                                                            fontSize: 16.0,
+                                                            letterSpacing: 0.0,
+                                                            decoration:
+                                                                TextDecoration
+                                                                    .underline,
+                                                          ),
+                                                    ),
+                                                  );
+                                                }
+                                              },
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                   Divider(
                                     height: 32.0,
