@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/member_view/member_list_view/member_list_view_widget.dart';
+import '/member_view/member_promote_list_view/member_promote_list_view_widget.dart';
 import '/member_view/profile_view/profile_view_widget.dart';
 import '/other_view/issue_view/issue_view_widget.dart';
 import '/other_view/suggest_view/suggest_view_widget.dart';
