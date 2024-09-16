@@ -6,8 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'member_promote_list_view_widget.dart' show MemberPromoteListViewWidget;
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,8 +15,6 @@ class MemberPromoteListViewModel
     extends FlutterFlowModel<MemberPromoteListViewWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Firestore Query - Query a collection] action in Container widget.
-  CustomerNameRecord? customerResult;
   // Stores action output result for [Action Block - confirmBlock] action in Container widget.
   bool? isConfirm;
 
