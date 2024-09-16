@@ -169,7 +169,8 @@ class _MemberPromoteListViewWidgetState
                                       queryBuilder: (customerNameRecord) =>
                                           customerNameRecord.where(
                                         'create_by',
-                                        isEqualTo: currentUserReference,
+                                        isEqualTo:
+                                            listViewMemberListRecord.createBy,
                                       ),
                                       singleRecord: true,
                                     ).then((s) => s.firstOrNull);
