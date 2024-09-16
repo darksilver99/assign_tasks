@@ -249,9 +249,9 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                             0.0, 0.0),
                                                     child: Builder(
                                                       builder: (context) {
-                                                        if (currentUserDisplayName !=
+                                                        if (currentUserPhoto !=
                                                                 null &&
-                                                            currentUserDisplayName !=
+                                                            currentUserPhoto !=
                                                                 '') {
                                                           return InkWell(
                                                             splashColor: Colors
