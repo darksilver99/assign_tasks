@@ -8,6 +8,7 @@ import '/member_view/member_promote_list_view/member_promote_list_view_widget.da
 import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -54,6 +55,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
       child: Container(
@@ -445,6 +448,51 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                               'ข้อมูลการทำงานทั้งหมดจะถูกลบ เมื่อนำสมาชิกออกจากองค์กร',
                                                         );
                                                         if (_model.isConfirm!) {
+                                                          _model.taskListResult =
+                                                              await queryTaskListRecordOnce(
+                                                            parent: FFAppState()
+                                                                .customerData
+                                                                .customerRef,
+                                                            queryBuilder:
+                                                                (taskListRecord) =>
+                                                                    taskListRecord
+                                                                        .where(
+                                                                          'create_by',
+                                                                          isEqualTo: widget!
+                                                                              .memberDocument
+                                                                              ?.reference,
+                                                                        )
+                                                                        .where(
+                                                                          'status',
+                                                                          isEqualTo:
+                                                                              0,
+                                                                        ),
+                                                          );
+                                                          // เมื่อถูกนำออกจากองค์กร งานที่มอบหมายของคนๆนั้น จะถูกปิด
+                                                          while (_model
+                                                                  .taskIndex <
+                                                              _model
+                                                                  .taskListResult!
+                                                                  .length) {
+                                                            await _model
+                                                                .taskListResult![
+                                                                    _model
+                                                                        .taskIndex]
+                                                                .reference
+                                                                .update(
+                                                                    createTaskListRecordData(
+                                                              closeDate:
+                                                                  getCurrentTimestamp,
+                                                              status: 1,
+                                                              updateBy: FFAppState()
+                                                                  .memberReference,
+                                                              updateDate:
+                                                                  getCurrentTimestamp,
+                                                            ));
+                                                            _model.taskIndex =
+                                                                _model.taskIndex +
+                                                                    1;
+                                                          }
                                                           await widget!
                                                               .memberDocument!
                                                               .reference

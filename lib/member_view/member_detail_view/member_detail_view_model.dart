@@ -9,6 +9,7 @@ import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'member_detail_view_widget.dart' show MemberDetailViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,10 +19,16 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
 class MemberDetailViewModel extends FlutterFlowModel<MemberDetailViewWidget> {
+  ///  Local state fields for this component.
+
+  int taskIndex = 0;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Action Block - confirmBlock] action in Text widget.
   bool? isConfirm;
+  // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
+  List<TaskListRecord>? taskListResult;
 
   @override
   void initState(BuildContext context) {}
