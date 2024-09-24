@@ -15,6 +15,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'create_customer_view_model.dart';
 export 'create_customer_view_model.dart';
 
@@ -214,11 +215,13 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
-                                                      child:
-                                                          InfoCustomViewWidget(
-                                                        title:
-                                                            'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
-                                                        status: 'success',
+                                                      child: WebViewAware(
+                                                        child:
+                                                            InfoCustomViewWidget(
+                                                          title:
+                                                              'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
+                                                          status: 'success',
+                                                        ),
                                                       ),
                                                     );
                                                   },
@@ -279,11 +282,13 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                               .resolve(
                                                                   Directionality.of(
                                                                       context)),
-                                                      child:
-                                                          InfoCustomViewWidget(
-                                                        title:
-                                                            'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
-                                                        status: 'success',
+                                                      child: WebViewAware(
+                                                        child:
+                                                            InfoCustomViewWidget(
+                                                          title:
+                                                              'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
+                                                          status: 'success',
+                                                        ),
                                                       ),
                                                     );
                                                   },
@@ -310,10 +315,13 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                             .resolve(
                                                                 Directionality.of(
                                                                     context)),
-                                                    child: InfoCustomViewWidget(
-                                                      title:
-                                                          'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
-                                                      status: 'warning',
+                                                    child: WebViewAware(
+                                                      child:
+                                                          InfoCustomViewWidget(
+                                                        title:
+                                                            'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
+                                                        status: 'warning',
+                                                      ),
                                                     ),
                                                   );
                                                 },
@@ -334,10 +342,12 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                           .resolve(
                                                               Directionality.of(
                                                                   context)),
-                                                  child: InfoCustomViewWidget(
-                                                    title:
-                                                        'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
-                                                    status: 'warning',
+                                                  child: WebViewAware(
+                                                    child: InfoCustomViewWidget(
+                                                      title:
+                                                          'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
+                                                      status: 'warning',
+                                                    ),
                                                   ),
                                                 );
                                               },
@@ -403,7 +413,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 8.0, 0.0),
                                       child: Text(
-                                        'หรือ',
+                                        'หรือ สร้างองค์กรของคุณเอง',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

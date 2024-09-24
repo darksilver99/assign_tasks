@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'member_list_view_model.dart';
 export 'member_list_view_model.dart';
 
@@ -174,12 +175,14 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                                     useSafeArea: true,
                                     context: context,
                                     builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: MemberDetailViewWidget(
-                                          memberDocument:
-                                              listViewMemberListRecord,
+                                      return WebViewAware(
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: MemberDetailViewWidget(
+                                            memberDocument:
+                                                listViewMemberListRecord,
+                                          ),
                                         ),
                                       );
                                     },

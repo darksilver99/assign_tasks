@@ -14,6 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'member_detail_view_model.dart';
 export 'member_detail_view_model.dart';
 
@@ -389,12 +390,14 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                         useSafeArea: true,
                                                         context: context,
                                                         builder: (context) {
-                                                          return Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child:
-                                                                MemberPromoteListViewWidget(),
+                                                          return WebViewAware(
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child:
+                                                                  MemberPromoteListViewWidget(),
+                                                            ),
                                                           );
                                                         },
                                                       ).then((value) =>
@@ -477,11 +480,14 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                                         Directionality.of(
                                                                             context)),
                                                                 child:
-                                                                    InfoCustomViewWidget(
-                                                                  title:
-                                                                      'เรียบร้อยแล้ว',
-                                                                  status:
-                                                                      'success',
+                                                                    WebViewAware(
+                                                                  child:
+                                                                      InfoCustomViewWidget(
+                                                                    title:
+                                                                        'เรียบร้อยแล้ว',
+                                                                    status:
+                                                                        'success',
+                                                                  ),
                                                                 ),
                                                               );
                                                             },

@@ -14,6 +14,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task_to_check_page_model.dart';
 export 'task_to_check_page_model.dart';
 
@@ -69,9 +70,11 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
               useSafeArea: true,
               context: context,
               builder: (context) {
-                return Padding(
-                  padding: MediaQuery.viewInsetsOf(context),
-                  child: TaskFormViewWidget(),
+                return WebViewAware(
+                  child: Padding(
+                    padding: MediaQuery.viewInsetsOf(context),
+                    child: TaskFormViewWidget(),
+                  ),
                 );
               },
             ).then((value) => safeSetState(() {}));
@@ -136,11 +139,13 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                       useSafeArea: true,
                                       context: context,
                                       builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child:
-                                              TaskToCheckHistoryListlViewWidget(),
+                                        return WebViewAware(
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child:
+                                                TaskToCheckHistoryListlViewWidget(),
+                                          ),
                                         );
                                       },
                                     ).then((value) => safeSetState(() {}));
@@ -251,13 +256,16 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                             useSafeArea: true,
                                             context: context,
                                             builder: (context) {
-                                              return Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: TaskSendListlViewWidget(
-                                                  taskDocument:
-                                                      listViewTaskListRecord,
+                                              return WebViewAware(
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child:
+                                                      TaskSendListlViewWidget(
+                                                    taskDocument:
+                                                        listViewTaskListRecord,
+                                                  ),
                                                 ),
                                               );
                                             },
@@ -442,7 +450,10 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
                                                       .resolve(
                                                           Directionality.of(
                                                               context)),
-                                              child: CreateCustomerViewWidget(),
+                                              child: WebViewAware(
+                                                child:
+                                                    CreateCustomerViewWidget(),
+                                              ),
                                             );
                                           },
                                         );

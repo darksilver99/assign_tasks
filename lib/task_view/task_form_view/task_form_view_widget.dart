@@ -15,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task_form_view_model.dart';
 export 'task_form_view_model.dart';
 
@@ -510,10 +511,12 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                     useSafeArea: true,
                                     context: context,
                                     builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: SelectMemberListViewWidget(),
+                                      return WebViewAware(
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: SelectMemberListViewWidget(),
+                                        ),
                                       );
                                     },
                                   ).then((value) => safeSetState(() {}));
@@ -790,9 +793,11 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: InfoCustomViewWidget(
-                                              title: 'สร้างงานเรียบร้อยแล้ว',
-                                              status: 'success',
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title: 'สร้างงานเรียบร้อยแล้ว',
+                                                status: 'success',
+                                              ),
                                             ),
                                           );
                                         },
@@ -814,9 +819,11 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: InfoCustomViewWidget(
-                                              title: 'กรุณาเลือกผู้ทำงาน',
-                                              status: 'info',
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title: 'กรุณาเลือกผู้ทำงาน',
+                                                status: 'info',
+                                              ),
                                             ),
                                           );
                                         },

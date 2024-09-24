@@ -19,6 +19,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task_detail_view_model.dart';
 export 'task_detail_view_model.dart';
 
@@ -71,10 +72,12 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
               backgroundColor: Colors.transparent,
               alignment: AlignmentDirectional(0.0, 0.0)
                   .resolve(Directionality.of(context)),
-              child: InfoCustomViewWidget(
-                title: 'คุณไม่ได้อยู่ในงานนี้แล้ว',
-                status: 'warning',
-                detail: 'กรุณาติดต่อผู้จ่ายงาน',
+              child: WebViewAware(
+                child: InfoCustomViewWidget(
+                  title: 'คุณไม่ได้อยู่ในงานนี้แล้ว',
+                  status: 'warning',
+                  detail: 'กรุณาติดต่อผู้จ่ายงาน',
+                ),
               ),
             );
           },
@@ -633,14 +636,16 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                 useSafeArea: true,
                                                 context: context,
                                                 builder: (context) {
-                                                  return Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        ReplyDetailViewWidget(
-                                                      sendDocument: _model
-                                                          .sendDocumentResult!,
+                                                  return WebViewAware(
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child:
+                                                          ReplyDetailViewWidget(
+                                                        sendDocument: _model
+                                                            .sendDocumentResult!,
+                                                      ),
                                                     ),
                                                   );
                                                 },
@@ -1082,10 +1087,12 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                                       .resolve(
                                                           Directionality.of(
                                                               context)),
-                                              child: InfoCustomViewWidget(
-                                                title: 'ส่งงานเรียบร้อยแล้ว',
-                                                status: 'success',
-                                                detail: 'รอผู้จ่ายงานตรวจสอบ',
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title: 'ส่งงานเรียบร้อยแล้ว',
+                                                  status: 'success',
+                                                  detail: 'รอผู้จ่ายงานตรวจสอบ',
+                                                ),
                                               ),
                                             );
                                           },

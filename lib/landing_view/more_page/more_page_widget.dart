@@ -18,6 +18,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'more_page_model.dart';
 export 'more_page_model.dart';
 
@@ -273,10 +274,12 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                                         useSafeArea: true,
                                         context: context,
                                         builder: (context) {
-                                          return Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child: ProfileViewWidget(),
+                                          return WebViewAware(
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child: ProfileViewWidget(),
+                                            ),
                                           );
                                         },
                                       ).then((value) => safeSetState(() {}));
@@ -395,7 +398,9 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: InviteMemberViewWidget(),
+                                            child: WebViewAware(
+                                              child: InviteMemberViewWidget(),
+                                            ),
                                           );
                                         },
                                       );
@@ -461,10 +466,12 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                                       useSafeArea: true,
                                       context: context,
                                       builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child: MemberListViewWidget(),
+                                        return WebViewAware(
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: MemberListViewWidget(),
+                                          ),
                                         );
                                       },
                                     ).then((value) => safeSetState(() {}));
@@ -529,11 +536,13 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                                         useSafeArea: true,
                                         context: context,
                                         builder: (context) {
-                                          return Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child:
-                                                MemberPromoteListViewWidget(),
+                                          return WebViewAware(
+                                            child: Padding(
+                                              padding: MediaQuery.viewInsetsOf(
+                                                  context),
+                                              child:
+                                                  MemberPromoteListViewWidget(),
+                                            ),
                                           );
                                         },
                                       ).then((value) => safeSetState(() {}));
@@ -602,9 +611,11 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                               useSafeArea: true,
                               context: context,
                               builder: (context) {
-                                return Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: IssueViewWidget(),
+                                return WebViewAware(
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: IssueViewWidget(),
+                                  ),
                                 );
                               },
                             ).then((value) => safeSetState(() {}));
@@ -664,9 +675,11 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                               useSafeArea: true,
                               context: context,
                               builder: (context) {
-                                return Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: SuggestViewWidget(),
+                                return WebViewAware(
+                                  child: Padding(
+                                    padding: MediaQuery.viewInsetsOf(context),
+                                    child: SuggestViewWidget(),
+                                  ),
                                 );
                               },
                             ).then((value) => safeSetState(() {}));
