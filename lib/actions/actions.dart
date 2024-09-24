@@ -66,22 +66,10 @@ Future initCustomer(BuildContext context) async {
           customerRef: customerResult?.reference,
         );
       } else {
-        await currentUserReference!.update({
-          ...mapToFirestore(
-            {
-              'current_customer_ref': FieldValue.delete(),
-            },
-          ),
-        });
+        await action_blocks.clearData(context);
       }
     } else {
-      await currentUserReference!.update({
-        ...mapToFirestore(
-          {
-            'current_customer_ref': FieldValue.delete(),
-          },
-        ),
-      });
+      await action_blocks.clearData(context);
     }
   }
 }
