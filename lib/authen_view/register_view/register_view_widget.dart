@@ -790,6 +790,27 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       GoRouter.of(context).prepareAuthEvent();
                                       if (_model.passwordTextController.text !=
                                           _model.password2TextController.text) {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor: Colors.transparent,
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0)
+                                                  .resolve(
+                                                  Directionality.of(context)),
+                                              child: WebViewAware(
+                                                child: InfoCustomViewWidget(
+                                                  title:
+                                                  'Passwords don\'t match!',
+                                                  status: 'error',
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(
                                           SnackBar(
