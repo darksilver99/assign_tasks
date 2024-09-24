@@ -1,7 +1,10 @@
+import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/member_view/member_detail_view/member_detail_view_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,6 +32,14 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MemberListViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.customerResult = await CustomerNameRecord.getDocumentOnce(
+          FFAppState().customerData.customerRef!);
+      _model.isLoading = false;
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -216,18 +227,57 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Expanded(
-                                                child: Text(
-                                                  listViewMemberListRecord
-                                                      .displayName,
-                                                  maxLines: 2,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 18.0,
-                                                        letterSpacing: 0.0,
+                                                child: RichText(
+                                                  textScaler:
+                                                      MediaQuery.of(context)
+                                                          .textScaler,
+                                                  text: TextSpan(
+                                                    children: [
+                                                      TextSpan(
+                                                        text:
+                                                            listViewMemberListRecord
+                                                                .displayName,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Kanit',
+                                                              fontSize: 18.0,
+                                                              letterSpacing:
+                                                                  0.0,
+                                                            ),
                                                       ),
+                                                      TextSpan(
+                                                        text: ' ',
+                                                        style: TextStyle(),
+                                                      ),
+                                                      TextSpan(
+                                                        text: (_model.isLoading ==
+                                                                    false) &&
+                                                                (currentUserReference ==
+                                                                    _model
+                                                                        .customerResult
+                                                                        ?.createBy)
+                                                            ? '(เจ้าหน้าที่)'
+                                                            : '',
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          fontSize: 12.0,
+                                                        ),
+                                                      )
+                                                    ],
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Kanit',
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                  maxLines: 2,
                                                 ),
                                               ),
                                             ],
