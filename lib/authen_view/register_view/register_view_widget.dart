@@ -188,12 +188,14 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -234,6 +236,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Kanit',
+                                        fontSize: 22.0,
                                         letterSpacing: 0.0,
                                       ),
                                   cursorColor:
@@ -260,12 +263,14 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -319,6 +324,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Kanit',
+                                        fontSize: 22.0,
                                         letterSpacing: 0.0,
                                       ),
                                   keyboardType: TextInputType.visiblePassword,
@@ -347,12 +353,14 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -406,6 +414,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Kanit',
+                                        fontSize: 22.0,
                                         letterSpacing: 0.0,
                                       ),
                                   keyboardType: TextInputType.visiblePassword,
@@ -448,12 +457,14 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -494,6 +505,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Kanit',
+                                        fontSize: 22.0,
                                         letterSpacing: 0.0,
                                       ),
                                   cursorColor:
@@ -521,12 +533,14 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -567,6 +581,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Kanit',
+                                        fontSize: 22.0,
                                         letterSpacing: 0.0,
                                       ),
                                   cursorColor:
@@ -594,12 +609,14 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     hintStyle: FlutterFlowTheme.of(context)
                                         .labelMedium
                                         .override(
                                           fontFamily: 'Kanit',
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                         ),
                                     enabledBorder: OutlineInputBorder(
@@ -640,6 +657,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Kanit',
+                                        fontSize: 22.0,
                                         letterSpacing: 0.0,
                                       ),
                                   keyboardType: TextInputType.phone,
@@ -726,7 +744,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                   text: 'สมัครสมาชิก',
                                   options: FFButtonOptions(
                                     width: double.infinity,
-                                    height: 40.0,
+                                    height: 50.0,
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         16.0, 0.0, 16.0, 0.0),
                                     iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -737,6 +755,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         .override(
                                           fontFamily: 'Kanit',
                                           color: Colors.white,
+                                          fontSize: 22.0,
                                           letterSpacing: 0.0,
                                           fontWeight: FontWeight.normal,
                                         ),
