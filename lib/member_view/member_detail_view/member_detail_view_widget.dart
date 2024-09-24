@@ -463,6 +463,7 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                                   ?.reference,
                                                             ),
                                                           );
+                                                          // เมื่อถูกนำออกจากองค์กร งานที่มอบหมายของคนๆนั้น จะถูกปิด
                                                           while (_model
                                                                   .taskIndex <
                                                               _model
@@ -473,7 +474,16 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                                     _model
                                                                         .taskIndex]
                                                                 .reference
-                                                                .delete();
+                                                                .update(
+                                                                    createTaskListRecordData(
+                                                              closeDate:
+                                                                  getCurrentTimestamp,
+                                                              status: 1,
+                                                              updateBy: FFAppState()
+                                                                  .memberReference,
+                                                              updateDate:
+                                                                  getCurrentTimestamp,
+                                                            ));
                                                             _model.taskIndex =
                                                                 _model.taskIndex +
                                                                     1;
