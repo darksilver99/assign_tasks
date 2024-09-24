@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'suggest_view_model.dart';
 export 'suggest_view_model.dart';
 
@@ -288,12 +289,14 @@ class _SuggestViewWidgetState extends State<SuggestViewWidget> {
                                                   0.0, 0.0)
                                               .resolve(
                                                   Directionality.of(context)),
-                                          child: InfoCustomViewWidget(
-                                            title:
-                                                'ส่งข้อมูลไปยังระบบเรียบร้อยแล้ว',
-                                            detail:
-                                                'ขอบคุณมากสำหรับข้อเสนอแนะที่มีค่าของคุณค่ะ ความคิดเห็นของคุณจะช่วยให้เราปรับปรุงระบบให้ดียิ่งขึ้น เราจะนำข้อเสนอแนะของคุณไปพิจารณาและพัฒนาเพื่อตอบสนองความต้องการของผู้ใช้ให้ดียิ่งขึ้น',
-                                            status: 'success',
+                                          child: WebViewAware(
+                                            child: InfoCustomViewWidget(
+                                              title:
+                                                  'ส่งข้อมูลไปยังระบบเรียบร้อยแล้ว',
+                                              detail:
+                                                  'ขอบคุณมากสำหรับข้อเสนอแนะที่มีค่าของคุณค่ะ ความคิดเห็นของคุณจะช่วยให้เราปรับปรุงระบบให้ดียิ่งขึ้น เราจะนำข้อเสนอแนะของคุณไปพิจารณาและพัฒนาเพื่อตอบสนองความต้องการของผู้ใช้ให้ดียิ่งขึ้น',
+                                              status: 'success',
+                                            ),
                                           ),
                                         );
                                       },

@@ -15,6 +15,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'profile_view_model.dart';
 export 'profile_view_model.dart';
 
@@ -898,10 +899,12 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                                     0.0, 0.0)
                                                 .resolve(
                                                     Directionality.of(context)),
-                                            child: InfoCustomViewWidget(
-                                              title:
-                                                  'บันทึกข้อมูลเรียบร้อยแล้ว',
-                                              status: 'success',
+                                            child: WebViewAware(
+                                              child: InfoCustomViewWidget(
+                                                title:
+                                                    'บันทึกข้อมูลเรียบร้อยแล้ว',
+                                                status: 'success',
+                                              ),
                                             ),
                                           );
                                         },

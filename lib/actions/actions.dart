@@ -11,6 +11,7 @@ import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 Future<bool?> confirmBlock(
   BuildContext context, {
@@ -28,9 +29,11 @@ Future<bool?> confirmBlock(
         backgroundColor: Colors.transparent,
         alignment:
             AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-        child: ConfirmCustomViewWidget(
-          title: title!,
-          detail: detail,
+        child: WebViewAware(
+          child: ConfirmCustomViewWidget(
+            title: title!,
+            detail: detail,
+          ),
         ),
       );
     },
@@ -109,10 +112,12 @@ Future initMember(BuildContext context) async {
             backgroundColor: Colors.transparent,
             alignment: AlignmentDirectional(0.0, 0.0)
                 .resolve(Directionality.of(context)),
-            child: InfoCustomViewWidget(
-              title: 'ท่านไม่ได้อยู่ในองค์กรนี้แล้ว',
-              detail: 'กรุณาติดต่อเจ้าหน้าองค์กรของท่าน',
-              status: 'error',
+            child: WebViewAware(
+              child: InfoCustomViewWidget(
+                title: 'ท่านไม่ได้อยู่ในองค์กรนี้แล้ว',
+                detail: 'กรุณาติดต่อเจ้าหน้าองค์กรของท่าน',
+                status: 'error',
+              ),
             ),
           );
         },
@@ -141,7 +146,9 @@ Future initMember(BuildContext context) async {
           backgroundColor: Colors.transparent,
           alignment: AlignmentDirectional(0.0, 0.0)
               .resolve(Directionality.of(context)),
-          child: CreateCustomerViewWidget(),
+          child: WebViewAware(
+            child: CreateCustomerViewWidget(),
+          ),
         );
       },
     );

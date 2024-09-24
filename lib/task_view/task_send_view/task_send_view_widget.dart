@@ -16,6 +16,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task_send_view_model.dart';
 export 'task_send_view_model.dart';
 
@@ -410,14 +411,16 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                             useSafeArea: true,
                                             context: context,
                                             builder: (context) {
-                                              return Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child:
-                                                    TaskSendHistoryListViewWidget(
-                                                  sendDocumentList: _model
-                                                      .sendListWithOutFirstIndex,
+                                              return WebViewAware(
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child:
+                                                      TaskSendHistoryListViewWidget(
+                                                    sendDocumentList: _model
+                                                        .sendListWithOutFirstIndex,
+                                                  ),
                                                 ),
                                               );
                                             },
@@ -602,14 +605,16 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                                 useSafeArea: true,
                                                 context: context,
                                                 builder: (context) {
-                                                  return Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        ReplyDetailViewWidget(
-                                                      sendDocument:
-                                                          _model.sendList.first,
+                                                  return WebViewAware(
+                                                    child: Padding(
+                                                      padding: MediaQuery
+                                                          .viewInsetsOf(
+                                                              context),
+                                                      child:
+                                                          ReplyDetailViewWidget(
+                                                        sendDocument: _model
+                                                            .sendList.first,
+                                                      ),
                                                     ),
                                                   );
                                                 },
@@ -655,16 +660,18 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                             useSafeArea: true,
                                             context: context,
                                             builder: (context) {
-                                              return Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: ReplyViewWidget(
-                                                  isPass: false,
-                                                  workerDocument:
-                                                      widget!.workerDocument!,
-                                                  sendDocument:
-                                                      _model.sendList.first,
+                                              return WebViewAware(
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: ReplyViewWidget(
+                                                    isPass: false,
+                                                    workerDocument:
+                                                        widget!.workerDocument!,
+                                                    sendDocument:
+                                                        _model.sendList.first,
+                                                  ),
                                                 ),
                                               );
                                             },
@@ -720,16 +727,18 @@ class _TaskSendViewWidgetState extends State<TaskSendViewWidget> {
                                               useSafeArea: true,
                                               context: context,
                                               builder: (context) {
-                                                return Padding(
-                                                  padding:
-                                                      MediaQuery.viewInsetsOf(
-                                                          context),
-                                                  child: ReplyViewWidget(
-                                                    isPass: true,
-                                                    workerDocument:
-                                                        widget!.workerDocument!,
-                                                    sendDocument:
-                                                        _model.sendList.first,
+                                                return WebViewAware(
+                                                  child: Padding(
+                                                    padding:
+                                                        MediaQuery.viewInsetsOf(
+                                                            context),
+                                                    child: ReplyViewWidget(
+                                                      isPass: true,
+                                                      workerDocument: widget!
+                                                          .workerDocument!,
+                                                      sendDocument:
+                                                          _model.sendList.first,
+                                                    ),
                                                   ),
                                                 );
                                               },

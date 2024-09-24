@@ -12,6 +12,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task_to_check_history_listl_view_model.dart';
 export 'task_to_check_history_listl_view_model.dart';
 
@@ -383,10 +384,12 @@ class _TaskToCheckHistoryListlViewWidgetState
                                 useSafeArea: true,
                                 context: context,
                                 builder: (context) {
-                                  return Padding(
-                                    padding: MediaQuery.viewInsetsOf(context),
-                                    child: TaskSendListlViewWidget(
-                                      taskDocument: listViewTaskListRecord,
+                                  return WebViewAware(
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: TaskSendListlViewWidget(
+                                        taskDocument: listViewTaskListRecord,
+                                      ),
                                     ),
                                   );
                                 },

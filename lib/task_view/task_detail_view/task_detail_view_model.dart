@@ -20,6 +20,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 
 class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
   ///  Local state fields for this component.
