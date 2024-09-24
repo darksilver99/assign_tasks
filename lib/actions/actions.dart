@@ -65,7 +65,23 @@ Future initCustomer(BuildContext context) async {
           expireDate: customerResult?.expireDate,
           customerRef: customerResult?.reference,
         );
+      } else {
+        await currentUserReference!.update({
+          ...mapToFirestore(
+            {
+              'current_customer_ref': FieldValue.delete(),
+            },
+          ),
+        });
       }
+    } else {
+      await currentUserReference!.update({
+        ...mapToFirestore(
+          {
+            'current_customer_ref': FieldValue.delete(),
+          },
+        ),
+      });
     }
   }
 }
