@@ -438,6 +438,8 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                           context,
                                                           title:
                                                               'ต้องการนำสมาชิกท่านนี้ออกจากองค์กร?',
+                                                          detail:
+                                                              'ข้อมูลการทำงานทั้งหมดจะถูกลบ เมื่อนำสมาชิกออกจากองค์กร',
                                                         );
                                                         if (_model.isConfirm!) {
                                                           await widget!

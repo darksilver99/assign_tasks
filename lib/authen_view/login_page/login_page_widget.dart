@@ -55,22 +55,17 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 32.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Text(
-                          'สมัครสมาชิก / เข้าสู่ระบบ',
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Kanit',
-                                    fontSize: 18.0,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: Image.asset(
+                          'assets/images/active-user_9977358.png',
+                          height: 86.0,
+                          fit: BoxFit.cover,
                         ),
                       ),
                     ],
@@ -86,7 +81,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         maxLines: 1,
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Kanit',
-                              fontSize: 22.0,
+                              fontSize: 24.0,
                               letterSpacing: 0.0,
                               fontWeight: FontWeight.bold,
                             ),
@@ -108,7 +103,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                     fontFamily: 'Kanit',
                                     fontSize: 16.0,
                                     letterSpacing: 0.0,
-                                    fontWeight: FontWeight.w500,
+                                    fontWeight: FontWeight.normal,
                                   ),
                         ),
                       ),
@@ -138,12 +133,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   .labelMedium
                                   .override(
                                     fontFamily: 'Kanit',
+                                    fontSize: 22.0,
                                     letterSpacing: 0.0,
                                   ),
                               hintStyle: FlutterFlowTheme.of(context)
                                   .labelMedium
                                   .override(
                                     fontFamily: 'Kanit',
+                                    fontSize: 22.0,
                                     letterSpacing: 0.0,
                                   ),
                               enabledBorder: OutlineInputBorder(
@@ -181,6 +178,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Kanit',
+                                  fontSize: 22.0,
                                   letterSpacing: 0.0,
                                 ),
                             cursorColor:
@@ -204,12 +202,14 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Kanit',
+                                  fontSize: 22.0,
                                   letterSpacing: 0.0,
                                 ),
                             hintStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
                                   fontFamily: 'Kanit',
+                                  fontSize: 22.0,
                                   letterSpacing: 0.0,
                                 ),
                             enabledBorder: OutlineInputBorder(
@@ -259,6 +259,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Kanit',
+                                    fontSize: 22.0,
                                     letterSpacing: 0.0,
                                   ),
                           keyboardType: TextInputType.visiblePassword,
@@ -317,7 +318,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           text: 'เข้าสู่ระบบ',
                           options: FFButtonOptions(
                             width: double.infinity,
-                            height: 40.0,
+                            height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -328,6 +329,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 .override(
                                   fontFamily: 'Kanit',
                                   color: Colors.white,
+                                  fontSize: 22.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
@@ -404,7 +406,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           text: 'สมัครสมาชิก',
                           options: FFButtonOptions(
                             width: double.infinity,
-                            height: 40.0,
+                            height: 50.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 16.0, 0.0, 16.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -415,6 +417,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 .override(
                                   fontFamily: 'Kanit',
                                   color: Colors.white,
+                                  fontSize: 22.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.normal,
                                 ),
