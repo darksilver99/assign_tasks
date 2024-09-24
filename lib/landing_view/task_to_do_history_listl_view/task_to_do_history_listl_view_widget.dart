@@ -505,28 +505,32 @@ class _TaskToDoHistoryListlViewWidgetState
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
                                             Expanded(
-                                              child: Text(
-                                                ' (กำหนดส่ง ${functions.dateTh(taskListItem.endDate)} ${functions.compareDates(getCurrentTimestamp, taskListItem.endDate!)})',
-                                                textAlign: TextAlign.end,
-                                                style: FlutterFlowTheme.of(
-                                                        context)
-                                                    .bodyMedium
-                                                    .override(
-                                                      fontFamily: 'Kanit',
-                                                      color: taskListItem
-                                                                  .endDate! <=
-                                                              getCurrentTimestamp
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
-                                                      fontSize: 12.0,
-                                                      letterSpacing: 0.0,
-                                                      fontWeight:
-                                                          FontWeight.w200,
-                                                    ),
+                                              child: Opacity(
+                                                opacity: 0.0,
+                                                child: Text(
+                                                  ' (กำหนดส่ง ${functions.dateTh(taskListItem.endDate)} ${functions.compareDates(getCurrentTimestamp, taskListItem.endDate!)})',
+                                                  textAlign: TextAlign.end,
+                                                  style:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Kanit',
+                                                            color: taskListItem
+                                                                        .endDate! <=
+                                                                    getCurrentTimestamp
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .error
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryText,
+                                                            fontSize: 12.0,
+                                                            letterSpacing: 0.0,
+                                                            fontWeight:
+                                                                FontWeight.w200,
+                                                          ),
+                                                ),
                                               ),
                                             ),
                                           ],
