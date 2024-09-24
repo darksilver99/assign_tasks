@@ -146,6 +146,14 @@ Future initMember(BuildContext context) async {
     }
   } else {
     await action_blocks.clearData(context);
+
+    await currentUserReference!.update({
+      ...mapToFirestore(
+        {
+          'current_customer_ref': FieldValue.delete(),
+        },
+      ),
+    });
     await showDialog(
       context: context,
       builder: (dialogContext) {
