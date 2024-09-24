@@ -58,11 +58,14 @@ Future initCustomer(BuildContext context) async {
       singleRecord: true,
     ).then((s) => s.firstOrNull);
     if (customerResult != null) {
-      FFAppState().customerData = CustomerDataStruct(
-        customerName: customerResult?.customerName,
-        expireDate: customerResult?.expireDate,
-        customerRef: customerResult?.reference,
-      );
+      if (customerResult?.customerName != null &&
+          customerResult?.customerName != '') {
+        FFAppState().customerData = CustomerDataStruct(
+          customerName: customerResult?.customerName,
+          expireDate: customerResult?.expireDate,
+          customerRef: customerResult?.reference,
+        );
+      }
     }
   }
 }
