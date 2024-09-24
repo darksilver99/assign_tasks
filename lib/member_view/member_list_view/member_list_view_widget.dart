@@ -255,7 +255,8 @@ class _MemberListViewWidgetState extends State<MemberListViewWidget> {
                                                       TextSpan(
                                                         text: (_model.isLoading ==
                                                                     false) &&
-                                                                (currentUserReference ==
+                                                                (listViewMemberListRecord
+                                                                        .createBy ==
                                                                     _model
                                                                         .customerResult
                                                                         ?.createBy)
