@@ -271,31 +271,6 @@ class _MemberPromoteListViewWidgetState
                                               ],
                                             ),
                                           ),
-                                          if (currentUserReference ==
-                                              listViewMemberListRecord.createBy)
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'เจ้าหน้าที่',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        fontSize: 12.0,
-                                                        letterSpacing: 0.0,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
                                         ],
                                       ),
                                     ),
