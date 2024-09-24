@@ -2,6 +2,7 @@ import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -38,11 +39,19 @@ class _WorkerNameViewWidgetState extends State<WorkerNameViewWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.memberDocumentResult =
-          await MemberListRecord.getDocumentOnce(widget!.memberReference!);
-      _model.memberDocument = _model.memberDocumentResult;
-      _model.isLoading = false;
-      safeSetState(() {});
+      _model.isMemberResult = await actions.checkIsStillMember(
+        widget!.memberReference!,
+      );
+      if (_model.isMemberResult!) {
+        _model.memberDocumentResult =
+            await MemberListRecord.getDocumentOnce(widget!.memberReference!);
+        _model.memberDocument = _model.memberDocumentResult;
+        _model.isLoading = false;
+        safeSetState(() {});
+      } else {
+        _model.isLoading = false;
+        safeSetState(() {});
+      }
     });
   }
 
@@ -58,10 +67,12 @@ class _WorkerNameViewWidgetState extends State<WorkerNameViewWidget> {
     return Visibility(
       visible: !_model.isLoading,
       child: Text(
-        valueOrDefault<String>(
-          _model.memberDocument?.displayName,
-          '-',
-        ),
+        _model.memberDocument != null
+            ? valueOrDefault<String>(
+                _model.memberDocument?.displayName,
+                '-',
+              )
+            : 'ไม่มีสมาชิกคนนี้แล้ว',
         style: FlutterFlowTheme.of(context).bodyMedium.override(
               fontFamily: 'Kanit',
               fontSize: 18.0,

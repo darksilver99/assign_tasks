@@ -7,3 +7,4 @@ export 'upload_image_to_firebase.dart' show uploadImageToFirebase;
 export 'custom_camera.dart' show customCamera;
 export 'generate_random_string.dart' show generateRandomString;
 export 'get_q_r_code_data_from_image_path.dart' show getQRCodeDataFromImagePath;
+export 'check_is_still_member.dart' show checkIsStillMember;
