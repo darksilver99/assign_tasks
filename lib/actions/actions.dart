@@ -123,6 +123,8 @@ Future initMember(BuildContext context) async {
         },
       );
 
+      await action_blocks.clearData(context);
+
       await currentUserReference!.update({
         ...mapToFirestore(
           {
