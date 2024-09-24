@@ -1,12 +1,12 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/backend/backend.dart';
 import '/backend/firebase_storage/storage.dart';
+import '/customer_view/customer_manage_view/customer_manage_view_widget.dart';
 import '/customer_view/invite_member_view/invite_member_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
-import '/member_view/member_list_view/member_list_view_widget.dart';
 import '/member_view/member_promote_list_view/member_promote_list_view_widget.dart';
 import '/member_view/profile_view/profile_view_widget.dart';
 import '/other_view/issue_view/issue_view_widget.dart';
@@ -470,7 +470,7 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: MemberListViewWidget(),
+                                            child: CustomerManageViewWidget(),
                                           ),
                                         );
                                       },
@@ -487,7 +487,7 @@ class _MorePageWidgetState extends State<MorePageWidget> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                'สมาชิกในองค์กร',
+                                                'จัดการองค์กร',
                                                 maxLines: 1,
                                                 style:
                                                     FlutterFlowTheme.of(context)
