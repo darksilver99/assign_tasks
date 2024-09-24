@@ -457,11 +457,16 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                                                 (taskListRecord) =>
                                                                     taskListRecord
                                                                         .where(
-                                                              'create_by',
-                                                              isEqualTo: widget!
-                                                                  .memberDocument
-                                                                  ?.reference,
-                                                            ),
+                                                                          'create_by',
+                                                                          isEqualTo: widget!
+                                                                              .memberDocument
+                                                                              ?.reference,
+                                                                        )
+                                                                        .where(
+                                                                          'status',
+                                                                          isEqualTo:
+                                                                              0,
+                                                                        ),
                                                           );
                                                           // เมื่อถูกนำออกจากองค์กร งานที่มอบหมายของคนๆนั้น จะถูกปิด
                                                           while (_model
