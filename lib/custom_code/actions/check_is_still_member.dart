@@ -13,7 +13,7 @@ import 'package:flutter/material.dart';
 Future<bool> checkIsStillMember(DocumentReference memberDocument) async {
   // Add your function code here!
   DocumentSnapshot document = await FirebaseFirestore.instance
-      .collection(FFAppState().customerData.customerRef!.path)
+      .collection("${FFAppState().customerData.customerRef!.path}/member_list")
       .doc(memberDocument.id)
       .get();
   if (!document.exists) {

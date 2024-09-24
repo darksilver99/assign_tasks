@@ -77,7 +77,7 @@ class _WorkerNameViewWidgetState extends State<WorkerNameViewWidget> {
               fontFamily: 'Kanit',
               fontSize: 18.0,
               letterSpacing: 0.0,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.normal,
             ),
       ),
     );
