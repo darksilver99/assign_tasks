@@ -92,7 +92,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                   ],
                 ),
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [
@@ -120,7 +120,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
                         child: Container(
                           width: double.infinity,
                           child: TextFormField(
