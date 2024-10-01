@@ -823,6 +823,17 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         return;
                                       }
 
+                                      await UsersRecord.collection
+                                          .doc(user.uid)
+                                          .update(createUsersRecordData(
+                                            displayName: _model
+                                                .displayNameTextController.text,
+                                            phoneNumber:
+                                                _model.phoneTextController.text,
+                                            fullName: _model
+                                                .fullNameTextController.text,
+                                          ));
+
                                       await showDialog(
                                         context: context,
                                         builder: (dialogContext) {
