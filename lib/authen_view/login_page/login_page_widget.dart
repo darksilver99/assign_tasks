@@ -1,4 +1,5 @@
 import '/auth/firebase_auth/auth_util.dart';
+import '/authen_view/forgot_password_view/forgot_password_view_widget.dart';
 import '/authen_view/register_view/register_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -65,7 +66,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
                           'assets/images/active-user_9977358.png',
-                          height: 86.0,
+                          height: 120.0,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -146,7 +147,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Color(0x00000000),
+                                  color: FlutterFlowTheme.of(context).alternate,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
@@ -173,7 +174,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 borderRadius: BorderRadius.circular(8.0),
                               ),
                               filled: true,
-                              fillColor: FlutterFlowTheme.of(context).alternate,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .primaryBackground,
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -215,7 +217,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                                 ),
                             enabledBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).alternate,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
@@ -242,7 +244,8 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               borderRadius: BorderRadius.circular(8.0),
                             ),
                             filled: true,
-                            fillColor: FlutterFlowTheme.of(context).alternate,
+                            fillColor:
+                                FlutterFlowTheme.of(context).primaryBackground,
                             suffixIcon: InkWell(
                               onTap: () => safeSetState(
                                 () => _model.passwordVisibility =
@@ -276,17 +279,41 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              child: Text(
-                                'ลืมรหัสผ่าน?',
-                                textAlign: TextAlign.end,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Kanit',
-                                      fontSize: 12.0,
-                                      letterSpacing: 0.0,
-                                      decoration: TextDecoration.underline,
-                                    ),
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    useSafeArea: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return WebViewAware(
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: ForgotPasswordViewWidget(),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                },
+                                child: Text(
+                                  'ลืมรหัสผ่าน?',
+                                  textAlign: TextAlign.end,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Kanit',
+                                        fontSize: 12.0,
+                                        letterSpacing: 0.0,
+                                        decoration: TextDecoration.underline,
+                                      ),
+                                ),
                               ),
                             ),
                           ],

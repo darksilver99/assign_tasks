@@ -204,7 +204,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -233,8 +234,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     filled: true,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -279,7 +280,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -308,8 +310,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     filled: true,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                     suffixIcon: InkWell(
                                       onTap: () => safeSetState(
                                         () => _model.passwordVisibility =
@@ -369,7 +371,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -398,8 +401,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     filled: true,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                     suffixIcon: InkWell(
                                       onTap: () => safeSetState(
                                         () => _model.password2Visibility =
@@ -473,7 +476,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -502,8 +506,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     filled: true,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -549,7 +553,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -578,8 +583,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     filled: true,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -625,7 +630,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0x00000000),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(8.0),
@@ -654,8 +660,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       borderRadius: BorderRadius.circular(8.0),
                                     ),
                                     filled: true,
-                                    fillColor:
-                                        FlutterFlowTheme.of(context).alternate,
+                                    fillColor: FlutterFlowTheme.of(context)
+                                        .primaryBackground,
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -831,17 +837,6 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                       if (user == null) {
                                         return;
                                       }
-
-                                      await UsersRecord.collection
-                                          .doc(user.uid)
-                                          .update(createUsersRecordData(
-                                            displayName: _model
-                                                .displayNameTextController.text,
-                                            phoneNumber:
-                                                _model.phoneTextController.text,
-                                            fullName: _model
-                                                .fullNameTextController.text,
-                                          ));
 
                                       await showDialog(
                                         context: context,

@@ -626,24 +626,7 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'งานปัจจุบัน : 10',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                fontSize: 22.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'งานค้าง : 5',
+                                          'งานที่กำลังดำเนินการ : 10',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
