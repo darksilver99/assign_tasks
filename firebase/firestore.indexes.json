@@ -47,6 +47,20 @@
         {
           "fieldPath": "worker_list",
           "arrayConfig": "CONTAINS"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "task_list",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "worker_list",
+          "arrayConfig": "CONTAINS"
         },
         {
           "fieldPath": "end_date",
