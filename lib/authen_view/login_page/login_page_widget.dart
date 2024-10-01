@@ -154,7 +154,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Color(0x00000000),
+                                  color: FlutterFlowTheme.of(context).alternate,
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(8.0),
@@ -224,7 +224,7 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderSide: BorderSide(
-                                color: Color(0x00000000),
+                                color: FlutterFlowTheme.of(context).alternate,
                                 width: 1.0,
                               ),
                               borderRadius: BorderRadius.circular(8.0),
