@@ -192,7 +192,9 @@ class _EditCustomerViewWidgetState extends State<EditCustomerViewWidget>
                                           ),
                                           focusedBorder: OutlineInputBorder(
                                             borderSide: BorderSide(
-                                              color: Color(0x00000000),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
                                               width: 1.0,
                                             ),
                                             borderRadius:

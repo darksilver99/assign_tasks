@@ -176,7 +176,7 @@ class _SelectMemberListViewWidgetState
                                     listViewMemberListRecordList =
                                     snapshot.data!;
 
-                                return ListView.separated(
+                                return ListView.builder(
                                   padding: EdgeInsets.fromLTRB(
                                     0,
                                     8.0,
@@ -187,8 +187,6 @@ class _SelectMemberListViewWidgetState
                                   scrollDirection: Axis.vertical,
                                   itemCount:
                                       listViewMemberListRecordList.length,
-                                  separatorBuilder: (_, __) =>
-                                      SizedBox(height: 8.0),
                                   itemBuilder: (context, listViewIndex) {
                                     final listViewMemberListRecord =
                                         listViewMemberListRecordList[

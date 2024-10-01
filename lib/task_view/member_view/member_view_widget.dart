@@ -55,10 +55,10 @@ class _MemberViewWidgetState extends State<MemberViewWidget> {
     context.watch<FFAppState>();
 
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
+          padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
           child: Row(
             mainAxisSize: MainAxisSize.max,
             children: [
