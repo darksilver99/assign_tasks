@@ -23,8 +23,16 @@ class MemberDetailViewModel extends FlutterFlowModel<MemberDetailViewWidget> {
 
   int taskIndex = 0;
 
+  int taskIndex2 = 0;
+
+  int totalWorking = 0;
+
   ///  State fields for stateful widgets in this component.
 
+  // Stores action output result for [Firestore Query - Query a collection] action in MemberDetailView widget.
+  List<TaskListRecord>? taskListResult2;
+  // Stores action output result for [Firestore Query - Query a collection] action in MemberDetailView widget.
+  WorkerListRecord? workResult;
   // Stores action output result for [Action Block - confirmBlock] action in Text widget.
   bool? isConfirm;
   // Stores action output result for [Firestore Query - Query a collection] action in Text widget.

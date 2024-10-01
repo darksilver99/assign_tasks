@@ -44,6 +44,41 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => MemberDetailViewModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.taskListResult2 = await queryTaskListRecordOnce(
+        parent: FFAppState().customerData.customerRef,
+        queryBuilder: (taskListRecord) => taskListRecord
+            .where(
+              'worker_list',
+              arrayContains: widget!.memberDocument?.reference,
+            )
+            .where(
+              'status',
+              isEqualTo: 0,
+            ),
+      );
+      while (_model.taskIndex2 < _model.taskListResult2!.length) {
+        FFAppState().tmpTaskReference =
+            _model.taskListResult2?[_model.taskIndex2]?.reference;
+        _model.workResult = await queryWorkerListRecordOnce(
+          queryBuilder: (workerListRecord) => workerListRecord
+              .where(
+            'member_ref',
+            isEqualTo: widget!.memberDocument?.reference,
+          )
+              .whereIn('status', [0, 1, 4]),
+          singleRecord: true,
+        ).then((s) => s.firstOrNull);
+        if (_model.workResult?.reference != null) {
+          _model.totalWorking = _model.totalWorking + 1;
+        }
+        _model.taskIndex2 = _model.taskIndex2 + 1;
+      }
+
+      safeSetState(() {});
+    });
   }
 
   @override
@@ -694,7 +729,7 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                         children: [
                                           Expanded(
                                             child: Text(
-                                              'งานที่กำลังดำเนินการ : ${rowCount.toString()}',
+                                              'งานที่กำลังดำเนินการ : ${_model.totalWorking.toString()}',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
