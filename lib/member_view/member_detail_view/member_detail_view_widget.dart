@@ -76,7 +76,7 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
         }
         _model.taskIndex2 = _model.taskIndex2 + 1;
       }
-
+      _model.isLoading = false;
       safeSetState(() {});
     });
   }
@@ -689,61 +689,24 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       );
                                     },
                                   ),
-                                  FutureBuilder<int>(
-                                    future: queryTaskListRecordCount(
-                                      parent:
-                                          FFAppState().customerData.customerRef,
-                                      queryBuilder: (taskListRecord) =>
-                                          taskListRecord
-                                              .where(
-                                                'worker_list',
-                                                arrayContains: widget!
-                                                    .memberDocument?.reference,
-                                              )
-                                              .where(
-                                                'status',
-                                                isEqualTo: 0,
-                                              ),
+                                  if (!_model.isLoading)
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            'งานที่กำลังดำเนินการ : ${_model.totalWorking.toString()}',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  fontSize: 22.0,
+                                                  letterSpacing: 0.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      int rowCount = snapshot.data!;
-
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              'งานที่กำลังดำเนินการ : ${_model.totalWorking.toString()}',
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Kanit',
-                                                        fontSize: 22.0,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  ),
                                 ],
                               ),
                             ),

@@ -27,6 +27,8 @@ class MemberDetailViewModel extends FlutterFlowModel<MemberDetailViewWidget> {
 
   int totalWorking = 0;
 
+  bool isLoading = true;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Firestore Query - Query a collection] action in MemberDetailView widget.
