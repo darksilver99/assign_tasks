@@ -161,23 +161,27 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  'ข้อมูลสำหรับเข้าสู่ระบบ',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ],
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 12.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'ข้อมูลสำหรับเข้าสู่ระบบ',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
+                                  0.0, 0.0, 0.0, 16.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -254,7 +258,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
+                                  0.0, 0.0, 0.0, 16.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -346,7 +350,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
+                                  0.0, 0.0, 0.0, 16.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -436,23 +440,27 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                 ),
                               ),
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  'ข้อมูลสมาชิก',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        letterSpacing: 0.0,
-                                      ),
-                                ),
-                              ],
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 12.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'ข้อมูลสมาชิก',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Kanit',
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
+                                  0.0, 0.0, 0.0, 16.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
@@ -530,7 +538,7 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 8.0),
+                                  0.0, 0.0, 0.0, 16.0),
                               child: Container(
                                 width: double.infinity,
                                 child: TextFormField(
