@@ -41,6 +41,8 @@ class TaskDetailViewModel extends FlutterFlowModel<TaskDetailViewWidget> {
 
   // Stores action output result for [Firestore Query - Query a collection] action in TaskDetailView widget.
   WorkerListRecord? workerReferenceResult;
+  // Stores action output result for [Action Block - confirmBlock] action in Text widget.
+  bool? isConfirm2;
   // Model for OwnTaskNameView component.
   late OwnTaskNameViewModel ownTaskNameViewModel;
   // Stores action output result for [Firestore Query - Query a collection] action in Text widget.

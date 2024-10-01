@@ -101,7 +101,9 @@ class FFAppState extends ChangeNotifier {
     DataStatusStruct.fromSerializableMap(
         jsonDecode('{\"status\":\"3\",\"subject\":\"เสร็จสิ้น\"}')),
     DataStatusStruct.fromSerializableMap(
-        jsonDecode('{\"status\":\"4\",\"subject\":\"ยังไม่ผ่าน\"}'))
+        jsonDecode('{\"status\":\"4\",\"subject\":\"ยังไม่ผ่าน\"}')),
+    DataStatusStruct.fromSerializableMap(
+        jsonDecode('{\"status\":\"5\",\"subject\":\"ยกเลิกงาน\"}'))
   ];
   List<DataStatusStruct> get taskWorkerStatusList => _taskWorkerStatusList;
   set taskWorkerStatusList(List<DataStatusStruct> value) {

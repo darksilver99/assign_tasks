@@ -176,6 +176,89 @@ class _TaskDetailViewWidgetState extends State<TaskDetailViewWidget> {
                                           ),
                                     ),
                                   ),
+                                  if (false)
+                                    Builder(
+                                      builder: (context) => InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          _model.isConfirm2 =
+                                              await action_blocks.confirmBlock(
+                                            context,
+                                            title: 'ต้องการยกเลิกงานนี้?',
+                                            detail:
+                                                'เนื่องจากไม่เกี่ยวข้องกับงานนี้',
+                                          );
+                                          if (_model.isConfirm2!) {
+                                            await SendListRecord.createDoc(
+                                                    _model
+                                                        .workerReferenceResult!
+                                                        .reference)
+                                                .set(createSendListRecordData(
+                                              sendDate: getCurrentTimestamp,
+                                              status: 5,
+                                            ));
+
+                                            await _model.workerReferenceResult!
+                                                .reference
+                                                .update(
+                                                    createWorkerListRecordData(
+                                              status: 5,
+                                              updateDate: getCurrentTimestamp,
+                                              updateBy:
+                                                  FFAppState().memberReference,
+                                            ));
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: WebViewAware(
+                                                    child: InfoCustomViewWidget(
+                                                      title:
+                                                          'ยกเลิกงานเรียบร้อยแล้ว',
+                                                      status: 'success',
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+
+                                            await actions.pushReplacement(
+                                              context,
+                                              null,
+                                            );
+                                          }
+
+                                          safeSetState(() {});
+                                        },
+                                        child: Text(
+                                          'ยกเลิกงาน',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Kanit',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                letterSpacing: 0.0,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              ),
+                                        ),
+                                      ),
+                                    ),
                                 ],
                               ),
                               Padding(
