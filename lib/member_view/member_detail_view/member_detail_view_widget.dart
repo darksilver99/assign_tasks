@@ -604,39 +604,110 @@ class _MemberDetailViewWidgetState extends State<MemberDetailViewWidget> {
                                       ),
                                     ],
                                   ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'งานทั้งหมด : 200',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                fontSize: 22.0,
-                                                letterSpacing: 0.0,
-                                              ),
-                                        ),
+                                  FutureBuilder<int>(
+                                    future: queryTaskListRecordCount(
+                                      parent:
+                                          FFAppState().customerData.customerRef,
+                                      queryBuilder: (taskListRecord) =>
+                                          taskListRecord.where(
+                                        'worker_list',
+                                        arrayContains:
+                                            widget!.memberDocument?.reference,
                                       ),
-                                    ],
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      int rowCount = snapshot.data!;
+
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'งานทั้งหมด : ${rowCount.toString()}',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 22.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          'งานที่กำลังดำเนินการ : 10',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Kanit',
-                                                fontSize: 22.0,
-                                                letterSpacing: 0.0,
+                                  FutureBuilder<int>(
+                                    future: queryTaskListRecordCount(
+                                      parent:
+                                          FFAppState().customerData.customerRef,
+                                      queryBuilder: (taskListRecord) =>
+                                          taskListRecord
+                                              .where(
+                                                'worker_list',
+                                                arrayContains: widget!
+                                                    .memberDocument?.reference,
+                                              )
+                                              .where(
+                                                'status',
+                                                isEqualTo: 0,
                                               ),
-                                        ),
-                                      ),
-                                    ],
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: CircularProgressIndicator(
+                                              valueColor:
+                                                  AlwaysStoppedAnimation<Color>(
+                                                FlutterFlowTheme.of(context)
+                                                    .primary,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      int rowCount = snapshot.data!;
+
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              'งานที่กำลังดำเนินการ : ${rowCount.toString()}',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Kanit',
+                                                        fontSize: 22.0,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   ),
                                 ],
                               ),
