@@ -66,6 +66,11 @@ class ConfigRecord extends FirestoreRecord {
   int get maximumImageUpload => _maximumImageUpload ?? 0;
   bool hasMaximumImageUpload() => _maximumImageUpload != null;
 
+  // "isReview" field.
+  bool? _isReview;
+  bool get isReview => _isReview ?? false;
+  bool hasIsReview() => _isReview != null;
+
   void _initializeFields() {
     _storeVersion = castToType<int>(snapshotData['store_version']);
     _storeIosLink = snapshotData['store_ios_link'] as String?;
@@ -77,6 +82,7 @@ class ConfigRecord extends FirestoreRecord {
     _promotionDetailImage = snapshotData['promotion_detail_image'] as String?;
     _contact = getDataList(snapshotData['contact']);
     _maximumImageUpload = castToType<int>(snapshotData['maximum_image_upload']);
+    _isReview = snapshotData['isReview'] as bool?;
   }
 
   static CollectionReference get collection =>
@@ -121,6 +127,7 @@ Map<String, dynamic> createConfigRecordData({
   String? paymentDetailImage,
   String? promotionDetailImage,
   int? maximumImageUpload,
+  bool? isReview,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -132,6 +139,7 @@ Map<String, dynamic> createConfigRecordData({
       'payment_detail_image': paymentDetailImage,
       'promotion_detail_image': promotionDetailImage,
       'maximum_image_upload': maximumImageUpload,
+      'isReview': isReview,
     }.withoutNulls,
   );
 
@@ -153,7 +161,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.paymentDetailImage == e2?.paymentDetailImage &&
         e1?.promotionDetailImage == e2?.promotionDetailImage &&
         listEquality.equals(e1?.contact, e2?.contact) &&
-        e1?.maximumImageUpload == e2?.maximumImageUpload;
+        e1?.maximumImageUpload == e2?.maximumImageUpload &&
+        e1?.isReview == e2?.isReview;
   }
 
   @override
@@ -167,7 +176,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.paymentDetailImage,
         e?.promotionDetailImage,
         e?.contact,
-        e?.maximumImageUpload
+        e?.maximumImageUpload,
+        e?.isReview
       ]);
 
   @override
