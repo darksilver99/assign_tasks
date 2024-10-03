@@ -72,6 +72,8 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(
           0.0,
@@ -528,105 +530,141 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                       ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        if (_model.formKey.currentState ==
-                                                null ||
-                                            !_model.formKey.currentState!
-                                                .validate()) {
-                                          return;
-                                        }
+                                  Builder(
+                                    builder: (context) => Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 8.0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          if (_model.formKey.currentState ==
+                                                  null ||
+                                              !_model.formKey.currentState!
+                                                  .validate()) {
+                                            return;
+                                          }
 
-                                        var customerNameRecordReference =
-                                            CustomerNameRecord.collection.doc();
-                                        await customerNameRecordReference
-                                            .set(createCustomerNameRecordData(
-                                          createDate: getCurrentTimestamp,
-                                          createBy: currentUserReference,
-                                          status: 1,
-                                          expireDate: functions.getEndDayTime(
-                                              functions.getNextDay(
-                                                  1, getCurrentTimestamp)),
-                                          customerName:
-                                              _model.subjectTextController.text,
-                                        ));
-                                        _model.insertedCustomer =
-                                            CustomerNameRecord
-                                                .getDocumentFromData(
-                                                    createCustomerNameRecordData(
-                                                      createDate:
-                                                          getCurrentTimestamp,
-                                                      createBy:
-                                                          currentUserReference,
-                                                      status: 1,
-                                                      expireDate: functions
-                                                          .getEndDayTime(functions
-                                                              .getNextDay(1,
-                                                                  getCurrentTimestamp)),
-                                                      customerName: _model
-                                                          .subjectTextController
-                                                          .text,
+                                          var customerNameRecordReference =
+                                              CustomerNameRecord.collection
+                                                  .doc();
+                                          await customerNameRecordReference
+                                              .set(createCustomerNameRecordData(
+                                            createDate: getCurrentTimestamp,
+                                            createBy: currentUserReference,
+                                            status: 1,
+                                            expireDate: functions.getEndDayTime(
+                                                functions.getNextDay(
+                                                    1, getCurrentTimestamp)),
+                                            customerName: _model
+                                                .subjectTextController.text,
+                                          ));
+                                          _model.insertedCustomer =
+                                              CustomerNameRecord.getDocumentFromData(
+                                                  createCustomerNameRecordData(
+                                                    createDate:
+                                                        getCurrentTimestamp,
+                                                    createBy:
+                                                        currentUserReference,
+                                                    status: 1,
+                                                    expireDate: functions
+                                                        .getEndDayTime(functions
+                                                            .getNextDay(1,
+                                                                getCurrentTimestamp)),
+                                                    customerName: _model
+                                                        .subjectTextController
+                                                        .text,
+                                                  ),
+                                                  customerNameRecordReference);
+
+                                          await _model
+                                              .insertedCustomer!.reference
+                                              .update(
+                                                  createCustomerNameRecordData(
+                                            customerId: _model
+                                                .insertedCustomer?.reference.id,
+                                          ));
+
+                                          await MemberListRecord.createDoc(
+                                                  _model.insertedCustomer!
+                                                      .reference)
+                                              .set(createMemberListRecordData(
+                                            createDate: getCurrentTimestamp,
+                                            createBy: currentUserReference,
+                                            status: 1,
+                                            displayName:
+                                                '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                          ));
+
+                                          await currentUserReference!
+                                              .update(createUsersRecordData(
+                                            currentCustomerRef: _model
+                                                .insertedCustomer?.reference,
+                                          ));
+                                          if (!FFAppState()
+                                              .configData
+                                              .isReview) {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (dialogContext) {
+                                                return Dialog(
+                                                  elevation: 0,
+                                                  insetPadding: EdgeInsets.zero,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                              0.0, 0.0)
+                                                          .resolve(
+                                                              Directionality.of(
+                                                                  context)),
+                                                  child: WebViewAware(
+                                                    child: InfoCustomViewWidget(
+                                                      title:
+                                                          'พิเศษสำหรับคุณทดลองการใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน',
+                                                      detail:
+                                                          'ดูรายละเอียดเพิ่มเติมที่ เมนู \"เพิ่มเติม\" ​> \"ต่ออายุการใช้งาน\"',
+                                                      status: 'success',
                                                     ),
-                                                    customerNameRecordReference);
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                          }
+                                          await actions.pushReplacement(
+                                            context,
+                                            null,
+                                          );
 
-                                        await _model.insertedCustomer!.reference
-                                            .update(
-                                                createCustomerNameRecordData(
-                                          customerId: _model
-                                              .insertedCustomer?.reference.id,
-                                        ));
-
-                                        await MemberListRecord.createDoc(_model
-                                                .insertedCustomer!.reference)
-                                            .set(createMemberListRecordData(
-                                          createDate: getCurrentTimestamp,
-                                          createBy: currentUserReference,
-                                          status: 1,
-                                          displayName:
-                                              '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
-                                        ));
-
-                                        await currentUserReference!
-                                            .update(createUsersRecordData(
-                                          currentCustomerRef: _model
-                                              .insertedCustomer?.reference,
-                                        ));
-                                        await actions.pushReplacement(
-                                          context,
-                                          null,
-                                        );
-
-                                        safeSetState(() {});
-                                      },
-                                      text: 'ยืนยัน',
-                                      options: FFButtonOptions(
-                                        width: double.infinity,
-                                        height: 50.0,
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            24.0, 0.0, 24.0, 0.0),
-                                        iconPadding:
-                                            EdgeInsetsDirectional.fromSTEB(
-                                                0.0, 0.0, 0.0, 0.0),
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        textStyle: FlutterFlowTheme.of(context)
-                                            .titleSmall
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              color: Colors.white,
-                                              fontSize: 20.0,
-                                              letterSpacing: 0.0,
-                                            ),
-                                        elevation: 3.0,
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 1.0,
+                                          safeSetState(() {});
+                                        },
+                                        text: 'ยืนยัน',
+                                        options: FFButtonOptions(
+                                          width: double.infinity,
+                                          height: 50.0,
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  24.0, 0.0, 24.0, 0.0),
+                                          iconPadding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 0.0),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          textStyle:
+                                              FlutterFlowTheme.of(context)
+                                                  .titleSmall
+                                                  .override(
+                                                    fontFamily: 'Kanit',
+                                                    color: Colors.white,
+                                                    fontSize: 20.0,
+                                                    letterSpacing: 0.0,
+                                                  ),
+                                          elevation: 3.0,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
                                       ),
                                     ),
                                   ),

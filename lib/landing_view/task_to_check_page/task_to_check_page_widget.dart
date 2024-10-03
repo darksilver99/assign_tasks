@@ -1,4 +1,5 @@
 import '/backend/backend.dart';
+import '/component/info_custom_view/info_custom_view_widget.dart';
 import '/component/no_data_view/no_data_view_widget.dart';
 import '/customer_view/create_customer_view/create_customer_view_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -61,30 +62,55 @@ class _TaskToCheckPageWidgetState extends State<TaskToCheckPageWidget> {
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       floatingActionButton: Visibility(
         visible: FFAppState().customerData.customerRef != null,
-        child: FloatingActionButton(
-          onPressed: () async {
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              enableDrag: false,
-              useSafeArea: true,
-              context: context,
-              builder: (context) {
-                return WebViewAware(
-                  child: Padding(
-                    padding: MediaQuery.viewInsetsOf(context),
-                    child: TaskFormViewWidget(),
-                  ),
+        child: Builder(
+          builder: (context) => FloatingActionButton(
+            onPressed: () async {
+              if (getCurrentTimestamp > FFAppState().customerData.expireDate!) {
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      elevation: 0,
+                      insetPadding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      alignment: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      child: WebViewAware(
+                        child: InfoCustomViewWidget(
+                          title: 'ขออภัยองค์กรของท่านหมดอายุการใช้งานแล้ว',
+                          detail:
+                              'กรุณาติดต่อเจ้าหน้าที่องค์กรของท่านเพื่อต่ออายุการใช้งาน',
+                          status: 'error',
+                        ),
+                      ),
+                    );
+                  },
                 );
-              },
-            ).then((value) => safeSetState(() {}));
-          },
-          backgroundColor: FlutterFlowTheme.of(context).primary,
-          elevation: 8.0,
-          child: Icon(
-            Icons.add_rounded,
-            color: FlutterFlowTheme.of(context).info,
-            size: 24.0,
+              } else {
+                await showModalBottomSheet(
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  enableDrag: false,
+                  useSafeArea: true,
+                  context: context,
+                  builder: (context) {
+                    return WebViewAware(
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: TaskFormViewWidget(),
+                      ),
+                    );
+                  },
+                ).then((value) => safeSetState(() {}));
+              }
+            },
+            backgroundColor: FlutterFlowTheme.of(context).primary,
+            elevation: 8.0,
+            child: Icon(
+              Icons.add_rounded,
+              color: FlutterFlowTheme.of(context).info,
+              size: 24.0,
+            ),
           ),
         ),
       ),
