@@ -534,14 +534,15 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                   },
                 ),
               ),
-            Expanded(
-              child: Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+            if (_model.isLoading)
+              Expanded(
+                child: Container(
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
