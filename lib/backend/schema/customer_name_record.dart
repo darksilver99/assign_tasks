@@ -56,6 +56,11 @@ class CustomerNameRecord extends FirestoreRecord {
   String get customerId => _customerId ?? '';
   bool hasCustomerId() => _customerId != null;
 
+  // "max_person" field.
+  int? _maxPerson;
+  int get maxPerson => _maxPerson ?? 0;
+  bool hasMaxPerson() => _maxPerson != null;
+
   void _initializeFields() {
     _createDate = snapshotData['create_date'] as DateTime?;
     _createBy = snapshotData['create_by'] as DocumentReference?;
@@ -65,6 +70,7 @@ class CustomerNameRecord extends FirestoreRecord {
     _expireDate = snapshotData['expire_date'] as DateTime?;
     _customerName = snapshotData['customer_name'] as String?;
     _customerId = snapshotData['customer_id'] as String?;
+    _maxPerson = castToType<int>(snapshotData['max_person']);
   }
 
   static CollectionReference get collection =>
@@ -110,6 +116,7 @@ Map<String, dynamic> createCustomerNameRecordData({
   DateTime? expireDate,
   String? customerName,
   String? customerId,
+  int? maxPerson,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +128,7 @@ Map<String, dynamic> createCustomerNameRecordData({
       'expire_date': expireDate,
       'customer_name': customerName,
       'customer_id': customerId,
+      'max_person': maxPerson,
     }.withoutNulls,
   );
 
@@ -140,7 +148,8 @@ class CustomerNameRecordDocumentEquality
         e1?.status == e2?.status &&
         e1?.expireDate == e2?.expireDate &&
         e1?.customerName == e2?.customerName &&
-        e1?.customerId == e2?.customerId;
+        e1?.customerId == e2?.customerId &&
+        e1?.maxPerson == e2?.maxPerson;
   }
 
   @override
@@ -152,7 +161,8 @@ class CustomerNameRecordDocumentEquality
         e?.status,
         e?.expireDate,
         e?.customerName,
-        e?.customerId
+        e?.customerId,
+        e?.maxPerson
       ]);
 
   @override

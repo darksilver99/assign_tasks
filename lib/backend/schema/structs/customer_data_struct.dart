@@ -13,10 +13,12 @@ class CustomerDataStruct extends FFFirebaseStruct {
     String? customerName,
     DateTime? expireDate,
     DocumentReference? customerRef,
+    int? maxPerson,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _customerName = customerName,
         _expireDate = expireDate,
         _customerRef = customerRef,
+        _maxPerson = maxPerson,
         super(firestoreUtilData);
 
   // "customer_name" field.
@@ -40,11 +42,21 @@ class CustomerDataStruct extends FFFirebaseStruct {
 
   bool hasCustomerRef() => _customerRef != null;
 
+  // "max_person" field.
+  int? _maxPerson;
+  int get maxPerson => _maxPerson ?? 0;
+  set maxPerson(int? val) => _maxPerson = val;
+
+  void incrementMaxPerson(int amount) => maxPerson = maxPerson + amount;
+
+  bool hasMaxPerson() => _maxPerson != null;
+
   static CustomerDataStruct fromMap(Map<String, dynamic> data) =>
       CustomerDataStruct(
         customerName: data['customer_name'] as String?,
         expireDate: data['expire_date'] as DateTime?,
         customerRef: data['customer_ref'] as DocumentReference?,
+        maxPerson: castToType<int>(data['max_person']),
       );
 
   static CustomerDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -55,6 +67,7 @@ class CustomerDataStruct extends FFFirebaseStruct {
         'customer_name': _customerName,
         'expire_date': _expireDate,
         'customer_ref': _customerRef,
+        'max_person': _maxPerson,
       }.withoutNulls;
 
   @override
@@ -70,6 +83,10 @@ class CustomerDataStruct extends FFFirebaseStruct {
         'customer_ref': serializeParam(
           _customerRef,
           ParamType.DocumentReference,
+        ),
+        'max_person': serializeParam(
+          _maxPerson,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -91,6 +108,11 @@ class CustomerDataStruct extends FFFirebaseStruct {
           false,
           collectionNamePath: ['customer_name'],
         ),
+        maxPerson: deserializeParam(
+          data['max_person'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -101,18 +123,20 @@ class CustomerDataStruct extends FFFirebaseStruct {
     return other is CustomerDataStruct &&
         customerName == other.customerName &&
         expireDate == other.expireDate &&
-        customerRef == other.customerRef;
+        customerRef == other.customerRef &&
+        maxPerson == other.maxPerson;
   }
 
   @override
-  int get hashCode =>
-      const ListEquality().hash([customerName, expireDate, customerRef]);
+  int get hashCode => const ListEquality()
+      .hash([customerName, expireDate, customerRef, maxPerson]);
 }
 
 CustomerDataStruct createCustomerDataStruct({
   String? customerName,
   DateTime? expireDate,
   DocumentReference? customerRef,
+  int? maxPerson,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -122,6 +146,7 @@ CustomerDataStruct createCustomerDataStruct({
       customerName: customerName,
       expireDate: expireDate,
       customerRef: customerRef,
+      maxPerson: maxPerson,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

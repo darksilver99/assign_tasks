@@ -28,6 +28,8 @@ class CreateCustomerViewModel
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   CustomerNameRecord? customerResult;
   // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
+  int? totalMember;
+  // Stores action output result for [Firestore Query - Query a collection] action in Button widget.
   MemberListRecord? memberDocumentResullt;
   // Stores action output result for [Backend Call - Create Document] action in Button widget.
   MemberListRecord? insertMember;

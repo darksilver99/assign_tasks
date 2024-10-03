@@ -185,23 +185,15 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                               singleRecord: true,
                                             ).then((s) => s.firstOrNull);
                                             if (_model.customerResult != null) {
-                                              _model.memberDocumentResullt =
-                                                  await queryMemberListRecordOnce(
+                                              _model.totalMember =
+                                                  await queryMemberListRecordCount(
                                                 parent: functions
                                                     .getCustomerReferenceFromDocID(
                                                         _model.qrCode!),
-                                                queryBuilder:
-                                                    (memberListRecord) =>
-                                                        memberListRecord.where(
-                                                  'create_by',
-                                                  isEqualTo:
-                                                      currentUserReference,
-                                                ),
-                                                singleRecord: true,
-                                              ).then((s) => s.firstOrNull);
-                                              if (_model
-                                                      .memberDocumentResullt !=
-                                                  null) {
+                                              );
+                                              if (_model.totalMember! >=
+                                                  _model.customerResult!
+                                                      .maxPerson) {
                                                 await showDialog(
                                                   context: context,
                                                   builder: (dialogContext) {
@@ -221,86 +213,134 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                         child:
                                                             InfoCustomViewWidget(
                                                           title:
-                                                              'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
-                                                          status: 'success',
+                                                              'ขออภัยองค์กรของท่านกำหนดสมาชิกไม่เกิน ${_model.customerResult?.maxPerson?.toString()} คน',
+                                                          detail:
+                                                              'กรุณาติดต่อเจ้าหน้าที่องค์กรของท่าน',
+                                                          status: 'error',
                                                         ),
                                                       ),
                                                     );
                                                   },
                                                 );
                                               } else {
-                                                var memberListRecordReference =
-                                                    MemberListRecord.createDoc(
-                                                        functions
-                                                            .getCustomerReferenceFromDocID(
-                                                                _model
-                                                                    .qrCode!));
-                                                await memberListRecordReference
-                                                    .set(
-                                                        createMemberListRecordData(
-                                                  createDate:
-                                                      getCurrentTimestamp,
-                                                  createBy:
-                                                      currentUserReference,
-                                                  status: 1,
-                                                  displayName:
-                                                      '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
-                                                ));
-                                                _model.insertMember = MemberListRecord
-                                                    .getDocumentFromData(
-                                                        createMemberListRecordData(
-                                                          createDate:
-                                                              getCurrentTimestamp,
-                                                          createBy:
-                                                              currentUserReference,
-                                                          status: 1,
-                                                          displayName:
-                                                              '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
-                                                        ),
-                                                        memberListRecordReference);
-
-                                                await currentUserReference!
-                                                    .update(
-                                                        createUsersRecordData(
-                                                  currentCustomerRef: functions
+                                                _model.memberDocumentResullt =
+                                                    await queryMemberListRecordOnce(
+                                                  parent: functions
                                                       .getCustomerReferenceFromDocID(
                                                           _model.qrCode!),
-                                                ));
-                                                FFAppState().memberReference =
-                                                    _model.insertMember
-                                                        ?.reference;
-                                                await showDialog(
-                                                  context: context,
-                                                  builder: (dialogContext) {
-                                                    return Dialog(
-                                                      elevation: 0,
-                                                      insetPadding:
-                                                          EdgeInsets.zero,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      child: WebViewAware(
-                                                        child:
-                                                            InfoCustomViewWidget(
-                                                          title:
-                                                              'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
-                                                          status: 'success',
+                                                  queryBuilder:
+                                                      (memberListRecord) =>
+                                                          memberListRecord
+                                                              .where(
+                                                    'create_by',
+                                                    isEqualTo:
+                                                        currentUserReference,
+                                                  ),
+                                                  singleRecord: true,
+                                                ).then((s) => s.firstOrNull);
+                                                if (_model
+                                                        .memberDocumentResullt !=
+                                                    null) {
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) {
+                                                      return Dialog(
+                                                        elevation: 0,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                        child: WebViewAware(
+                                                          child:
+                                                              InfoCustomViewWidget(
+                                                            title:
+                                                                'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
+                                                            status: 'success',
+                                                          ),
                                                         ),
-                                                      ),
-                                                    );
-                                                  },
+                                                      );
+                                                    },
+                                                  );
+                                                } else {
+                                                  var memberListRecordReference =
+                                                      MemberListRecord
+                                                          .createDoc(functions
+                                                              .getCustomerReferenceFromDocID(
+                                                                  _model
+                                                                      .qrCode!));
+                                                  await memberListRecordReference
+                                                      .set(
+                                                          createMemberListRecordData(
+                                                    createDate:
+                                                        getCurrentTimestamp,
+                                                    createBy:
+                                                        currentUserReference,
+                                                    status: 1,
+                                                    displayName:
+                                                        '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                                  ));
+                                                  _model.insertMember = MemberListRecord
+                                                      .getDocumentFromData(
+                                                          createMemberListRecordData(
+                                                            createDate:
+                                                                getCurrentTimestamp,
+                                                            createBy:
+                                                                currentUserReference,
+                                                            status: 1,
+                                                            displayName:
+                                                                '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                                          ),
+                                                          memberListRecordReference);
+
+                                                  await currentUserReference!
+                                                      .update(
+                                                          createUsersRecordData(
+                                                    currentCustomerRef: functions
+                                                        .getCustomerReferenceFromDocID(
+                                                            _model.qrCode!),
+                                                  ));
+                                                  FFAppState().memberReference =
+                                                      _model.insertMember
+                                                          ?.reference;
+                                                  await showDialog(
+                                                    context: context,
+                                                    builder: (dialogContext) {
+                                                      return Dialog(
+                                                        elevation: 0,
+                                                        insetPadding:
+                                                            EdgeInsets.zero,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        alignment:
+                                                            AlignmentDirectional(
+                                                                    0.0, 0.0)
+                                                                .resolve(
+                                                                    Directionality.of(
+                                                                        context)),
+                                                        child: WebViewAware(
+                                                          child:
+                                                              InfoCustomViewWidget(
+                                                            title:
+                                                                'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
+                                                            status: 'success',
+                                                          ),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                }
+
+                                                await actions.pushReplacement(
+                                                  context,
+                                                  null,
                                                 );
                                               }
-
-                                              await actions.pushReplacement(
-                                                context,
-                                                null,
-                                              );
                                             } else {
                                               await showDialog(
                                                 context: context,
@@ -556,6 +596,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                     1, getCurrentTimestamp)),
                                             customerName: _model
                                                 .subjectTextController.text,
+                                            maxPerson: 10,
                                           ));
                                           _model.insertedCustomer =
                                               CustomerNameRecord.getDocumentFromData(
@@ -572,6 +613,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                     customerName: _model
                                                         .subjectTextController
                                                         .text,
+                                                    maxPerson: 10,
                                                   ),
                                                   customerNameRecordReference);
 
@@ -619,7 +661,7 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                   child: WebViewAware(
                                                     child: InfoCustomViewWidget(
                                                       title:
-                                                          'พิเศษสำหรับคุณทดลองการใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน',
+                                                          'พิเศษสำหรับคุณทดลองการใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน (กำหนดสมาชิกไม่เกิน 10 คน)',
                                                       detail:
                                                           'ดูรายละเอียดเพิ่มเติมที่ เมนู \"เพิ่มเติม\" ​> \"ต่ออายุการใช้งาน\"',
                                                       status: 'success',
