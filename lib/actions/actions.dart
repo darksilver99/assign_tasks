@@ -88,6 +88,7 @@ Future initConfig(BuildContext context) async {
     promotionDetailImage: configResult?.promotionDetailImage,
     contact: configResult?.contact,
     maximumImageUpload: configResult?.maximumImageUpload,
+    isReview: configResult?.isReview,
   );
 }
 

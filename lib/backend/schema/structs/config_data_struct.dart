@@ -17,6 +17,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
     String? promotionDetailImage,
     List<String>? contact,
     int? maximumImageUpload,
+    bool? isReview,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _policyUrl = policyUrl,
         _freeDay = freeDay,
@@ -25,6 +26,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _promotionDetailImage = promotionDetailImage,
         _contact = contact,
         _maximumImageUpload = maximumImageUpload,
+        _isReview = isReview,
         super(firestoreUtilData);
 
   // "policy_url" field.
@@ -89,6 +91,13 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasMaximumImageUpload() => _maximumImageUpload != null;
 
+  // "isReview" field.
+  bool? _isReview;
+  bool get isReview => _isReview ?? false;
+  set isReview(bool? val) => _isReview = val;
+
+  bool hasIsReview() => _isReview != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         policyUrl: data['policy_url'] as String?,
@@ -98,6 +107,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         promotionDetailImage: data['promotion_detail_image'] as String?,
         contact: getDataList(data['contact']),
         maximumImageUpload: castToType<int>(data['maximum_image_upload']),
+        isReview: data['isReview'] as bool?,
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -112,6 +122,7 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'promotion_detail_image': _promotionDetailImage,
         'contact': _contact,
         'maximum_image_upload': _maximumImageUpload,
+        'isReview': _isReview,
       }.withoutNulls;
 
   @override
@@ -145,6 +156,10 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'maximum_image_upload': serializeParam(
           _maximumImageUpload,
           ParamType.int,
+        ),
+        'isReview': serializeParam(
+          _isReview,
+          ParamType.bool,
         ),
       }.withoutNulls;
 
@@ -185,6 +200,11 @@ class ConfigDataStruct extends FFFirebaseStruct {
           ParamType.int,
           false,
         ),
+        isReview: deserializeParam(
+          data['isReview'],
+          ParamType.bool,
+          false,
+        ),
       );
 
   @override
@@ -200,7 +220,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         paymentDetailImage == other.paymentDetailImage &&
         promotionDetailImage == other.promotionDetailImage &&
         listEquality.equals(contact, other.contact) &&
-        maximumImageUpload == other.maximumImageUpload;
+        maximumImageUpload == other.maximumImageUpload &&
+        isReview == other.isReview;
   }
 
   @override
@@ -211,7 +232,8 @@ class ConfigDataStruct extends FFFirebaseStruct {
         paymentDetailImage,
         promotionDetailImage,
         contact,
-        maximumImageUpload
+        maximumImageUpload,
+        isReview
       ]);
 }
 
@@ -221,6 +243,7 @@ ConfigDataStruct createConfigDataStruct({
   String? paymentDetailImage,
   String? promotionDetailImage,
   int? maximumImageUpload,
+  bool? isReview,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -232,6 +255,7 @@ ConfigDataStruct createConfigDataStruct({
       paymentDetailImage: paymentDetailImage,
       promotionDetailImage: promotionDetailImage,
       maximumImageUpload: maximumImageUpload,
+      isReview: isReview,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,
