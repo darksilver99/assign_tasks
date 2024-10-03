@@ -21,6 +21,7 @@ import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 import 'task_to_do_page_model.dart';
 export 'task_to_do_page_model.dart';
+import 'package:assign_tasks/custom_toon/SkeltonLoadView.dart';
 
 class TaskToDoPageWidget extends StatefulWidget {
   const TaskToDoPageWidget({super.key});
@@ -540,6 +541,7 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
                 ),
+                child: SkeltonLoadView(),
               ),
             ),
           ],
