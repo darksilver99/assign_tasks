@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/other_view/web_view/web_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'register_view_widget.dart' show RegisterViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -98,6 +99,8 @@ class RegisterViewModel extends FlutterFlowModel<RegisterViewWidget> {
   bool? checkboxValue;
   // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
   ConfigRecord? configResult;
+  // Stores action output result for [Custom Action - getFirebaseToken] action in Button widget.
+  String? firebaseTokenResult;
 
   @override
   void initState(BuildContext context) {

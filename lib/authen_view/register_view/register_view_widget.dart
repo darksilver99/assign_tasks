@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/other_view/web_view/web_view_widget.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -842,6 +843,14 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                                 .fullNameTextController.text,
                                           ));
 
+                                      _model.firebaseTokenResult =
+                                          await actions.getFirebaseToken();
+
+                                      await currentUserReference!
+                                          .update(createUsersRecordData(
+                                        firebaseToken:
+                                            _model.firebaseTokenResult,
+                                      ));
                                       await showDialog(
                                         context: context,
                                         builder: (dialogContext) {
@@ -888,6 +897,8 @@ class _RegisterViewWidgetState extends State<RegisterViewWidget> {
                                         },
                                       );
                                     }
+
+                                    safeSetState(() {});
                                   },
                                   text: 'สมัครสมาชิก',
                                   options: FFButtonOptions(

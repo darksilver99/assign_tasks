@@ -1,10 +1,13 @@
 import '/auth/firebase_auth/auth_util.dart';
 import '/authen_view/forgot_password_view/forgot_password_view_widget.dart';
 import '/authen_view/register_view/register_view_widget.dart';
+import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
+import '/custom_code/actions/index.dart' as actions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -340,8 +343,18 @@ class _LoginPageWidgetState extends State<LoginPageWidget> {
                               return;
                             }
 
+                            _model.firebaseTokenResult =
+                                await actions.getFirebaseToken();
+
+                            await currentUserReference!
+                                .update(createUsersRecordData(
+                              firebaseToken: _model.firebaseTokenResult,
+                            ));
+
                             context.goNamedAuth(
                                 'TaskToDoPage', context.mounted);
+
+                            safeSetState(() {});
                           },
                           text: 'เข้าสู่ระบบ',
                           options: FFButtonOptions(

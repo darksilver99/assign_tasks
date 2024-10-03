@@ -56,6 +56,11 @@ class UsersRecord extends FirestoreRecord {
   DocumentReference? get currentCustomerRef => _currentCustomerRef;
   bool hasCurrentCustomerRef() => _currentCustomerRef != null;
 
+  // "firebase_token" field.
+  String? _firebaseToken;
+  String get firebaseToken => _firebaseToken ?? '';
+  bool hasFirebaseToken() => _firebaseToken != null;
+
   void _initializeFields() {
     _email = snapshotData['email'] as String?;
     _displayName = snapshotData['display_name'] as String?;
@@ -66,6 +71,7 @@ class UsersRecord extends FirestoreRecord {
     _fullName = snapshotData['full_name'] as String?;
     _currentCustomerRef =
         snapshotData['current_customer_ref'] as DocumentReference?;
+    _firebaseToken = snapshotData['firebase_token'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -110,6 +116,7 @@ Map<String, dynamic> createUsersRecordData({
   String? phoneNumber,
   String? fullName,
   DocumentReference? currentCustomerRef,
+  String? firebaseToken,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -121,6 +128,7 @@ Map<String, dynamic> createUsersRecordData({
       'phone_number': phoneNumber,
       'full_name': fullName,
       'current_customer_ref': currentCustomerRef,
+      'firebase_token': firebaseToken,
     }.withoutNulls,
   );
 
@@ -139,7 +147,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e1?.createdTime == e2?.createdTime &&
         e1?.phoneNumber == e2?.phoneNumber &&
         e1?.fullName == e2?.fullName &&
-        e1?.currentCustomerRef == e2?.currentCustomerRef;
+        e1?.currentCustomerRef == e2?.currentCustomerRef &&
+        e1?.firebaseToken == e2?.firebaseToken;
   }
 
   @override
@@ -151,7 +160,8 @@ class UsersRecordDocumentEquality implements Equality<UsersRecord> {
         e?.createdTime,
         e?.phoneNumber,
         e?.fullName,
-        e?.currentCustomerRef
+        e?.currentCustomerRef,
+        e?.firebaseToken
       ]);
 
   @override
