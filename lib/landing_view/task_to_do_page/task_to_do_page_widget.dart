@@ -542,8 +542,8 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
+                  child: SkeltonLoadView(),
                 ),
-                child: SkeltonLoadView(),
               ),
           ],
         ),
