@@ -64,6 +64,7 @@ Future initCustomer(BuildContext context) async {
           customerName: customerResult?.customerName,
           expireDate: customerResult?.expireDate,
           customerRef: customerResult?.reference,
+          maxPerson: customerResult?.maxPerson,
         );
       } else {
         await action_blocks.clearData(context);
