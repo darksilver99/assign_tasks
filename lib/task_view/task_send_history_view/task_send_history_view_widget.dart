@@ -527,7 +527,7 @@ class _TaskSendHistoryViewWidgetState extends State<TaskSendHistoryViewWidget> {
                                   ),
                                   Expanded(
                                     child: Text(
-                                      'วันที่ตอบกลับ : ${functions.dateTimeTh(widget!.sendDocument?.replyDate)}',
+                                      'วันที่ตรวจสอบ : ${functions.dateTimeTh(widget!.sendDocument?.replyDate)}',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
