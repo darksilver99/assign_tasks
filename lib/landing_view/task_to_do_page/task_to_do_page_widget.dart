@@ -184,7 +184,6 @@ class _TaskToDoPageWidgetState extends State<TaskToDoPageWidget> {
                                       0,
                                       32.0,
                                     ),
-                                    shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount: taskList.length,
                                     separatorBuilder: (_, __) =>
