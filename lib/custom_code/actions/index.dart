@@ -8,3 +8,4 @@ export 'custom_camera.dart' show customCamera;
 export 'generate_random_string.dart' show generateRandomString;
 export 'get_q_r_code_data_from_image_path.dart' show getQRCodeDataFromImagePath;
 export 'check_is_still_member.dart' show checkIsStillMember;
+export 'get_firebase_token.dart' show getFirebaseToken;
