@@ -59,6 +59,10 @@
     <string>In order to upload data, this app requires permission to access the photo library.</string>
     <key>NSLocalNotificationUsageDescription</key>
     <string>Enable notifications to receive alerts for new task from your member.</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We need access to your microphone to record voice notes within the app.</string>
+    <key>NSContactsUsageDescription</key>
+    <string>We need access to your contacts to contact friends you can connect with in the app.</string>
 
 
 
