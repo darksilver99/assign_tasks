@@ -171,7 +171,7 @@ class _CustomerManageViewWidgetState extends State<CustomerManageViewWidget> {
                                           children: [
                                             Expanded(
                                               child: Text(
-                                                'แก้ไขชื่องค์กร',
+                                                'แก้ไขชื่อองค์กร',
                                                 maxLines: 1,
                                                 style:
                                                     FlutterFlowTheme.of(context)
