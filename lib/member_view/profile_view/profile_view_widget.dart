@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
@@ -71,6 +72,8 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
       child: Container(
@@ -160,6 +163,112 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 16.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Expanded(
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            Function() _navigate = () {};
+                                            _model.isConfirm =
+                                                await action_blocks
+                                                    .confirmBlock(
+                                              context,
+                                              title: 'ต้องการลบบัญชีผู้ใช้',
+                                              detail:
+                                                  'เมื่อลบบัญชีผู้ใช้จะไม่สามารถเรียกคืนข้อมูลต่างๆได้',
+                                            );
+                                            if (_model.isConfirm!) {
+                                              _model.taskListResult =
+                                                  await queryTaskListRecordOnce(
+                                                parent: FFAppState()
+                                                    .customerData
+                                                    .customerRef,
+                                                queryBuilder:
+                                                    (taskListRecord) =>
+                                                        taskListRecord
+                                                            .where(
+                                                              'create_by',
+                                                              isEqualTo:
+                                                                  FFAppState()
+                                                                      .memberReference,
+                                                            )
+                                                            .where(
+                                                              'status',
+                                                              isEqualTo: 0,
+                                                            ),
+                                              );
+                                              // เมื่อถูกนำออกจากองค์กร งานที่มอบหมายของคนๆนั้น จะถูกปิด
+                                              while (_model.taskIndex <
+                                                  _model
+                                                      .taskListResult!.length) {
+                                                await _model
+                                                    .taskListResult![
+                                                        _model.taskIndex]
+                                                    .reference
+                                                    .update(
+                                                        createTaskListRecordData(
+                                                  closeDate:
+                                                      getCurrentTimestamp,
+                                                  status: 1,
+                                                  updateBy: FFAppState()
+                                                      .memberReference,
+                                                  updateDate:
+                                                      getCurrentTimestamp,
+                                                ));
+                                                _model.taskIndex =
+                                                    _model.taskIndex + 1;
+                                              }
+                                              await FFAppState()
+                                                  .memberReference!
+                                                  .delete();
+
+                                              await currentUserReference!
+                                                  .update({
+                                                ...mapToFirestore(
+                                                  {
+                                                    'current_customer_ref':
+                                                        FieldValue.delete(),
+                                                  },
+                                                ),
+                                              });
+                                              await authManager
+                                                  .deleteUser(context);
+                                            }
+
+                                            _navigate();
+
+                                            safeSetState(() {});
+                                          },
+                                          child: Text(
+                                            'ลบบัญชีผู้ใช้',
+                                            textAlign: TextAlign.end,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Kanit',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .error,
+                                                  fontSize: 12.0,
+                                                  letterSpacing: 0.0,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 0.0, 16.0),

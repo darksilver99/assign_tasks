@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/custom_code/actions/index.dart' as actions;
 import 'profile_view_widget.dart' show ProfileViewWidget;
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,9 +35,15 @@ class ProfileViewModel extends FlutterFlowModel<ProfileViewWidget> {
 
   int? memberIndex = 0;
 
+  int taskIndex = 0;
+
   ///  State fields for stateful widgets in this component.
 
   final formKey = GlobalKey<FormState>();
+  // Stores action output result for [Action Block - confirmBlock] action in Text widget.
+  bool? isConfirm;
+  // Stores action output result for [Firestore Query - Query a collection] action in Text widget.
+  List<TaskListRecord>? taskListResult;
   bool isDataUploading = false;
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
