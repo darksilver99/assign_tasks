@@ -177,7 +177,6 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            Function() _navigate = () {};
                                             _model.isConfirm =
                                                 await action_blocks
                                                     .confirmBlock(
@@ -242,9 +241,9 @@ class _ProfileViewWidgetState extends State<ProfileViewWidget> {
                                               });
                                               await authManager
                                                   .deleteUser(context);
-                                            }
 
-                                            _navigate();
+                                              context.goNamed('LoginPage');
+                                            }
 
                                             safeSetState(() {});
                                           },
