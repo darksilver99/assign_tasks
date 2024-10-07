@@ -593,7 +593,10 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                             status: 1,
                                             expireDate: functions.getEndDayTime(
                                                 functions.getNextDay(
-                                                    1, getCurrentTimestamp)),
+                                                    FFAppState()
+                                                        .configData
+                                                        .freeDay,
+                                                    getCurrentTimestamp)),
                                             customerName: _model
                                                 .subjectTextController.text,
                                             maxPerson: 10,
@@ -608,7 +611,10 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                     status: 1,
                                                     expireDate: functions
                                                         .getEndDayTime(functions
-                                                            .getNextDay(1,
+                                                            .getNextDay(
+                                                                FFAppState()
+                                                                    .configData
+                                                                    .freeDay,
                                                                 getCurrentTimestamp)),
                                                     customerName: _model
                                                         .subjectTextController
