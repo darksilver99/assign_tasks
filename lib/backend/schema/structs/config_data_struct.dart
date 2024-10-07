@@ -18,6 +18,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
     List<String>? contact,
     int? maximumImageUpload,
     bool? isReview,
+    int? storeVersion,
+    String? storeAndroidLink,
+    String? storeIosLink,
     FirestoreUtilData firestoreUtilData = const FirestoreUtilData(),
   })  : _policyUrl = policyUrl,
         _freeDay = freeDay,
@@ -27,6 +30,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
         _contact = contact,
         _maximumImageUpload = maximumImageUpload,
         _isReview = isReview,
+        _storeVersion = storeVersion,
+        _storeAndroidLink = storeAndroidLink,
+        _storeIosLink = storeIosLink,
         super(firestoreUtilData);
 
   // "policy_url" field.
@@ -98,6 +104,30 @@ class ConfigDataStruct extends FFFirebaseStruct {
 
   bool hasIsReview() => _isReview != null;
 
+  // "store_version" field.
+  int? _storeVersion;
+  int get storeVersion => _storeVersion ?? 0;
+  set storeVersion(int? val) => _storeVersion = val;
+
+  void incrementStoreVersion(int amount) =>
+      storeVersion = storeVersion + amount;
+
+  bool hasStoreVersion() => _storeVersion != null;
+
+  // "store_android_link" field.
+  String? _storeAndroidLink;
+  String get storeAndroidLink => _storeAndroidLink ?? '';
+  set storeAndroidLink(String? val) => _storeAndroidLink = val;
+
+  bool hasStoreAndroidLink() => _storeAndroidLink != null;
+
+  // "store_ios_link" field.
+  String? _storeIosLink;
+  String get storeIosLink => _storeIosLink ?? '';
+  set storeIosLink(String? val) => _storeIosLink = val;
+
+  bool hasStoreIosLink() => _storeIosLink != null;
+
   static ConfigDataStruct fromMap(Map<String, dynamic> data) =>
       ConfigDataStruct(
         policyUrl: data['policy_url'] as String?,
@@ -108,6 +138,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
         contact: getDataList(data['contact']),
         maximumImageUpload: castToType<int>(data['maximum_image_upload']),
         isReview: data['isReview'] as bool?,
+        storeVersion: castToType<int>(data['store_version']),
+        storeAndroidLink: data['store_android_link'] as String?,
+        storeIosLink: data['store_ios_link'] as String?,
       );
 
   static ConfigDataStruct? maybeFromMap(dynamic data) => data is Map
@@ -123,6 +156,9 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'contact': _contact,
         'maximum_image_upload': _maximumImageUpload,
         'isReview': _isReview,
+        'store_version': _storeVersion,
+        'store_android_link': _storeAndroidLink,
+        'store_ios_link': _storeIosLink,
       }.withoutNulls;
 
   @override
@@ -160,6 +196,18 @@ class ConfigDataStruct extends FFFirebaseStruct {
         'isReview': serializeParam(
           _isReview,
           ParamType.bool,
+        ),
+        'store_version': serializeParam(
+          _storeVersion,
+          ParamType.int,
+        ),
+        'store_android_link': serializeParam(
+          _storeAndroidLink,
+          ParamType.String,
+        ),
+        'store_ios_link': serializeParam(
+          _storeIosLink,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -205,6 +253,21 @@ class ConfigDataStruct extends FFFirebaseStruct {
           ParamType.bool,
           false,
         ),
+        storeVersion: deserializeParam(
+          data['store_version'],
+          ParamType.int,
+          false,
+        ),
+        storeAndroidLink: deserializeParam(
+          data['store_android_link'],
+          ParamType.String,
+          false,
+        ),
+        storeIosLink: deserializeParam(
+          data['store_ios_link'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -221,7 +284,10 @@ class ConfigDataStruct extends FFFirebaseStruct {
         promotionDetailImage == other.promotionDetailImage &&
         listEquality.equals(contact, other.contact) &&
         maximumImageUpload == other.maximumImageUpload &&
-        isReview == other.isReview;
+        isReview == other.isReview &&
+        storeVersion == other.storeVersion &&
+        storeAndroidLink == other.storeAndroidLink &&
+        storeIosLink == other.storeIosLink;
   }
 
   @override
@@ -233,7 +299,10 @@ class ConfigDataStruct extends FFFirebaseStruct {
         promotionDetailImage,
         contact,
         maximumImageUpload,
-        isReview
+        isReview,
+        storeVersion,
+        storeAndroidLink,
+        storeIosLink
       ]);
 }
 
@@ -244,6 +313,9 @@ ConfigDataStruct createConfigDataStruct({
   String? promotionDetailImage,
   int? maximumImageUpload,
   bool? isReview,
+  int? storeVersion,
+  String? storeAndroidLink,
+  String? storeIosLink,
   Map<String, dynamic> fieldValues = const {},
   bool clearUnsetFields = true,
   bool create = false,
@@ -256,6 +328,9 @@ ConfigDataStruct createConfigDataStruct({
       promotionDetailImage: promotionDetailImage,
       maximumImageUpload: maximumImageUpload,
       isReview: isReview,
+      storeVersion: storeVersion,
+      storeAndroidLink: storeAndroidLink,
+      storeIosLink: storeIosLink,
       firestoreUtilData: FirestoreUtilData(
         clearUnsetFields: clearUnsetFields,
         create: create,

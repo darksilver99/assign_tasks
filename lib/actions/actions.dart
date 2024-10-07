@@ -90,6 +90,9 @@ Future initConfig(BuildContext context) async {
     contact: configResult?.contact,
     maximumImageUpload: configResult?.maximumImageUpload,
     isReview: configResult?.isReview,
+    storeVersion: configResult?.storeVersion,
+    storeAndroidLink: configResult?.storeAndroidLink,
+    storeIosLink: configResult?.storeIosLink,
   );
 }
 
