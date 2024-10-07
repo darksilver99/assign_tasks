@@ -1,3 +1,5 @@
+import 'package:assign_tasks/solo/solo_function.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -50,8 +52,16 @@ void main() async {
     create: (context) => appState,
     child: MyApp(),
   ));
+  requestNotificationPermission();
 }
 
+Future<void> requestNotificationPermission() async {
+  if(await isAndroid13OrLater()){
+    if (await Permission.notification.isDenied) {
+      await Permission.notification.request();
+    }
+  }
+}
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override

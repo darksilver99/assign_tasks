@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:assign_tasks/auth/firebase_auth/auth_util.dart';
 import 'package:assign_tasks/flutter_flow/flutter_flow_util.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 Future<Uint8List> compressFile(Uint8List list) async {
@@ -28,4 +31,11 @@ String getStoragePath(
   return '$pathPrefix/$timestamp$indexStr.$ext';
 }
 
-
+Future<bool> isAndroid13OrLater() async {
+  if (Platform.isAndroid) {
+    final deviceInfo = DeviceInfoPlugin();
+    final info = await deviceInfo.androidInfo;
+    return int.parse(info.version.release) >= 13;
+  }
+  return false;
+}
