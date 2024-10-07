@@ -129,219 +129,70 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             16.0, 0.0, 16.0, 32.0),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'เข้าร่วมองค์กร',
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'เข้าร่วมองค์กร',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Kanit',
+                                    fontSize: 20.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 8.0),
+                              child: Text(
+                                'กรุณาสแกน QR Code จากเจ้าหน้าที่องค์กรของท่าน',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Kanit',
-                                      fontSize: 20.0,
+                                      fontSize: 14.0,
                                       letterSpacing: 0.0,
-                                      fontWeight: FontWeight.bold,
+                                      fontWeight: FontWeight.w300,
                                     ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 8.0),
-                                child: Text(
-                                  'กรุณาสแกน QR Code จากเจ้าหน้าที่องค์กรของท่าน',
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Kanit',
-                                        fontSize: 14.0,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.w300,
-                                      ),
-                                ),
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Builder(
-                                    builder: (context) => Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 8.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          _model.qrCode =
-                                              await _model.qrCodeBlock(context);
-                                          if (_model.qrCode != null &&
-                                              _model.qrCode != '') {
-                                            _model.customerResult =
-                                                await queryCustomerNameRecordOnce(
-                                              queryBuilder:
-                                                  (customerNameRecord) =>
-                                                      customerNameRecord.where(
-                                                'customer_id',
-                                                isEqualTo: _model.qrCode,
-                                              ),
-                                              singleRecord: true,
-                                            ).then((s) => s.firstOrNull);
-                                            if (_model.customerResult != null) {
-                                              _model.totalMember =
-                                                  await queryMemberListRecordCount(
-                                                parent: functions
-                                                    .getCustomerReferenceFromDocID(
-                                                        _model.qrCode!),
-                                              );
-                                              if (_model.totalMember! >=
-                                                  _model.customerResult!
-                                                      .maxPerson) {
-                                                await showDialog(
-                                                  context: context,
-                                                  builder: (dialogContext) {
-                                                    return Dialog(
-                                                      elevation: 0,
-                                                      insetPadding:
-                                                          EdgeInsets.zero,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      alignment:
-                                                          AlignmentDirectional(
-                                                                  0.0, 0.0)
-                                                              .resolve(
-                                                                  Directionality.of(
-                                                                      context)),
-                                                      child: WebViewAware(
-                                                        child:
-                                                            InfoCustomViewWidget(
-                                                          title:
-                                                              'ขออภัยองค์กรของท่านกำหนดสมาชิกไม่เกิน ${_model.customerResult?.maxPerson?.toString()} คน',
-                                                          detail:
-                                                              'กรุณาติดต่อเจ้าหน้าที่องค์กรของท่าน',
-                                                          status: 'error',
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              } else {
-                                                _model.memberDocumentResullt =
-                                                    await queryMemberListRecordOnce(
-                                                  parent: functions
-                                                      .getCustomerReferenceFromDocID(
-                                                          _model.qrCode!),
-                                                  queryBuilder:
-                                                      (memberListRecord) =>
-                                                          memberListRecord
-                                                              .where(
-                                                    'create_by',
-                                                    isEqualTo:
-                                                        currentUserReference,
-                                                  ),
-                                                  singleRecord: true,
-                                                ).then((s) => s.firstOrNull);
-                                                if (_model
-                                                        .memberDocumentResullt !=
-                                                    null) {
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        child: WebViewAware(
-                                                          child:
-                                                              InfoCustomViewWidget(
-                                                            title:
-                                                                'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
-                                                            status: 'success',
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                } else {
-                                                  var memberListRecordReference =
-                                                      MemberListRecord
-                                                          .createDoc(functions
-                                                              .getCustomerReferenceFromDocID(
-                                                                  _model
-                                                                      .qrCode!));
-                                                  await memberListRecordReference
-                                                      .set(
-                                                          createMemberListRecordData(
-                                                    createDate:
-                                                        getCurrentTimestamp,
-                                                    createBy:
-                                                        currentUserReference,
-                                                    status: 1,
-                                                    displayName:
-                                                        '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
-                                                  ));
-                                                  _model.insertMember = MemberListRecord
-                                                      .getDocumentFromData(
-                                                          createMemberListRecordData(
-                                                            createDate:
-                                                                getCurrentTimestamp,
-                                                            createBy:
-                                                                currentUserReference,
-                                                            status: 1,
-                                                            displayName:
-                                                                '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
-                                                          ),
-                                                          memberListRecordReference);
-
-                                                  await currentUserReference!
-                                                      .update(
-                                                          createUsersRecordData(
-                                                    currentCustomerRef: functions
-                                                        .getCustomerReferenceFromDocID(
-                                                            _model.qrCode!),
-                                                  ));
-                                                  FFAppState().memberReference =
-                                                      _model.insertMember
-                                                          ?.reference;
-                                                  await showDialog(
-                                                    context: context,
-                                                    builder: (dialogContext) {
-                                                      return Dialog(
-                                                        elevation: 0,
-                                                        insetPadding:
-                                                            EdgeInsets.zero,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                    0.0, 0.0)
-                                                                .resolve(
-                                                                    Directionality.of(
-                                                                        context)),
-                                                        child: WebViewAware(
-                                                          child:
-                                                              InfoCustomViewWidget(
-                                                            title:
-                                                                'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
-                                                            status: 'success',
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                }
-
-                                                await actions.pushReplacement(
-                                                  context,
-                                                  null,
-                                                );
-                                              }
-                                            } else {
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Builder(
+                                  builder: (context) => Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        _model.qrCode =
+                                            await _model.qrCodeBlock(context);
+                                        if (_model.qrCode != null &&
+                                            _model.qrCode != '') {
+                                          _model.customerResult =
+                                              await queryCustomerNameRecordOnce(
+                                            queryBuilder:
+                                                (customerNameRecord) =>
+                                                    customerNameRecord.where(
+                                              'customer_id',
+                                              isEqualTo: _model.qrCode,
+                                            ),
+                                            singleRecord: true,
+                                          ).then((s) => s.firstOrNull);
+                                          if (_model.customerResult != null) {
+                                            _model.totalMember =
+                                                await queryMemberListRecordCount(
+                                              parent: functions
+                                                  .getCustomerReferenceFromDocID(
+                                                      _model.qrCode!),
+                                            );
+                                            if (_model.totalMember! >=
+                                                _model.customerResult!
+                                                    .maxPerson) {
                                               await showDialog(
                                                 context: context,
                                                 builder: (dialogContext) {
@@ -361,12 +212,131 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                                       child:
                                                           InfoCustomViewWidget(
                                                         title:
-                                                            'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
-                                                        status: 'warning',
+                                                            'ขออภัยองค์กรของท่านกำหนดสมาชิกไม่เกิน ${_model.customerResult?.maxPerson?.toString()} คน',
+                                                        detail:
+                                                            'กรุณาติดต่อเจ้าหน้าที่องค์กรของท่าน',
+                                                        status: 'error',
                                                       ),
                                                     ),
                                                   );
                                                 },
+                                              );
+                                            } else {
+                                              _model.memberDocumentResullt =
+                                                  await queryMemberListRecordOnce(
+                                                parent: functions
+                                                    .getCustomerReferenceFromDocID(
+                                                        _model.qrCode!),
+                                                queryBuilder:
+                                                    (memberListRecord) =>
+                                                        memberListRecord.where(
+                                                  'create_by',
+                                                  isEqualTo:
+                                                      currentUserReference,
+                                                ),
+                                                singleRecord: true,
+                                              ).then((s) => s.firstOrNull);
+                                              if (_model
+                                                      .memberDocumentResullt !=
+                                                  null) {
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child: WebViewAware(
+                                                        child:
+                                                            InfoCustomViewWidget(
+                                                          title:
+                                                              'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
+                                                          status: 'success',
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              } else {
+                                                var memberListRecordReference =
+                                                    MemberListRecord.createDoc(
+                                                        functions
+                                                            .getCustomerReferenceFromDocID(
+                                                                _model
+                                                                    .qrCode!));
+                                                await memberListRecordReference
+                                                    .set(
+                                                        createMemberListRecordData(
+                                                  createDate:
+                                                      getCurrentTimestamp,
+                                                  createBy:
+                                                      currentUserReference,
+                                                  status: 1,
+                                                  displayName:
+                                                      '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                                ));
+                                                _model.insertMember = MemberListRecord
+                                                    .getDocumentFromData(
+                                                        createMemberListRecordData(
+                                                          createDate:
+                                                              getCurrentTimestamp,
+                                                          createBy:
+                                                              currentUserReference,
+                                                          status: 1,
+                                                          displayName:
+                                                              '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                                        ),
+                                                        memberListRecordReference);
+
+                                                await currentUserReference!
+                                                    .update(
+                                                        createUsersRecordData(
+                                                  currentCustomerRef: functions
+                                                      .getCustomerReferenceFromDocID(
+                                                          _model.qrCode!),
+                                                ));
+                                                FFAppState().memberReference =
+                                                    _model.insertMember
+                                                        ?.reference;
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (dialogContext) {
+                                                    return Dialog(
+                                                      elevation: 0,
+                                                      insetPadding:
+                                                          EdgeInsets.zero,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                                  0.0, 0.0)
+                                                              .resolve(
+                                                                  Directionality.of(
+                                                                      context)),
+                                                      child: WebViewAware(
+                                                        child:
+                                                            InfoCustomViewWidget(
+                                                          title:
+                                                              'เข้าร่วมองค์กร \"${_model.customerResult?.customerName}\" เรียบร้อยแล้ว',
+                                                          status: 'success',
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              }
+
+                                              await actions.pushReplacement(
+                                                context,
+                                                null,
                                               );
                                             }
                                           } else {
@@ -395,331 +365,335 @@ class _CreateCustomerViewWidgetState extends State<CreateCustomerViewWidget>
                                               },
                                             );
                                           }
-
-                                          safeSetState(() {});
-                                        },
-                                        text: 'เข้าร่วมองค์กร',
-                                        icon: Icon(
-                                          Icons.qr_code_rounded,
-                                          size: 28.0,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: double.infinity,
-                                          height: 50.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondary,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Kanit',
-                                                    color: Colors.white,
-                                                    fontSize: 20.0,
-                                                    letterSpacing: 0.0,
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'ขออภัยไม่พบองค์กรนี้ กรุณาตรวจสอบ QR Code หรือติดต่อเจ้าหน้าองค์กร',
+                                                    status: 'warning',
                                                   ),
-                                          elevation: 3.0,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 1.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+
+                                        safeSetState(() {});
+                                      },
+                                      text: 'เข้าร่วมองค์กร',
+                                      icon: Icon(
+                                        Icons.qr_code_rounded,
+                                        size: 28.0,
+                                      ),
+                                      options: FFButtonOptions(
+                                        width: double.infinity,
+                                        height: 50.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color: Colors.white,
+                                              fontSize: 20.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        elevation: 3.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
                                         ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 16.0, 16.0, 16.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                      ),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        8.0, 0.0, 8.0, 0.0),
+                                    child: Text(
+                                      'หรือ สร้างองค์กรของคุณเอง',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            letterSpacing: 0.0,
+                                          ),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Container(
+                                      width: double.infinity,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                       ),
                                     ),
                                   ),
                                 ],
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    16.0, 16.0, 16.0, 16.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                        ),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 0.0, 8.0, 0.0),
-                                      child: Text(
-                                        'หรือ สร้างองค์กรของคุณเอง',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Kanit',
-                                              letterSpacing: 0.0,
-                                            ),
-                                      ),
-                                    ),
-                                    Expanded(
-                                      child: Container(
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 8.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      child: TextFormField(
-                                        controller:
-                                            _model.subjectTextController,
-                                        focusNode: _model.subjectFocusNode,
-                                        autofocus: false,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          isDense: true,
-                                          labelText: 'ชื่อองค์กร',
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Kanit',
-                                                    fontSize: 18.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Kanit',
-                                                    fontSize: 18.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .error,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                          ),
-                                          filled: true,
-                                          fillColor:
-                                              FlutterFlowTheme.of(context).info,
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: Container(
+                                    width: double.infinity,
+                                    child: TextFormField(
+                                      controller: _model.subjectTextController,
+                                      focusNode: _model.subjectFocusNode,
+                                      autofocus: false,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        labelText: 'ชื่อองค์กร',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
                                             .override(
                                               fontFamily: 'Kanit',
                                               fontSize: 18.0,
                                               letterSpacing: 0.0,
                                             ),
-                                        cursorColor:
-                                            FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                        validator: _model
-                                            .subjectTextControllerValidator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                  ),
-                                  Builder(
-                                    builder: (context) => Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 0.0, 8.0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          if (_model.formKey.currentState ==
-                                                  null ||
-                                              !_model.formKey.currentState!
-                                                  .validate()) {
-                                            return;
-                                          }
-
-                                          var customerNameRecordReference =
-                                              CustomerNameRecord.collection
-                                                  .doc();
-                                          await customerNameRecordReference
-                                              .set(createCustomerNameRecordData(
-                                            createDate: getCurrentTimestamp,
-                                            createBy: currentUserReference,
-                                            status: 1,
-                                            expireDate: functions.getEndDayTime(
-                                                functions.getNextDay(
-                                                    FFAppState()
-                                                        .configData
-                                                        .freeDay,
-                                                    getCurrentTimestamp)),
-                                            customerName: _model
-                                                .subjectTextController.text,
-                                            maxPerson: 10,
-                                          ));
-                                          _model.insertedCustomer =
-                                              CustomerNameRecord.getDocumentFromData(
-                                                  createCustomerNameRecordData(
-                                                    createDate:
-                                                        getCurrentTimestamp,
-                                                    createBy:
-                                                        currentUserReference,
-                                                    status: 1,
-                                                    expireDate: functions
-                                                        .getEndDayTime(functions
-                                                            .getNextDay(
-                                                                FFAppState()
-                                                                    .configData
-                                                                    .freeDay,
-                                                                getCurrentTimestamp)),
-                                                    customerName: _model
-                                                        .subjectTextController
-                                                        .text,
-                                                    maxPerson: 10,
-                                                  ),
-                                                  customerNameRecordReference);
-
-                                          await _model
-                                              .insertedCustomer!.reference
-                                              .update(
-                                                  createCustomerNameRecordData(
-                                            customerId: _model
-                                                .insertedCustomer?.reference.id,
-                                          ));
-
-                                          await MemberListRecord.createDoc(
-                                                  _model.insertedCustomer!
-                                                      .reference)
-                                              .set(createMemberListRecordData(
-                                            createDate: getCurrentTimestamp,
-                                            createBy: currentUserReference,
-                                            status: 1,
-                                            displayName:
-                                                '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
-                                          ));
-
-                                          await currentUserReference!
-                                              .update(createUsersRecordData(
-                                            currentCustomerRef: _model
-                                                .insertedCustomer?.reference,
-                                          ));
-                                          if (!FFAppState()
-                                              .configData
-                                              .isReview) {
-                                            await showDialog(
-                                              context: context,
-                                              builder: (dialogContext) {
-                                                return Dialog(
-                                                  elevation: 0,
-                                                  insetPadding: EdgeInsets.zero,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                              0.0, 0.0)
-                                                          .resolve(
-                                                              Directionality.of(
-                                                                  context)),
-                                                  child: WebViewAware(
-                                                    child: InfoCustomViewWidget(
-                                                      title:
-                                                          'พิเศษสำหรับคุณทดลองการใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน (กำหนดสมาชิกไม่เกิน 10 คน)',
-                                                      detail:
-                                                          'ดูรายละเอียดเพิ่มเติมที่ เมนู \"เพิ่มเติม\" ​> \"ต่ออายุการใช้งาน\"',
-                                                      status: 'success',
-                                                    ),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          }
-                                          await actions.pushReplacement(
-                                            context,
-                                            null,
-                                          );
-
-                                          safeSetState(() {});
-                                        },
-                                        text: 'ยืนยัน',
-                                        options: FFButtonOptions(
-                                          width: double.infinity,
-                                          height: 50.0,
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  24.0, 0.0, 24.0, 0.0),
-                                          iconPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 0.0),
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          textStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmall
-                                                  .override(
-                                                    fontFamily: 'Kanit',
-                                                    color: Colors.white,
-                                                    fontSize: 20.0,
-                                                    letterSpacing: 0.0,
-                                                  ),
-                                          elevation: 3.0,
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 18.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                            color: Colors.transparent,
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
                                             width: 1.0,
                                           ),
                                           borderRadius:
                                               BorderRadius.circular(8.0),
                                         ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        filled: true,
+                                        fillColor:
+                                            FlutterFlowTheme.of(context).info,
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 18.0,
+                                            letterSpacing: 0.0,
+                                          ),
+                                      cursorColor: FlutterFlowTheme.of(context)
+                                          .primaryText,
+                                      validator: _model
+                                          .subjectTextControllerValidator
+                                          .asValidator(context),
+                                    ),
+                                  ),
+                                ),
+                                Builder(
+                                  builder: (context) => Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 8.0),
+                                    child: FFButtonWidget(
+                                      onPressed: () async {
+                                        if (_model.formKey.currentState ==
+                                                null ||
+                                            !_model.formKey.currentState!
+                                                .validate()) {
+                                          return;
+                                        }
+
+                                        var customerNameRecordReference =
+                                            CustomerNameRecord.collection.doc();
+                                        await customerNameRecordReference
+                                            .set(createCustomerNameRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          createBy: currentUserReference,
+                                          status: 1,
+                                          expireDate: functions.getEndDayTime(
+                                              functions.getNextDay(
+                                                  FFAppState()
+                                                      .configData
+                                                      .freeDay,
+                                                  getCurrentTimestamp)),
+                                          customerName:
+                                              _model.subjectTextController.text,
+                                          maxPerson: 10,
+                                        ));
+                                        _model.insertedCustomer =
+                                            CustomerNameRecord
+                                                .getDocumentFromData(
+                                                    createCustomerNameRecordData(
+                                                      createDate:
+                                                          getCurrentTimestamp,
+                                                      createBy:
+                                                          currentUserReference,
+                                                      status: 1,
+                                                      expireDate: functions
+                                                          .getEndDayTime(functions
+                                                              .getNextDay(
+                                                                  FFAppState()
+                                                                      .configData
+                                                                      .freeDay,
+                                                                  getCurrentTimestamp)),
+                                                      customerName: _model
+                                                          .subjectTextController
+                                                          .text,
+                                                      maxPerson: 10,
+                                                    ),
+                                                    customerNameRecordReference);
+
+                                        await _model.insertedCustomer!.reference
+                                            .update(
+                                                createCustomerNameRecordData(
+                                          customerId: _model
+                                              .insertedCustomer?.reference.id,
+                                        ));
+
+                                        await MemberListRecord.createDoc(_model
+                                                .insertedCustomer!.reference)
+                                            .set(createMemberListRecordData(
+                                          createDate: getCurrentTimestamp,
+                                          createBy: currentUserReference,
+                                          status: 1,
+                                          displayName:
+                                              '${valueOrDefault(currentUserDocument?.fullName, '')} (${currentUserDisplayName})',
+                                        ));
+
+                                        await currentUserReference!
+                                            .update(createUsersRecordData(
+                                          currentCustomerRef: _model
+                                              .insertedCustomer?.reference,
+                                        ));
+                                        if (!FFAppState().configData.isReview) {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (dialogContext) {
+                                              return Dialog(
+                                                elevation: 0,
+                                                insetPadding: EdgeInsets.zero,
+                                                backgroundColor:
+                                                    Colors.transparent,
+                                                alignment: AlignmentDirectional(
+                                                        0.0, 0.0)
+                                                    .resolve(Directionality.of(
+                                                        context)),
+                                                child: WebViewAware(
+                                                  child: InfoCustomViewWidget(
+                                                    title:
+                                                        'พิเศษสำหรับคุณทดลองการใช้งานฟรี ${FFAppState().configData.freeDay.toString()} วัน (กำหนดสมาชิกไม่เกิน 10 คน)',
+                                                    detail:
+                                                        'ดูรายละเอียดเพิ่มเติมที่ เมนู \"เพิ่มเติม\" ​> \"ต่ออายุการใช้งาน\"',
+                                                    status: 'success',
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        }
+                                        await actions.pushReplacement(
+                                          context,
+                                          null,
+                                        );
+
+                                        safeSetState(() {});
+                                      },
+                                      text: 'ยืนยัน',
+                                      options: FFButtonOptions(
+                                        width: double.infinity,
+                                        height: 50.0,
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            24.0, 0.0, 24.0, 0.0),
+                                        iconPadding:
+                                            EdgeInsetsDirectional.fromSTEB(
+                                                0.0, 0.0, 0.0, 0.0),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        textStyle: FlutterFlowTheme.of(context)
+                                            .titleSmall
+                                            .override(
+                                              fontFamily: 'Kanit',
+                                              color: Colors.white,
+                                              fontSize: 20.0,
+                                              letterSpacing: 0.0,
+                                            ),
+                                        elevation: 3.0,
+                                        borderSide: BorderSide(
+                                          color: Colors.transparent,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(8.0),
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                            ],
-                          ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ),
                     ),

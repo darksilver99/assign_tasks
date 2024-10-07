@@ -432,7 +432,7 @@ class _PromotionViewWidgetState extends State<PromotionViewWidget>
                           ),
                         ),
                       ),
-                    ],
+                    ].addToEnd(SizedBox(height: 180.0)),
                   ),
                 ),
               ),
