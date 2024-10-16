@@ -140,9 +140,9 @@ class _ScanAndUploadQRCodePageWidgetState
 
                           _model.qrcode =
                               await actions.getQRCodeDataFromImagePath(
-                            'qrcode',
+                                selectedMedia!.first.filePath!,
                           );
-                          context.pop();
+                          context.pop(_model.qrcode);
 
                           safeSetState(() {});
                         },
