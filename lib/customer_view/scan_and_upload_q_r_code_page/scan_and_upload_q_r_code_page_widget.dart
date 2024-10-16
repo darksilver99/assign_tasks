@@ -100,7 +100,7 @@ class _ScanAndUploadQRCodePageWidgetState
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           final selectedMedia = await selectMedia(
-                            imageQuality: 1,
+                            imageQuality: 100,
                             mediaSource: MediaSource.photoGallery,
                             multiImage: false,
                           );
