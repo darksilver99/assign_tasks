@@ -629,6 +629,7 @@ class _TaskFormViewWidgetState extends State<TaskFormViewWidget> {
                                   );
                                   final _datePickedDate = await showDatePicker(
                                     context: context,
+                                    locale: Locale('th'),
                                     initialDate: getCurrentTimestamp,
                                     firstDate:
                                         (getCurrentTimestamp ?? DateTime(1900)),
