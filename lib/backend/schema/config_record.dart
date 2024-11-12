@@ -71,6 +71,11 @@ class ConfigRecord extends FirestoreRecord {
   bool get isReview => _isReview ?? false;
   bool hasIsReview() => _isReview != null;
 
+  // "store_link" field.
+  String? _storeLink;
+  String get storeLink => _storeLink ?? '';
+  bool hasStoreLink() => _storeLink != null;
+
   void _initializeFields() {
     _storeVersion = castToType<int>(snapshotData['store_version']);
     _storeIosLink = snapshotData['store_ios_link'] as String?;
@@ -83,6 +88,7 @@ class ConfigRecord extends FirestoreRecord {
     _contact = getDataList(snapshotData['contact']);
     _maximumImageUpload = castToType<int>(snapshotData['maximum_image_upload']);
     _isReview = snapshotData['isReview'] as bool?;
+    _storeLink = snapshotData['store_link'] as String?;
   }
 
   static CollectionReference get collection =>
@@ -128,6 +134,7 @@ Map<String, dynamic> createConfigRecordData({
   String? promotionDetailImage,
   int? maximumImageUpload,
   bool? isReview,
+  String? storeLink,
 }) {
   final firestoreData = mapToFirestore(
     <String, dynamic>{
@@ -140,6 +147,7 @@ Map<String, dynamic> createConfigRecordData({
       'promotion_detail_image': promotionDetailImage,
       'maximum_image_upload': maximumImageUpload,
       'isReview': isReview,
+      'store_link': storeLink,
     }.withoutNulls,
   );
 
@@ -162,7 +170,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e1?.promotionDetailImage == e2?.promotionDetailImage &&
         listEquality.equals(e1?.contact, e2?.contact) &&
         e1?.maximumImageUpload == e2?.maximumImageUpload &&
-        e1?.isReview == e2?.isReview;
+        e1?.isReview == e2?.isReview &&
+        e1?.storeLink == e2?.storeLink;
   }
 
   @override
@@ -177,7 +186,8 @@ class ConfigRecordDocumentEquality implements Equality<ConfigRecord> {
         e?.promotionDetailImage,
         e?.contact,
         e?.maximumImageUpload,
-        e?.isReview
+        e?.isReview,
+        e?.storeLink
       ]);
 
   @override
