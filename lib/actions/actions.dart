@@ -94,6 +94,8 @@ Future initConfig(BuildContext context) async {
     storeAndroidLink: configResult?.storeAndroidLink,
     storeIosLink: configResult?.storeIosLink,
     storeLink: configResult?.storeLink,
+    appSuggestList: configResult?.appSuggestList,
+    appOtherList: configResult?.appOtherList,
   );
 }
 
